@@ -1,64 +1,107 @@
 import plotly.graph_objects as go
 import streamlit as st
 from plotly.subplots import make_subplots
+from streamlit_vertical_slider import vertical_slider
 
-st.set_page_config(layout="wide")
+
+def create_vertical_slider(key, min_value=-140, max_value=-80, default_value=-110):
+    return vertical_slider(
+        key=key,
+        min_value=min_value,
+        max_value=max_value,
+        default_value=default_value,
+        step=1,
+        slider_color="#1E90FF",
+        track_color="#D3D3D3",
+        thumb_color="#1E90FF",
+    )
 
 
 def create_graph(f1_values, f2_values):
+    fig = go.Figure()
     fig = make_subplots(specs=[[{"secondary_y": True}]])
 
-    # Add lines and markers for F1 Cell (left y-axis)
+    # Add vertical line for the shared axis
+    fig.add_vline(x=0, line_width=2, line_dash="dash", line_color="#FFFFFF")
+    fig.add_vline(x=-18, line_width=2, line_dash="dash", line_color="blue")
+    fig.add_vline(x=18, line_width=2, line_dash="dash", line_color="blue")
+
+    # Add markers and lines for F1 Cell
     for name, value in f1_values.items():
         fig.add_trace(
             go.Scatter(
-                x=[0],
+                x=[-20],
                 y=[value],
                 mode="markers+text",
                 name=f"{name} (F1)",
                 text=[name],
                 textposition="middle left",
                 marker=dict(size=10, color=get_color(name)),
-            ),
-            secondary_y=False,
+            )
         )
 
-    # Add lines and markers for F2 Cell (right y-axis)
+    # Add markers and lines for F2 Cell
     for name, value in f2_values.items():
         fig.add_trace(
             go.Scatter(
-                x=[1],
+                x=[20],
                 y=[value],
                 mode="markers+text",
                 name=f"{name} (F2)",
                 text=[name],
                 textposition="middle right",
                 marker=dict(size=10, color=get_color(name)),
-            ),
-            secondary_y=True,
+            )
         )
 
-    # Customize the layout
+    # Connect parameters with lines
+    connect_parameters(fig, f1_values, f2_values)
+
+    # Update layout
     fig.update_layout(
-        title="Cellular Network Thresholds",
-        xaxis=dict(
-            tickvals=[0, 1],
-            ticktext=["F1 Cell (Lower Prio)", "F2 Cell (Higher Prio)"],
-            range=[-0.1, 1.1],
-        ),
-        yaxis=dict(title="RSRP for F1 Cell", side="left"),
-        yaxis2=dict(title="RSRP for F2 Cell", side="right", overlaying="y"),
-        showlegend=True,
-        legend=dict(orientation="h", yanchor="top", y=-0.2, xanchor="center", x=0.5),
+        title="IFLB Visual Illustrated",
+        showlegend=False,
+        height=600,
+        yaxis=dict(range=[-140, -44], title="RSRP (dBm)"),
+        xaxis=dict(showticklabels=False, range=[-21, 21]),
     )
 
-    # Update y-axis ranges
-    f1_min, f1_max = min(f1_values.values()), max(f1_values.values())
-    f2_min, f2_max = min(f2_values.values()), max(f2_values.values())
-    fig.update_yaxes(range=[f1_min - 5, f1_max + 5], secondary_y=False)
-    fig.update_yaxes(range=[f2_min - 5, f2_max + 5], secondary_y=True)
-
     return fig
+
+
+def connect_parameters(fig, f1_values, f2_values):
+    parameters_to_connect = [
+        ("a5Threshold1Rsrp", "a5Threshold1Rsrp"),
+        ("a5Threshold2Rsrp", "a5Threshold2Rsrp"),
+        ("qRxLevMin", "threshXLow"),
+    ]
+
+    for f1_param, f2_param in parameters_to_connect:
+        if f1_param in f1_values and f2_param in f2_values:
+            if f1_param == "qRxLevMin" and f2_param == "threshXLow":
+                fig.add_trace(
+                    go.Scatter(
+                        x=[-18, 18],
+                        y=[f1_values[f1_param], f2_values[f2_param]],
+                        mode="lines+markers",
+                        line=dict(color=get_color(f1_param), width=2),
+                        showlegend=False,
+                    )
+                )
+            else:
+                fig.add_trace(
+                    go.Scatter(
+                        x=[-20, 0, 20],
+                        y=[
+                            f1_values[f1_param],
+                            (f1_values[f1_param] + f2_values[f2_param]) / 2,
+                            f2_values[f2_param],
+                        ],
+                        mode="lines+markers",
+                        line=dict(color=get_color(f1_param), width=2),
+                        showlegend=False,
+                    )
+                )
 
 
 def get_color(name):
@@ -76,40 +119,42 @@ def get_color(name):
     return color_map.get(name, "gray")
 
 
-st.title("Cellular Network Threshold Visualizer")
+st.set_page_config(layout="wide")
+st.title("IFLB Visual Illustrated")
 
-# Input for F1 Cell
-st.header("F1 Cell (Lower Priority)")
-f1_a5threshold1rsrp = st.number_input("a5Threshold1Rsrp for F1", value=-110)
-f1_threshxhigh = st.number_input("threshXHigh for F1", value=-100)
-f1_a5threshold2rsrp = st.number_input("a5Threshold2Rsrp for F1", value=-105)
-f1_qrxlevmin = st.number_input("qRxLevMin for F1", value=-120)
+col1, col2, col3 = st.columns([1, 3, 1])
 
-# Input for F2 Cell
-st.header("F2 Cell (Higher Priority)")
-f2_a5threshold1rsrp = st.number_input("a5Threshold1Rsrp for F2", value=-108)
-f2_threshxlow = st.number_input("threshXLow for F2", value=-115)
-f2_snoninttrasearch = st.number_input("sNonIntraSearch for F2", value=-106)
-f2_threshservinglow = st.number_input("threshServingLow for F2", value=-112)
-f2_a1a2searchthresholdrsrp = st.number_input(
-    "a1a2SearchThresholdRsrp for F2", value=-110
-)
-f2_qrxlevmin = st.number_input("qRxLevMin for F2", value=-118)
+with col1:
+    st.header("F1 Cell")
+    f1_a5threshold1rsrp = create_vertical_slider("a5Threshold1Rsrp (F1)")
+    f1_a5threshold2rsrp = create_vertical_slider("a5Threshold2Rsrp (F1)")
+    f1_threshxhigh = create_vertical_slider("threshXHigh (F1)")
+    f1_qrxlevmin = create_vertical_slider("qRxLevMin (F1)")
 
-if st.button("Generate Graph"):
-    f1_values = {
-        "a5Threshold1Rsrp": f1_a5threshold1rsrp,
-        "threshXHigh": f1_threshxhigh,
-        "a5Threshold2Rsrp": f1_a5threshold2rsrp,
-        "qRxLevMin": f1_qrxlevmin,
-    }
-    f2_values = {
-        "a5Threshold1Rsrp": f2_a5threshold1rsrp,
-        "threshXLow": f2_threshxlow,
-        "sNonIntraSearch": f2_snoninttrasearch,
-        "threshServingLow": f2_threshservinglow,
-        "a1a2SearchThresholdRsrp": f2_a1a2searchthresholdrsrp,
-        "qRxLevMin": f2_qrxlevmin,
-    }
+with col3:
+    st.header("F2 Cell")
+    f2_a5threshold1rsrp = create_vertical_slider("a5Threshold1Rsrp (F2)")
+    f2_a5threshold2rsrp = create_vertical_slider("a5Threshold2Rsrp (F2)")
+    f2_threshxlow = create_vertical_slider("threshXLow (F2)")
+    f2_snoninttrasearch = create_vertical_slider("sNonIntraSearch (F2)")
+    f2_threshservinglow = create_vertical_slider("threshServingLow (F2)")
+    f2_qrxlevmin = create_vertical_slider("qRxLevMin (F2)")
+
+f1_values = {
+    "a5Threshold1Rsrp": f1_a5threshold1rsrp,
+    "a5Threshold2Rsrp": f1_a5threshold2rsrp,
+    "threshXHigh": f1_threshxhigh,
+    "qRxLevMin": f1_qrxlevmin,
+}
+f2_values = {
+    "a5Threshold1Rsrp": f2_a5threshold1rsrp,
+    "a5Threshold2Rsrp": f2_a5threshold2rsrp,
+    "threshXLow": f2_threshxlow,
+    "sNonIntraSearch": f2_snoninttrasearch,
+    "threshServingLow": f2_threshservinglow,
+    "qRxLevMin": f2_qrxlevmin,
+}
+
+with col2:
     fig = create_graph(f1_values, f2_values)
-    st.plotly_chart(fig)
+    st.plotly_chart(fig, use_container_width=True)
