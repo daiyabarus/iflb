@@ -1,2 +1,2 @@
 # iflb
-IFLB Visual
+IFLB Visual Illustrated
