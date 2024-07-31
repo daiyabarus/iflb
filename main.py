@@ -64,9 +64,9 @@ vertical_lines = [
 # Define the connecting lines
 lines = [
     go.Scatter(x=[-40, -35], y=[A, A], mode="lines", line=dict(color="blue")),
-    go.Scatter(x=[-40, -35], y=[B, B], mode="lines", line=dict(color="blue")),
+    go.Scatter(x=[-40, -35], y=[B, B], mode="lines", line=dict(color="green")),
     go.Scatter(x=[35, 40], y=[C, C], mode="lines", line=dict(color="red")),
-    go.Scatter(x=[35, 40], y=[D, D], mode="lines", line=dict(color="red")),
+    go.Scatter(x=[35, 40], y=[D, D], mode="lines", line=dict(color="gray")),
     go.Scatter(
         x=[-35, 35],
         y=[(A + B) / 2, (C + D) / 2],
