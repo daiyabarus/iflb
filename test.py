@@ -48,14 +48,14 @@ def configure_sliders(columns):
         "a2criticalthresholdrsrp": create_slider(
             columns[0],
             "a2criticalthresholdrsrp",
-            "a2CriticalThresholdRsrp",
+            "a2 Critical",
             1,
             -140,
             -44,
             -123,
-            "#2067CE",
+            "#AAE89F",
             "lightgrey",
-            "#5C59D3",
+            "#5DC93E",
         ),
         "qrxlevmin": create_slider(
             columns[1],
@@ -65,9 +65,9 @@ def configure_sliders(columns):
             -140,
             -44,
             -120,
-            "#2067CE",
+            "#AAE89F",
             "lightgrey",
-            "#5C59D3",
+            "#5DC93E",
         ),
         "f1_threshxhigh": create_slider(
             columns[2],
@@ -84,11 +84,11 @@ def configure_sliders(columns):
         "f1_iflb_a5threshold1rsrp": create_slider(
             columns[3],
             "iflba5threshold1rsrp",
-            "IFLB\na5Threshold1Rsrp",
+            "LB a5Threshold1Rsrp",
             1,
             -140,
             -44,
-            -60,
+            -50,
             "#28BBDD",
             "lightgray",
             "#EA5D32",
@@ -96,7 +96,7 @@ def configure_sliders(columns):
         "f1_iflb_a5threshold2rsrp": create_slider(
             columns[4],
             "iflba5threshold2rsrp",
-            "IFLB a5Threshold2Rsrp",
+            "LB a5Threshold2Rsrp",
             1,
             -140,
             -44,
@@ -144,7 +144,7 @@ def configure_sliders(columns):
         "f2_a1a2searchthresholdrsrp": create_slider(
             columns[8],
             "f2_a1a2searchthresholdrsrp",
-            "a1a2SearchThresholdRsrp",
+            "a1a2 ThresholdRsrp",
             1,
             -140,
             -44,
@@ -156,7 +156,7 @@ def configure_sliders(columns):
         "f2_cov_a5threshold1rsrp": create_slider(
             columns[9],
             "f2_cov_a5threshold1rsrp",
-            "COV a5Threshold1Rsrp",
+            "A5 a5Threshold1Rsrp",
             1,
             -140,
             -44,
@@ -168,7 +168,7 @@ def configure_sliders(columns):
         "f2_cov_a5threshold2rsrp": create_slider(
             columns[10],
             "f2_cov_a5threshold2rsrp",
-            "COV a5Threshold2Rsrp",
+            "A5 a5Threshold2Rsrp",
             1,
             -140,
             -44,
@@ -180,7 +180,7 @@ def configure_sliders(columns):
         "f2_iflb_a5threshold1rsrp": create_slider(
             columns[11],
             "f2iflba5threshold1rsrp",
-            "IFLB a5Threshold1Rsrp",
+            "LB a5Threshold1Rsrp",
             1,
             -140,
             -44,
@@ -192,11 +192,11 @@ def configure_sliders(columns):
         "f2_iflb_a5threshold2rsrp": create_slider(
             columns[12],
             "f2iflba5threshold2rsrp",
-            "IFLB a5Threshold2Rsrp",
+            "LB a5Threshold2Rsrp",
             1,
             -140,
             -44,
-            -104,
+            -90,
             "#9CA3DB",
             "lightgray",
             "#E0CA3C",
@@ -410,7 +410,7 @@ def create_lines(
             x=[16, 22],
             y=[sliders["a2criticalthresholdrsrp"], sliders["a2criticalthresholdrsrp"]],
             mode="lines",
-            line=dict(color="grey", dash="dot"),
+            line=dict(color="red", dash="dot"),
         ),
         go.Scatter(
             x=[16, 22],
@@ -424,36 +424,93 @@ def create_lines(
         go.Scatter(
             x=[-18, -6, 6, 18],
             y=[
-                ((sliders["qrxlevmin"] + max_value) / 2.5),
-                ((sliders["qrxlevmin"] + max_value) / 2.5),
+                ((sliders["qrxlevmin"] + max_value) / 1.5),
+                ((sliders["qrxlevmin"] + max_value) / 1.5),
                 ((f1_threshxhigh_map + max_value) / 2),
                 ((f1_threshxhigh_map + max_value) / 2),
             ],
             line=dict(color="green", shape="spline", dash="dashdot"),
-            marker=dict(symbol="arrow", size=20, angleref="previous"),
+            marker=dict(symbol="arrow-bar-up", size=20, angleref="previous"),
         ),
         go.Scatter(
-            x=[-12, -4, 8, 16],
+            x=[-12, -6, 6, 16],
             y=[
                 (
                     (
                         sliders["a2criticalthresholdrsrp"]
                         + sliders["f1_iflb_a5threshold1rsrp"]
                     )
-                    / 2
+                    / 1.5
                 ),
                 (
                     (
                         sliders["a2criticalthresholdrsrp"]
                         + sliders["f1_iflb_a5threshold1rsrp"]
                     )
-                    / 2
+                    / 1.5
                 ),
                 (sliders["f1_iflb_a5threshold2rsrp"] - max_value / 2),
                 (sliders["f1_iflb_a5threshold2rsrp"] - max_value / 2),
             ],
             line=dict(color="blue", shape="spline", dash="dashdot"),
-            marker=dict(symbol="arrow", size=20, angleref="previous"),
+            marker=dict(symbol="arrow-bar-up", size=20, angleref="previous"),
+        ),
+        go.Scatter(
+            x=[16, 10, -2, -14],
+            y=[
+                (
+                    (
+                        sliders["a2criticalthresholdrsrp"]
+                        + sliders["f2_cov_a5threshold1rsrp"]
+                    )
+                    / 2
+                ),
+                (
+                    (
+                        sliders["a2criticalthresholdrsrp"]
+                        + sliders["f2_cov_a5threshold1rsrp"]
+                    )
+                    / 2
+                ),
+                ((sliders["f2_cov_a5threshold2rsrp"] + max_value) / 2),
+                ((sliders["f2_cov_a5threshold2rsrp"] + max_value) / 2),
+            ],
+            line=dict(color="red", shape="spline", dash="dashdot"),
+            marker=dict(symbol="arrow-bar-up", size=20, angleref="previous"),
+        ),
+        go.Scatter(
+            x=[19, 10, -2, -16],
+            y=[
+                ((f2_threshservinglow_map + sliders["qrxlevmin"]) / 2),
+                ((f2_threshservinglow_map + sliders["qrxlevmin"]) / 2),
+                ((f2_threshxlow_map + max_value) / 2.5),
+                ((f2_threshxlow_map + max_value) / 2.5),
+            ],
+            line=dict(color="green", shape="spline", dash="dashdot"),
+            marker=dict(symbol="arrow-bar-up", size=20, angleref="previous"),
+        ),
+        go.Scatter(
+            x=[18, 10, -2, -10],
+            y=[
+                (
+                    (
+                        sliders["a2criticalthresholdrsrp"]
+                        + sliders["f2_cov_a5threshold1rsrp"]
+                    )
+                    / 2.2
+                ),
+                (
+                    (
+                        sliders["a2criticalthresholdrsrp"]
+                        + sliders["f2_cov_a5threshold1rsrp"]
+                    )
+                    / 2.2
+                ),
+                ((sliders["f2_iflb_a5threshold2rsrp"] + max_value) / 2.5),
+                ((sliders["f2_iflb_a5threshold2rsrp"] + max_value) / 2.5),
+            ],
+            line=dict(color="blue", shape="spline", dash="dashdot"),
+            marker=dict(symbol="arrow-bar-up", size=20, angleref="previous"),
         ),
     ]
 
@@ -518,7 +575,6 @@ def configure_plot(
         opacity=0.25,
         line_width=0,
     )
-    # Adding
 
     annotations = []
 
@@ -530,7 +586,6 @@ def configure_plot(
         sliders["f2_iflb_a5threshold2rsrp"],
         sliders["f1_iflb_a5threshold1rsrp"],
     ]
-
     y_data_right = [
         sliders["a2criticalthresholdrsrp"],
         sliders["qrxlevmin"],
@@ -544,27 +599,27 @@ def configure_plot(
     ]
 
     labels_left = [
-        "a2CriticalThresholdRsrp",
-        "qRxLevMin",
+        "F1 a2CriticalThresholdRsrp",
+        "F1 qRxLevMin",
         "(set on F2)<br>threshXLow",
         "(set on F2)<br>ReportConfigA5 a5Threshold2Rsrp",
         "(set on F2)<br>ReportConfigEUtraInterFreqLb a5Threshold2Rsrp",
         "ReportConfigEUtraInterFreqLb a5Threshold1Rsrp",
     ]
 
+    colors_left = ["blue", "blue", "green", "red", "blue", "blue"]
+
     labels_right = [
-        "a2CriticalThresholdRsrp",
-        "qRxLevMin",
+        "F2 a2CriticalThresholdRsrp",
+        "F2 qRxLevMin",
         "ReportConfigA5 a5Threshold1Rsrp",
         "a1a2SearchThresholdRsrp",
         "threshServingLow",
         "sNonIntraSearch",
         "(set on F1)<br>ReportConfigEUtraInterFreqLb a5Threshold2Rsrp",
         "ReportConfigEUtraInterFreqLb a5Threshold1Rsrp",
-        "(set on F1)<br>threshXHigh",
+        "(set on F1) threshXHigh",
     ]
-
-    colors_left = ["red", "green", "green", "blue", "blue", "blue"]
     colors_right = [
         "red",
         "green",
@@ -577,35 +632,45 @@ def configure_plot(
         "green",
     ]
 
-    for y_trace, label, color in zip(y_data_left, labels_left, colors_left):
-        annotations.append(
-            dict(
-                x=-22,
-                y=y_trace,
-                xanchor="right",
-                yanchor="middle",
-                text=f"{label}",
-                font=dict(family="Ericsson Hilda Light", size=12, color=color),
-                showarrow=False,
-                xref="x",
-                yref="y",
-            )
-        )
+    max_len_left = len(y_data_left)
+    max_len_right = len(y_data_right)
+    max_len = max(max_len_left, max_len_right)
 
-    for y_trace, label, color in zip(y_data_right, labels_right, colors_right):
-        annotations.append(
-            dict(
-                x=22,
-                y=y_trace,
-                xanchor="left",
-                yanchor="middle",
-                text=f"{label}",
-                font=dict(family="Ericsson Hilda Light", size=12, color=color),
-                showarrow=False,
-                xref="x",
-                yref="y",
+    for i in range(max_len):
+        if i < max_len_left:
+            y_trace = y_data_left[i]
+            label = labels_left[i]
+            color = colors_left[i]
+            annotations.append(
+                dict(
+                    x=-22,
+                    y=y_trace,
+                    xanchor="right",
+                    yanchor="middle",
+                    text=f"{label}:{y_trace}",
+                    font=dict(family="Ericsson Hilda Light", size=12, color=color),
+                    showarrow=False,
+                    xref="x",
+                    yref="y",
+                )
             )
-        )
+        if i < max_len_right:
+            y_trace = y_data_right[i]
+            label = labels_right[i]
+            color = colors_right[i]
+            annotations.append(
+                dict(
+                    x=22,
+                    y=y_trace,
+                    xanchor="left",
+                    yanchor="middle",
+                    text=f"{label}:{y_trace}",
+                    font=dict(family="Ericsson Hilda Light", size=12, color=color),
+                    showarrow=False,
+                    xref="x",
+                    yref="y",
+                )
+            )
 
     # Title
     annotations.append(
