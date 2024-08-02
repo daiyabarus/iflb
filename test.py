@@ -27,7 +27,7 @@ def create_slider(
             slider_color=slider_color,
             track_color=track_color,
             thumb_color=thumb_color,
-            height=100,
+            height=60,
             value_always_visible=True,
         )
 
@@ -228,57 +228,57 @@ def create_vertical_lines(
     return [
         # TODO: F1 vline
         # vline 1
-        create_vertical_line(-45, -140, sliders["qrxlevmin"]),
-        create_vertical_line(-45, sliders["qrxlevmin"], -44, "green"),
+        create_vertical_line(-18, -140, sliders["qrxlevmin"]),
+        create_vertical_line(-18, sliders["qrxlevmin"], -44, "green"),
         # vline 2
-        create_vertical_line(-40, -140, f2_threshxlow_map),
-        create_vertical_line(-40, f2_threshxlow_map, -44, "green"),
+        create_vertical_line(-16, -140, f2_threshxlow_map),
+        create_vertical_line(-16, f2_threshxlow_map, -44, "green"),
         # vline 3
-        create_vertical_line(-35, -140, sliders["f2_cov_a5threshold2rsrp"]),
-        create_vertical_line(-35, sliders["f2_cov_a5threshold2rsrp"], -44, "red"),
+        create_vertical_line(-14, -140, sliders["f2_cov_a5threshold2rsrp"]),
+        create_vertical_line(-14, sliders["f2_cov_a5threshold2rsrp"], -44, "red"),
         # vline 4
-        create_vertical_line(-30, -140, sliders["a2criticalthresholdrsrp"]),
+        create_vertical_line(-12, -140, sliders["a2criticalthresholdrsrp"]),
         create_vertical_line(
-            -30,
+            -12,
             sliders["a2criticalthresholdrsrp"],
             sliders["f1_iflb_a5threshold1rsrp"],
             "blue",
         ),
-        create_vertical_line(-30, sliders["f1_iflb_a5threshold1rsrp"], -44),
+        create_vertical_line(-12, sliders["f1_iflb_a5threshold1rsrp"], -44),
         # vline 5
-        create_vertical_line(-25, -140, sliders["f2_iflb_a5threshold2rsrp"]),
-        create_vertical_line(-25, sliders["f2_iflb_a5threshold2rsrp"], -44, "blue"),
+        create_vertical_line(-10, -140, sliders["f2_iflb_a5threshold2rsrp"]),
+        create_vertical_line(-10, sliders["f2_iflb_a5threshold2rsrp"], -44, "blue"),
         # TODO: F2 vline
         # vline 1-1
-        create_vertical_line(45, -140, sliders["a2criticalthresholdrsrp"]),
+        create_vertical_line(18, -140, sliders["a2criticalthresholdrsrp"]),
         create_vertical_line(
-            45,
+            18,
             sliders["a2criticalthresholdrsrp"],
             sliders["f2_iflb_a5threshold1rsrp"],
             "blue",
         ),
-        create_vertical_line(45, sliders["f2_iflb_a5threshold1rsrp"], -44),
+        create_vertical_line(18, sliders["f2_iflb_a5threshold1rsrp"], -44),
         # vline 1-2
-        create_vertical_line(45, -140, f1_threshxhigh_map),
-        create_vertical_line(45, f1_threshxhigh_map, -44, "green"),
+        create_vertical_line(18, -140, f1_threshxhigh_map),
+        create_vertical_line(18, f1_threshxhigh_map, -44, "green"),
         # vline 2
-        create_vertical_line(40, -140, f2_threshservinglow_map),
+        create_vertical_line(19, -140, f2_threshservinglow_map),
         create_vertical_line(
-            40, f2_threshservinglow_map, sliders["qrxlevmin"], "green"
+            19, f2_threshservinglow_map, sliders["qrxlevmin"], "green"
         ),
-        create_vertical_line(40, sliders["qrxlevmin"], -44),
+        create_vertical_line(19, sliders["qrxlevmin"], -44),
         # vline 3-1
-        create_vertical_line(35, -140, sliders["a2criticalthresholdrsrp"]),
+        create_vertical_line(16, -140, sliders["a2criticalthresholdrsrp"]),
         create_vertical_line(
-            35,
+            16,
             sliders["a2criticalthresholdrsrp"],
             sliders["f2_cov_a5threshold1rsrp"],
             "red",
         ),
-        create_vertical_line(35, sliders["f2_cov_a5threshold1rsrp"], -44),
+        create_vertical_line(16, sliders["f2_cov_a5threshold1rsrp"], -44),
         # vline 3-2
-        create_vertical_line(35, -140, sliders["f1_iflb_a5threshold2rsrp"]),
-        create_vertical_line(35, sliders["f1_iflb_a5threshold2rsrp"], -44, "blue"),
+        create_vertical_line(16, -140, sliders["f1_iflb_a5threshold2rsrp"]),
+        create_vertical_line(16, sliders["f1_iflb_a5threshold2rsrp"], -44, "blue"),
     ]
 
 
@@ -292,37 +292,40 @@ def create_lines(
 ):
     return [
         go.Scatter(
-            x=[-55, -45],
+            x=[-22, -18],
             y=[sliders["qrxlevmin"], sliders["qrxlevmin"]],
             mode="lines",
             line=dict(color="green", dash="dot"),
         ),
         go.Scatter(
-            x=[-55, -25],
+            x=[-22, -10],
             y=[max_value, max_value],
             mode="lines",
             line=dict(color="gray", dash="dot"),
         ),
         go.Scatter(
-            x=[-55, -40],
+            x=[-22, -16],
             y=[f2_threshxlow_map, f2_threshxlow_map],
             mode="lines",
             line=dict(color="green", dash="dot"),
         ),
         go.Scatter(
-            x=[-55, -35],
+            x=[-22, -14],
             y=[sliders["f2_cov_a5threshold2rsrp"], sliders["f2_cov_a5threshold2rsrp"]],
             mode="lines",
             line=dict(color="red", dash="dot"),
         ),
         go.Scatter(
-            x=[-55, -30],
+            x=[-22, -12],
             y=[sliders["a2criticalthresholdrsrp"], sliders["a2criticalthresholdrsrp"]],
-            mode="lines",
-            line=dict(color="grey", dash="dot"),
+            mode="lines+text",
+            text=["a2CriticalThresholdRsrp"],
+            textposition="middle left",
+            textfont=dict(color="red", size=12),
+            line=dict(color="red", dash="dot"),
         ),
         go.Scatter(
-            x=[-55, -30],
+            x=[-22, -12],
             y=[
                 sliders["f1_iflb_a5threshold1rsrp"],
                 sliders["f1_iflb_a5threshold1rsrp"],
@@ -331,7 +334,7 @@ def create_lines(
             line=dict(color="blue", dash="dot"),
         ),
         go.Scatter(
-            x=[-55, -25],
+            x=[-22, -10],
             y=[
                 sliders["f2_iflb_a5threshold2rsrp"],
                 sliders["f2_iflb_a5threshold2rsrp"],
@@ -340,20 +343,23 @@ def create_lines(
             line=dict(color="blue", dash="dot"),
         ),
         go.Scatter(
-            x=[34, -25],
+            x=[15, -8],
             y=[sliders["a2criticalthresholdrsrp"], sliders["a2criticalthresholdrsrp"]],
-            mode="lines+markers",
+            mode="lines+text+markers",
             line=dict(color="red", shape="spline"),
+            text=["", "A2 Critical HO"],
+            textposition="top center",
+            textfont=dict(color="red", size=15),
             marker=dict(symbol="arrow", size=15, angleref="previous"),
         ),
         go.Scatter(
-            x=[50, 55],
+            x=[20, 22],
             y=[f2_snonintrasearch_map, f2_snonintrasearch_map],
             mode="lines",
             line=dict(color="green", dash="dot"),
         ),
         go.Scatter(
-            x=[48, 55],
+            x=[19.5, 22],
             y=[
                 sliders["f2_a1a2searchthresholdrsrp"],
                 sliders["f2_a1a2searchthresholdrsrp"],
@@ -362,7 +368,7 @@ def create_lines(
             line=dict(color="red", dash="dot"),
         ),
         go.Scatter(
-            x=[45, 55],
+            x=[18, 22],
             y=[
                 sliders["f2_iflb_a5threshold1rsrp"],
                 sliders["f2_iflb_a5threshold1rsrp"],
@@ -371,49 +377,83 @@ def create_lines(
             line=dict(color="blue", dash="dot"),
         ),
         go.Scatter(
-            x=[45, 55],
+            x=[18, 22],
             y=[f1_threshxhigh_map, f1_threshxhigh_map],
             mode="lines",
             line=dict(color="green", dash="dot"),
         ),
         go.Scatter(
-            x=[35, 55],
+            x=[16, 22],
             y=[max_value, max_value],
             mode="lines",
             line=dict(color="gray", dash="dot"),
         ),
         go.Scatter(
-            x=[40, 55],
+            x=[19, 22],
             y=[sliders["qrxlevmin"], sliders["qrxlevmin"]],
             mode="lines",
             line=dict(color="green", dash="dot"),
         ),
         go.Scatter(
-            x=[40, 55],
+            x=[19, 22],
             y=[f2_threshservinglow_map, f2_threshservinglow_map],
             mode="lines",
             line=dict(color="green", dash="dot"),
         ),
         go.Scatter(
-            x=[35, 55],
+            x=[16, 22],
             y=[sliders["f2_cov_a5threshold1rsrp"], sliders["f2_cov_a5threshold1rsrp"]],
             mode="lines",
             line=dict(color="red", dash="dot"),
         ),
         go.Scatter(
-            x=[35, 55],
+            x=[16, 22],
             y=[sliders["a2criticalthresholdrsrp"], sliders["a2criticalthresholdrsrp"]],
             mode="lines",
             line=dict(color="grey", dash="dot"),
         ),
         go.Scatter(
-            x=[35, 55],
+            x=[16, 22],
             y=[
                 sliders["f1_iflb_a5threshold2rsrp"],
                 sliders["f1_iflb_a5threshold2rsrp"],
             ],
             mode="lines",
             line=dict(color="blue", dash="dot"),
+        ),
+        go.Scatter(
+            x=[-18, -6, 6, 18],
+            y=[
+                ((sliders["qrxlevmin"] + max_value) / 2.5),
+                ((sliders["qrxlevmin"] + max_value) / 2.5),
+                ((f1_threshxhigh_map + max_value) / 2),
+                ((f1_threshxhigh_map + max_value) / 2),
+            ],
+            line=dict(color="green", shape="spline", dash="dashdot"),
+            marker=dict(symbol="arrow", size=20, angleref="previous"),
+        ),
+        go.Scatter(
+            x=[-12, -4, 8, 16],
+            y=[
+                (
+                    (
+                        sliders["a2criticalthresholdrsrp"]
+                        + sliders["f1_iflb_a5threshold1rsrp"]
+                    )
+                    / 2
+                ),
+                (
+                    (
+                        sliders["a2criticalthresholdrsrp"]
+                        + sliders["f1_iflb_a5threshold1rsrp"]
+                    )
+                    / 2
+                ),
+                (sliders["f1_iflb_a5threshold2rsrp"] - max_value / 2),
+                (sliders["f1_iflb_a5threshold2rsrp"] - max_value / 2),
+            ],
+            line=dict(color="blue", shape="spline", dash="dashdot"),
+            marker=dict(symbol="arrow", size=20, angleref="previous"),
         ),
     ]
 
@@ -446,7 +486,7 @@ def configure_plot(
     bottom_range = sliders["a2criticalthresholdrsrp"] - 4
     fig.update_layout(
         shapes=vertical_lines,
-        xaxis=dict(range=[-62, 62], showticklabels=False, showgrid=False),
+        xaxis=dict(range=[-22, 22], showticklabels=False, showgrid=False),
         yaxis=dict(
             range=[bottom_range, -40],
             showticklabels=False,
@@ -455,39 +495,36 @@ def configure_plot(
             showline=False,
         ),
         showlegend=False,
-        height=700,
-        # width=600,
+        height=800,
         margin=dict(
             autoexpand=False,
-            l=200,
-            r=200,
+            l=300,
+            r=300,
             t=100,
             b=100,
         ),
     )
     fig.add_vrect(
-        x0=-55,
-        x1=-50,
+        x0=-22,
+        x1=-20,
         fillcolor="grey",
         opacity=0.25,
         line_width=0,
     )
     fig.add_vrect(
-        x0=50,
-        x1=55,
+        x0=20,
+        x1=22,
         fillcolor="grey",
         opacity=0.25,
         line_width=0,
     )
+    # Adding
 
-    # Adding annotations
     annotations = []
-    slider_a2criticalthresholdrsrp = (sliders["a2criticalthresholdrsrp"],)
-    slider_qrxlevmin = (sliders["qrxlevmin"],)
+
     y_data_left = [
-        slider_a2criticalthresholdrsrp,
-        slider_qrxlevmin,
-        # sliders["f2_threshxlow"],
+        sliders["a2criticalthresholdrsrp"],
+        sliders["qrxlevmin"],
         f2_threshxlow_map,
         sliders["f2_cov_a5threshold2rsrp"],
         sliders["f2_iflb_a5threshold2rsrp"],
@@ -495,26 +532,23 @@ def configure_plot(
     ]
 
     y_data_right = [
-        slider_a2criticalthresholdrsrp,
-        slider_qrxlevmin,
+        sliders["a2criticalthresholdrsrp"],
+        sliders["qrxlevmin"],
         sliders["f2_cov_a5threshold1rsrp"],
         sliders["f2_a1a2searchthresholdrsrp"],
-        # sliders["f2_threshservinglow"],
         f2_threshservinglow_map,
-        # sliders["f2_snonintrasearch"],
         f2_snonintrasearch_map,
         sliders["f1_iflb_a5threshold2rsrp"],
         sliders["f2_iflb_a5threshold1rsrp"],
-        # sliders["f1_threshxhigh"],
         f1_threshxhigh_map,
     ]
 
     labels_left = [
         "a2CriticalThresholdRsrp",
         "qRxLevMin",
-        "threshXLow<br>(set on F2)",
-        "ReportConfigA5 a5Threshold2Rsrp<br>(set on F2)",
-        "ReportConfigEUtraInterFreqLb a5Threshold2Rsrp<br>(set on F2)",
+        "(set on F2)<br>threshXLow",
+        "(set on F2)<br>ReportConfigA5 a5Threshold2Rsrp",
+        "(set on F2)<br>ReportConfigEUtraInterFreqLb a5Threshold2Rsrp",
         "ReportConfigEUtraInterFreqLb a5Threshold1Rsrp",
     ]
 
@@ -525,12 +559,12 @@ def configure_plot(
         "a1a2SearchThresholdRsrp",
         "threshServingLow",
         "sNonIntraSearch",
-        "ReportConfigEUtraInterFreqLb a5Threshold2Rsrp<br>Set on F1",
-        "ReportConfigEUtraInterFreqLb< a5Threshold1Rsrp",
-        "threshXHigh<br>Set on F1",
+        "(set on F1)<br>ReportConfigEUtraInterFreqLb a5Threshold2Rsrp",
+        "ReportConfigEUtraInterFreqLb a5Threshold1Rsrp",
+        "(set on F1)<br>threshXHigh",
     ]
 
-    colors_left = ["green", "red", "green", "red", "blue", "blue"]
+    colors_left = ["red", "green", "green", "blue", "blue", "blue"]
     colors_right = [
         "red",
         "green",
@@ -546,7 +580,7 @@ def configure_plot(
     for y_trace, label, color in zip(y_data_left, labels_left, colors_left):
         annotations.append(
             dict(
-                x=-55,
+                x=-22,
                 y=y_trace,
                 xanchor="right",
                 yanchor="middle",
@@ -561,7 +595,7 @@ def configure_plot(
     for y_trace, label, color in zip(y_data_right, labels_right, colors_right):
         annotations.append(
             dict(
-                x=55,
+                x=22,
                 y=y_trace,
                 xanchor="left",
                 yanchor="middle",
@@ -578,7 +612,7 @@ def configure_plot(
         dict(
             xref="paper",
             yref="paper",
-            x=0.0,
+            x=-0.05,
             y=1.1,
             xanchor="left",
             yanchor="bottom",
@@ -603,7 +637,7 @@ def configure_plot(
     )
 
     fig.add_annotation(
-        x=52.5,
+        x=21,
         y=1,
         text="F2 Cell<br>Higher Prio",
         showarrow=False,
@@ -614,7 +648,7 @@ def configure_plot(
         yanchor="bottom",
     )
     fig.add_annotation(
-        x=-52.5,
+        x=-21,
         y=1,
         text="F1 Cell<br>Lower Prio",
         showarrow=False,
@@ -625,7 +659,7 @@ def configure_plot(
         yanchor="bottom",
     )
     fig.add_annotation(
-        x=52.5,
+        x=21,
         y=-0.01,
         text="🔻<br>Lowest<br>RSRP",
         showarrow=False,
@@ -636,7 +670,7 @@ def configure_plot(
         yanchor="top",
     )
     fig.add_annotation(
-        x=-52.5,
+        x=-21,
         y=-0.01,
         text="🔻<br>Lowest<br>RSRP",
         showarrow=False,
@@ -652,7 +686,6 @@ def configure_plot(
 
 
 def run_priority():
-    # st.title("Mobility Actions and Thresholds for the Priority Carrier Configuration")
 
     columns = st.columns(13)
     sliders = configure_sliders(columns)
@@ -676,7 +709,7 @@ def run_priority():
         key="container_with_border",
         css_styles="""
             {
-                border: 4px solid rgba(49, 51, 63, 0.2);
+                border: 2px solid rgba(49, 51, 63, 0.2);
                 border-radius: 0.5rem;
                 padding: calc(1em - 1px)
             }
@@ -684,7 +717,7 @@ def run_priority():
     ):
         container = st.container()
         with container:
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, use_container_width=False)
 
 
 if __name__ == "__main__":
