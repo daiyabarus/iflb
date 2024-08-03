@@ -1906,6 +1906,19 @@ watchdog = {version = ">=2.1.5,<5", markers = "platform_system != \"Darwin\""}
 snowflake = ["snowflake-connector-python (>=2.8.0)", "snowflake-snowpark-python (>=0.9.0)"]
 
 [[package]]
+name = "streamlit-antd-components"
+version = "0.3.2"
+description = "streamlit customer components of Antd Design and Mantine"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "streamlit_antd_components-0.3.2-py3-none-any.whl", hash = "sha256:5ae28496127202ed266ea167649436a15f3d548a4805ee5d992c6fc0fe103fd6"},
+]
+
+[package.dependencies]
+streamlit = ">=1.12.0"
+
+[[package]]
 name = "streamlit-camera-input-live"
 version = "0.2.0"
 description = "Alternative version of st.camera_input which returns the webcam images live, without any button press needed"
@@ -2271,4 +2284,4 @@ test = ["big-O", "importlib-resources", "jaraco.functools", "jaraco.itertools", 
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "22459993b97ddc7b076cd061b045623a0ee5d8c6b410e3ce71472a17c772b1cb"
+content-hash = "b196b1b589e10e313354acf6e83a1f83d694d3a02e46949077cefc4139202b74"
