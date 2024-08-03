@@ -47,6 +47,10 @@ def configure_sliders(columns):
         "a2criticalthresholdrsrp": create_slider(
             columns[0],
             "a2criticalthresholdrsrp",
+<<<<<<< HEAD:layout/test_priority.py
+=======
+            "a2 Critical",
+>>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766:test.py
             1,
             -140,
             -44,
@@ -54,6 +58,7 @@ def configure_sliders(columns):
             "#AAE89F",
             "lightgrey",
             "#5DC93E",
+<<<<<<< HEAD:layout/test_priority.py
         ),
         "qrxlevminsib1": create_slider(
             columns[1],
@@ -65,6 +70,8 @@ def configure_sliders(columns):
             "#AAE89F",
             "lightgrey",
             "#5DC93E",
+=======
+>>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766:test.py
         ),
         "qrxlevmin": create_slider(
             columns[2],
@@ -91,17 +98,29 @@ def configure_sliders(columns):
         "f1_iflb_a5threshold1rsrp": create_slider(
             columns[4],
             "iflba5threshold1rsrp",
+<<<<<<< HEAD:layout/test_priority.py
+=======
+            "LB a5Threshold1Rsrp",
+>>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766:test.py
             1,
             -140,
             -44,
             -50,
+<<<<<<< HEAD:layout/test_priority.py
             "#0000FF",
+=======
+            "#28BBDD",
+>>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766:test.py
             "lightgray",
             "#F1C40F",
         ),
         "f1_iflb_a5threshold2rsrp": create_slider(
             columns[5],
             "iflba5threshold2rsrp",
+<<<<<<< HEAD:layout/test_priority.py
+=======
+            "LB a5Threshold2Rsrp",
+>>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766:test.py
             1,
             -140,
             -44,
@@ -146,6 +165,10 @@ def configure_sliders(columns):
         "f2_a1a2searchthresholdrsrp": create_slider(
             columns[9],
             "f2_a1a2searchthresholdrsrp",
+<<<<<<< HEAD:layout/test_priority.py
+=======
+            "a1a2 ThresholdRsrp",
+>>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766:test.py
             1,
             -140,
             -44,
@@ -157,6 +180,10 @@ def configure_sliders(columns):
         "f2_cov_a5threshold1rsrp": create_slider(
             columns[10],
             "f2_cov_a5threshold1rsrp",
+<<<<<<< HEAD:layout/test_priority.py
+=======
+            "A5 a5Threshold1Rsrp",
+>>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766:test.py
             1,
             -140,
             -44,
@@ -168,6 +195,10 @@ def configure_sliders(columns):
         "f2_cov_a5threshold2rsrp": create_slider(
             columns[11],
             "f2_cov_a5threshold2rsrp",
+<<<<<<< HEAD:layout/test_priority.py
+=======
+            "A5 a5Threshold2Rsrp",
+>>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766:test.py
             1,
             -140,
             -44,
@@ -179,6 +210,10 @@ def configure_sliders(columns):
         "f2_iflb_a5threshold1rsrp": create_slider(
             columns[12],
             "f2iflba5threshold1rsrp",
+<<<<<<< HEAD:layout/test_priority.py
+=======
+            "LB a5Threshold1Rsrp",
+>>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766:test.py
             1,
             -140,
             -44,
@@ -190,11 +225,19 @@ def configure_sliders(columns):
         "f2_iflb_a5threshold2rsrp": create_slider(
             columns[13],
             "f2iflba5threshold2rsrp",
+<<<<<<< HEAD:layout/test_priority.py
+=======
+            "LB a5Threshold2Rsrp",
+>>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766:test.py
             1,
             -140,
             -44,
             -90,
+<<<<<<< HEAD:layout/test_priority.py
             "#0000FF",
+=======
+            "#9CA3DB",
+>>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766:test.py
             "lightgray",
             "#C1392B",
         ),
@@ -455,7 +498,11 @@ def create_lines(
                 ((f1_threshxhigh_map + max_value) / 2),
             ],
             line=dict(color="green", shape="spline", dash="dashdot"),
+<<<<<<< HEAD:layout/test_priority.py
             marker=dict(symbol="arrow-bar-up", size=15, angleref="previous"),
+=======
+            marker=dict(symbol="arrow-bar-up", size=20, angleref="previous"),
+>>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766:test.py
         ),
         go.Scatter(
             x=[-12, -6, 6, 16],
@@ -478,7 +525,11 @@ def create_lines(
                 (sliders["f1_iflb_a5threshold2rsrp"] - max_value / 2),
             ],
             line=dict(color="blue", shape="spline", dash="dashdot"),
+<<<<<<< HEAD:layout/test_priority.py
             marker=dict(symbol="arrow-bar-up", size=15, angleref="previous"),
+=======
+            marker=dict(symbol="arrow-bar-up", size=20, angleref="previous"),
+>>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766:test.py
         ),
         go.Scatter(
             x=[16, 10, -2, -14],
@@ -501,7 +552,11 @@ def create_lines(
                 ((sliders["f2_cov_a5threshold2rsrp"] + max_value) / 2),
             ],
             line=dict(color="red", shape="spline", dash="dashdot"),
+<<<<<<< HEAD:layout/test_priority.py
             marker=dict(symbol="arrow-bar-up", size=15, angleref="previous"),
+=======
+            marker=dict(symbol="arrow-bar-up", size=20, angleref="previous"),
+>>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766:test.py
         ),
         go.Scatter(
             x=[19, 10, -2, -16],
@@ -512,7 +567,11 @@ def create_lines(
                 ((f2_threshxlow_map + max_value) / 2.5),
             ],
             line=dict(color="green", shape="spline", dash="dashdot"),
+<<<<<<< HEAD:layout/test_priority.py
             marker=dict(symbol="arrow-bar-up", size=15, angleref="previous"),
+=======
+            marker=dict(symbol="arrow-bar-up", size=20, angleref="previous"),
+>>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766:test.py
         ),
         go.Scatter(
             x=[18, 10, -2, -10],
@@ -535,7 +594,11 @@ def create_lines(
                 ((sliders["f2_iflb_a5threshold2rsrp"] + max_value) / 2.5),
             ],
             line=dict(color="blue", shape="spline", dash="dashdot"),
+<<<<<<< HEAD:layout/test_priority.py
             marker=dict(symbol="arrow-bar-up", size=15, angleref="previous"),
+=======
+            marker=dict(symbol="arrow-bar-up", size=20, angleref="previous"),
+>>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766:test.py
         ),
     ]
 
