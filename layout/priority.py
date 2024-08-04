@@ -2,21 +2,12 @@ import plotly.graph_objs as go
 import streamlit as st
 from streamlit_extras.stylable_container import stylable_container
 from streamlit_vertical_slider import vertical_slider as svs
-<<<<<<< HEAD
 from styles import multi_color_styling
 
 
 def create_slider(
     col,
     key,
-=======
-
-
-def create_slider(
-    col,
-    key,
-    label,
->>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766
     step,
     min_value,
     max_value,
@@ -28,10 +19,6 @@ def create_slider(
     with col:
         return svs(
             key=key,
-<<<<<<< HEAD
-=======
-            label=label,
->>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766
             step=step,
             min_value=min_value,
             max_value=max_value,
@@ -60,10 +47,6 @@ def configure_sliders(columns):
         "a2criticalthresholdrsrp": create_slider(
             columns[0],
             "a2criticalthresholdrsrp",
-<<<<<<< HEAD
-=======
-            "a2 Critical",
->>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766
             1,
             -140,
             -44,
@@ -72,7 +55,6 @@ def configure_sliders(columns):
             "lightgrey",
             "#5DC93E",
         ),
-<<<<<<< HEAD
         "qrxlevminsib1": create_slider(
             columns[1],
             "qrxlevminsib1",
@@ -87,12 +69,6 @@ def configure_sliders(columns):
         "qrxlevmin": create_slider(
             columns[2],
             "qrxlevmin",
-=======
-        "qrxlevmin": create_slider(
-            columns[1],
-            "qrxlevmin",
-            "qRxLevMin SIB3",
->>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766
             2,
             -140,
             -44,
@@ -102,19 +78,12 @@ def configure_sliders(columns):
             "#5DC93E",
         ),
         "f1_threshxhigh": create_slider(
-<<<<<<< HEAD
             columns[3],
             "threshxhigh",
-=======
-            columns[2],
-            "threshxhigh",
-            "threshXHigh",
->>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766
             2,
             0,
             62,
             22,
-<<<<<<< HEAD
             "#008000",
             "lightgray",
             "#F1C40F",
@@ -122,21 +91,10 @@ def configure_sliders(columns):
         "f1_iflb_a5threshold1rsrp": create_slider(
             columns[4],
             "iflba5threshold1rsrp",
-=======
-            "#28BBDD",
-            "lightgray",
-            "#EA5D32",
-        ),
-        "f1_iflb_a5threshold1rsrp": create_slider(
-            columns[3],
-            "iflba5threshold1rsrp",
-            "LB a5Threshold1Rsrp",
->>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766
             1,
             -140,
             -44,
             -50,
-<<<<<<< HEAD
             "#0000FF",
             "lightgray",
             "#F1C40F",
@@ -144,21 +102,10 @@ def configure_sliders(columns):
         "f1_iflb_a5threshold2rsrp": create_slider(
             columns[5],
             "iflba5threshold2rsrp",
-=======
-            "#28BBDD",
-            "lightgray",
-            "#EA5D32",
-        ),
-        "f1_iflb_a5threshold2rsrp": create_slider(
-            columns[4],
-            "iflba5threshold2rsrp",
-            "LB a5Threshold2Rsrp",
->>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766
             1,
             -140,
             -44,
             -96,
-<<<<<<< HEAD
             "#0000FF",
             "lightgray",
             "#F1C40F",
@@ -188,21 +135,10 @@ def configure_sliders(columns):
         "f2_snonintrasearch": create_slider(
             columns[8],
             "f2_snonintrasearch",
-=======
-            "#28BBDD",
-            "lightgray",
-            "#EA5D32",
-        ),
-        "f2_threshservinglow": create_slider(
-            columns[5],
-            "f2threshservinglow",
-            "threshServingLow",
->>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766
             2,
             0,
             62,
             6,
-<<<<<<< HEAD
             "#008000",
             "lightgray",
             "#C1392B",
@@ -210,45 +146,10 @@ def configure_sliders(columns):
         "f2_a1a2searchthresholdrsrp": create_slider(
             columns[9],
             "f2_a1a2searchthresholdrsrp",
-=======
-            "#9CA3DB",
-            "lightgray",
-            "#E0CA3C",
-        ),
-        "f2_threshxlow": create_slider(
-            columns[6],
-            "f2_threshXLow",
-            "threshXLow",
-            2,
-            0,
-            62,
-            6,
-            "#9CA3DB",
-            "lightgray",
-            "#E0CA3C",
-        ),
-        "f2_snonintrasearch": create_slider(
-            columns[7],
-            "f2_snonintrasearch",
-            "sNonIntraSearch",
-            2,
-            0,
-            62,
-            10,
-            "#9CA3DB",
-            "lightgray",
-            "#E0CA3C",
-        ),
-        "f2_a1a2searchthresholdrsrp": create_slider(
-            columns[8],
-            "f2_a1a2searchthresholdrsrp",
-            "a1a2 ThresholdRsrp",
->>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766
             1,
             -140,
             -44,
             -110,
-<<<<<<< HEAD
             "#FA0101",
             "lightgray",
             "#C1392B",
@@ -278,45 +179,10 @@ def configure_sliders(columns):
         "f2_iflb_a5threshold1rsrp": create_slider(
             columns[12],
             "f2iflba5threshold1rsrp",
-=======
-            "#9CA3DB",
-            "lightgray",
-            "#E0CA3C",
-        ),
-        "f2_cov_a5threshold1rsrp": create_slider(
-            columns[9],
-            "f2_cov_a5threshold1rsrp",
-            "A5 a5Threshold1Rsrp",
-            1,
-            -140,
-            -44,
-            -112,
-            "#9CA3DB",
-            "lightgray",
-            "#E0CA3C",
-        ),
-        "f2_cov_a5threshold2rsrp": create_slider(
-            columns[10],
-            "f2_cov_a5threshold2rsrp",
-            "A5 a5Threshold2Rsrp",
-            1,
-            -140,
-            -44,
-            -102,
-            "#9CA3DB",
-            "lightgray",
-            "#E0CA3C",
-        ),
-        "f2_iflb_a5threshold1rsrp": create_slider(
-            columns[11],
-            "f2iflba5threshold1rsrp",
-            "LB a5Threshold1Rsrp",
->>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766
             1,
             -140,
             -44,
             -80,
-<<<<<<< HEAD
             "#0000FF",
             "lightgray",
             "#C1392B",
@@ -324,35 +190,18 @@ def configure_sliders(columns):
         "f2_iflb_a5threshold2rsrp": create_slider(
             columns[13],
             "f2iflba5threshold2rsrp",
-=======
-            "#9CA3DB",
-            "lightgray",
-            "#E0CA3C",
-        ),
-        "f2_iflb_a5threshold2rsrp": create_slider(
-            columns[12],
-            "f2iflba5threshold2rsrp",
-            "LB a5Threshold2Rsrp",
->>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766
             1,
             -140,
             -44,
             -90,
-<<<<<<< HEAD
             "#0000FF",
             "lightgray",
             "#C1392B",
-=======
-            "#9CA3DB",
-            "lightgray",
-            "#E0CA3C",
->>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766
         ),
     }
     return slider_values
 
 
-<<<<<<< HEAD
 def generate_scripts(sliders):
     script_lines = [
         "# SET ON F1",
@@ -379,21 +228,15 @@ def generate_scripts(sliders):
     return script
 
 
-=======
->>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766
 def compute_threshold_mappings(sliders):
     f1_threshxhigh_map = (sliders["f1_threshxhigh"] * 2) + sliders["qrxlevmin"]
     f2_threshservinglow_map = (sliders["f2_threshservinglow"] * 2) + sliders[
         "qrxlevmin"
     ]
     f2_threshxlow_map = (sliders["f2_threshxlow"] * 2) + sliders["qrxlevmin"]
-<<<<<<< HEAD
     f2_snonintrasearch_map = (sliders["f2_snonintrasearch"] * 2) + sliders[
         "qrxlevminsib1"
     ]
-=======
-    f2_snonintrasearch_map = (sliders["f2_snonintrasearch"] * 2) + -124
->>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766
     max_value = -44
     return (
         f1_threshxhigh_map,
@@ -612,11 +455,7 @@ def create_lines(
                 ((f1_threshxhigh_map + max_value) / 2),
             ],
             line=dict(color="green", shape="spline", dash="dashdot"),
-<<<<<<< HEAD
             marker=dict(symbol="arrow-bar-up", size=15, angleref="previous"),
-=======
-            marker=dict(symbol="arrow-bar-up", size=20, angleref="previous"),
->>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766
         ),
         go.Scatter(
             x=[-12, -6, 6, 16],
@@ -639,11 +478,7 @@ def create_lines(
                 (sliders["f1_iflb_a5threshold2rsrp"] - max_value / 2),
             ],
             line=dict(color="blue", shape="spline", dash="dashdot"),
-<<<<<<< HEAD
             marker=dict(symbol="arrow-bar-up", size=15, angleref="previous"),
-=======
-            marker=dict(symbol="arrow-bar-up", size=20, angleref="previous"),
->>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766
         ),
         go.Scatter(
             x=[16, 10, -2, -14],
@@ -666,30 +501,18 @@ def create_lines(
                 ((sliders["f2_cov_a5threshold2rsrp"] + max_value) / 2),
             ],
             line=dict(color="red", shape="spline", dash="dashdot"),
-<<<<<<< HEAD
             marker=dict(symbol="arrow-bar-up", size=15, angleref="previous"),
-=======
-            marker=dict(symbol="arrow-bar-up", size=20, angleref="previous"),
->>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766
         ),
         go.Scatter(
             x=[19, 10, -2, -16],
             y=[
                 ((f2_threshservinglow_map + sliders["qrxlevmin"]) / 2),
                 ((f2_threshservinglow_map + sliders["qrxlevmin"]) / 2),
-<<<<<<< HEAD
                 ((f2_threshxlow_map + max_value) / 2),
                 ((f2_threshxlow_map + max_value) / 2),
             ],
             line=dict(color="green", shape="spline", dash="dashdot"),
             marker=dict(symbol="arrow-bar-up", size=15, angleref="previous"),
-=======
-                ((f2_threshxlow_map + max_value) / 2.5),
-                ((f2_threshxlow_map + max_value) / 2.5),
-            ],
-            line=dict(color="green", shape="spline", dash="dashdot"),
-            marker=dict(symbol="arrow-bar-up", size=20, angleref="previous"),
->>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766
         ),
         go.Scatter(
             x=[18, 10, -2, -10],
@@ -697,22 +520,14 @@ def create_lines(
                 (
                     (
                         sliders["a2criticalthresholdrsrp"]
-<<<<<<< HEAD
                         + sliders["f2_iflb_a5threshold1rsrp"]
-=======
-                        + sliders["f2_cov_a5threshold1rsrp"]
->>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766
                     )
                     / 2.2
                 ),
                 (
                     (
                         sliders["a2criticalthresholdrsrp"]
-<<<<<<< HEAD
                         + sliders["f2_iflb_a5threshold1rsrp"]
-=======
-                        + sliders["f2_cov_a5threshold1rsrp"]
->>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766
                     )
                     / 2.2
                 ),
@@ -720,11 +535,7 @@ def create_lines(
                 ((sliders["f2_iflb_a5threshold2rsrp"] + max_value) / 2.5),
             ],
             line=dict(color="blue", shape="spline", dash="dashdot"),
-<<<<<<< HEAD
             marker=dict(symbol="arrow-bar-up", size=15, angleref="previous"),
-=======
-            marker=dict(symbol="arrow-bar-up", size=20, angleref="previous"),
->>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766
         ),
     ]
 
@@ -766,11 +577,7 @@ def configure_plot(
             showline=False,
         ),
         showlegend=False,
-<<<<<<< HEAD
         height=700,
-=======
-        height=800,
->>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766
         margin=dict(
             autoexpand=False,
             l=300,
@@ -817,27 +624,17 @@ def configure_plot(
     ]
 
     labels_left = [
-<<<<<<< HEAD
         "F1 A2ThresholdRSRP",
         "F1 QRxLevMin",
         "(set on F2) ThreshXLow",
         "(set on F2) COV A5Threshold2RSRP",
         "(set on F2) IFLB A5Threshold2RSRP",
         "IFLB A5Threshold1RSRP",
-=======
-        "F1 a2CriticalThresholdRsrp",
-        "F1 qRxLevMin",
-        "(set on F2)<br>threshXLow",
-        "(set on F2)<br>ReportConfigA5 a5Threshold2Rsrp",
-        "(set on F2)<br>ReportConfigEUtraInterFreqLb a5Threshold2Rsrp",
-        "ReportConfigEUtraInterFreqLb a5Threshold1Rsrp",
->>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766
     ]
 
     colors_left = ["blue", "blue", "green", "red", "blue", "blue"]
 
     labels_right = [
-<<<<<<< HEAD
         "F2 A2ThresholdRSRP",
         "F2 QRxLevMin SIB3",
         "COV A5Threshold1RSRP",
@@ -847,17 +644,6 @@ def configure_plot(
         "(set on F1) IFLB A5Threshold2RSRP",
         "IFLB A5Threshold1RSRP",
         "(set on F1) ThreshXHigh",
-=======
-        "F2 a2CriticalThresholdRsrp",
-        "F2 qRxLevMin",
-        "ReportConfigA5 a5Threshold1Rsrp",
-        "a1a2SearchThresholdRsrp",
-        "threshServingLow",
-        "sNonIntraSearch",
-        "(set on F1)<br>ReportConfigEUtraInterFreqLb a5Threshold2Rsrp",
-        "ReportConfigEUtraInterFreqLb a5Threshold1Rsrp",
-        "(set on F1) threshXHigh",
->>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766
     ]
     colors_right = [
         "red",
@@ -916,11 +702,7 @@ def configure_plot(
         dict(
             xref="paper",
             yref="paper",
-<<<<<<< HEAD
             x=-0.25,
-=======
-            x=-0.05,
->>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766
             y=1.1,
             xanchor="left",
             yanchor="bottom",
@@ -938,11 +720,7 @@ def configure_plot(
             y=-0.1,
             xanchor="center",
             yanchor="top",
-<<<<<<< HEAD
             text="Source: 3GPP",
-=======
-            text="Source: LTE Mobility and Traffic Management Guideline (4/154 43-LZA 701 6014 Uen Rev AL)",
->>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766
             font=dict(family="Arial", size=12, color="rgb(150,150,150)"),
             showarrow=False,
         )
@@ -995,7 +773,6 @@ def configure_plot(
     fig.update_layout(annotations=annotations)
 
     return fig
-<<<<<<< HEAD
 
 
 def stylings(text, font_size=10, text_align="center"):
@@ -1047,14 +824,6 @@ def run_priority():
     with container:
         sliders = configure_sliders(columns)
 
-=======
-
-
-def run_priority():
-
-    columns = st.columns(13)
-    sliders = configure_sliders(columns)
->>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766
     (
         f1_threshxhigh_map,
         f2_threshservinglow_map,
@@ -1062,10 +831,6 @@ def run_priority():
         f2_snonintrasearch_map,
         max_value,
     ) = compute_threshold_mappings(sliders)
-<<<<<<< HEAD
-
-=======
->>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766
     fig = configure_plot(
         sliders,
         f1_threshxhigh_map,
@@ -1075,7 +840,6 @@ def run_priority():
         max_value,
     )
 
-<<<<<<< HEAD
     col1, col2 = st.columns([3, 1.5])
     with col1:
         with stylable_container(
@@ -1146,21 +910,6 @@ def run_priority():
 
     """
     )
-=======
-    with stylable_container(
-        key="container_with_border",
-        css_styles="""
-            {
-                border: 2px solid rgba(49, 51, 63, 0.2);
-                border-radius: 0.5rem;
-                padding: calc(1em - 1px)
-            }
-            """,
-    ):
-        container = st.container()
-        with container:
-            st.plotly_chart(fig, use_container_width=False)
->>>>>>> 50dbd91067fb2acf4b32efbf38f30220da8e5766
 
 
 if __name__ == "__main__":
