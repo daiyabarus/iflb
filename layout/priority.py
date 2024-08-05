@@ -469,7 +469,13 @@ def create_lines(
                 ((f1_threshxhigh_map + max_value) / 2),
             ],
             line=dict(color="green", shape="spline", dash="dashdot"),
-            marker=dict(symbol="arrow-bar-up", size=15, angleref="previous"),
+            mode="lines+markers",
+            marker=dict(
+                symbol=["circle", "circle", "circle", "arrow-bar-up"],
+                size=[0, 0, 0, 15],
+                color="green",
+                angleref="previous",
+            ),
         ),
         go.Scatter(
             x=[-12, -6, 6, 16],
@@ -492,7 +498,13 @@ def create_lines(
                 (sliders["f1_iflb_a5threshold2rsrp"] - max_value / 2),
             ],
             line=dict(color="blue", shape="spline", dash="dashdot"),
-            marker=dict(symbol="arrow-bar-up", size=15, angleref="previous"),
+            mode="lines+markers",
+            marker=dict(
+                symbol=["circle", "circle", "circle", "arrow-bar-up"],
+                size=[0, 0, 0, 15],
+                color="blue",
+                angleref="previous",
+            ),
         ),
         go.Scatter(
             x=[16, 10, -2, -14],
@@ -515,7 +527,13 @@ def create_lines(
                 ((sliders["f2_cov_a5threshold2rsrp"] + max_value) / 2),
             ],
             line=dict(color="red", shape="spline", dash="dashdot"),
-            marker=dict(symbol="arrow-bar-up", size=15, angleref="previous"),
+            mode="lines+markers",
+            marker=dict(
+                symbol=["circle", "circle", "circle", "arrow-bar-up"],
+                size=[0, 0, 0, 15],
+                color="red",
+                angleref="previous",
+            ),
         ),
         go.Scatter(
             x=[19, 10, -2, -16],
@@ -526,7 +544,13 @@ def create_lines(
                 ((f2_threshxlow_map + max_value) / 2),
             ],
             line=dict(color="green", shape="spline", dash="dashdot"),
-            marker=dict(symbol="arrow-bar-up", size=15, angleref="previous"),
+            mode="lines+markers",
+            marker=dict(
+                symbol=["circle", "circle", "circle", "arrow-bar-up"],
+                size=[0, 0, 0, 15],
+                color="green",
+                angleref="previous",
+            ),
         ),
         go.Scatter(
             x=[18, 10, -2, -10],
@@ -549,7 +573,13 @@ def create_lines(
                 ((sliders["f2_iflb_a5threshold2rsrp"] + max_value) / 2.5),
             ],
             line=dict(color="blue", shape="spline", dash="dashdot"),
-            marker=dict(symbol="arrow-bar-up", size=15, angleref="previous"),
+            mode="lines+markers",
+            marker=dict(
+                symbol=["circle", "circle", "circle", "arrow-bar-up"],
+                size=[0, 0, 0, 15],
+                color="blue",
+                angleref="previous",
+            ),
         ),
     ]
 
@@ -715,11 +745,11 @@ def configure_plot(
         dict(
             xref="paper",
             yref="paper",
-            x=-0.01,
+            x=-0.23,
             y=1.1,
             xanchor="left",
             yanchor="bottom",
-            text="Thresholds for the Priority Carrier Configuration",
+            text="Mobility Actions and Thresholds for the Priority Carrier Configuration",
             font=dict(family="Arial", size=30, color="rgb(37,37,37)"),
             showarrow=False,
         )
