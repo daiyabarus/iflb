@@ -32,14 +32,14 @@ def create_slider(
         )
 
 
-def create_vertical_line(x, y0, y1, color="rgba(0,0,0,0)", width=2, dash="solid"):
+def create_vertical_line(x, y0, y1, color="rgba(0,0,0,0)", width=2):
     return {
         "type": "line",
         "x0": x,
         "y0": y0,
         "x1": x,
         "y1": y1,
-        "line": {"color": color, "width": width, "dash": dash},
+        "line": {"color": color, "width": width},
     }
 
 
@@ -84,7 +84,7 @@ def configure_sliders(columns):
             2,
             0,
             62,
-            24,
+            22,
             "#008000",
             "lightgray",
             "#F1C40F",
@@ -95,7 +95,7 @@ def configure_sliders(columns):
             1,
             -140,
             -44,
-            -50,
+            -110,
             "#0000FF",
             "lightgray",
             "#F1C40F",
@@ -106,7 +106,7 @@ def configure_sliders(columns):
             1,
             -140,
             -44,
-            -96,
+            -106,
             "#0000FF",
             "lightgray",
             "#F1C40F",
@@ -117,7 +117,7 @@ def configure_sliders(columns):
             2,
             0,
             62,
-            6,
+            4,
             "#008000",
             "lightgray",
             "#C1392B",
@@ -139,7 +139,7 @@ def configure_sliders(columns):
             2,
             0,
             62,
-            8,
+            6,
             "#008000",
             "lightgray",
             "#C1392B",
@@ -161,7 +161,7 @@ def configure_sliders(columns):
             1,
             -140,
             -44,
-            -113,
+            -100,
             "#FA0101",
             "lightgray",
             "#C1392B",
@@ -172,7 +172,7 @@ def configure_sliders(columns):
             1,
             -140,
             -44,
-            -106,
+            -94,
             "#FA0101",
             "lightgray",
             "#C1392B",
@@ -183,7 +183,7 @@ def configure_sliders(columns):
             1,
             -140,
             -44,
-            -74,
+            -70,
             "#0000FF",
             "lightgray",
             "#C1392B",
@@ -194,7 +194,7 @@ def configure_sliders(columns):
             1,
             -140,
             -44,
-            -90,
+            -80,
             "#0000FF",
             "lightgray",
             "#C1392B",
@@ -207,23 +207,22 @@ def generate_scripts(sliders):
     script_lines = [
         "# SET ON F1",
         f'set `F1` A2Critical {sliders["a2criticalthresholdrsrp"]} dBm',
-        f'set `F1` QRxLevMin {sliders["qrxlevminsib1"]} dBm ',
-        f'set `F1` EUtranFreq `F2` qRxLevMin {sliders["qrxlevmin"]} dBm',
-        f'set `F1` EUtranFreq `F2` threshXHigh {sliders["f1_threshxhigh"]} dB',
-        f'set `F1` IFLB A5Threshold1 {sliders["f1_iflb_a5threshold1rsrp"]} dBm',
-        f'set `F1` IFLB A5Threshold2 {sliders["f1_iflb_a5threshold2rsrp"]} dBm',
-        "",
+        f'set `F1` qRxLevMin {sliders["qrxlevminsib1"]} dBm ',
+        f'set `F1` EUtranFreqRelation `F2` qRxLevMin {sliders["qrxlevmin"]} dBm',
+        f'set `F1` EUtranFreqRelation `F2` threshXHigh {sliders["f1_threshxhigh"]} dB',
+        f'set `F1` IFLB a5Threshold1Rsrp {sliders["f1_iflb_a5threshold1rsrp"]} dBm',
+        f'set `F1` IFLB a5Threshold2Rsrp {sliders["f1_iflb_a5threshold2rsrp"]} dBm',
         "# SET ON F2",
         f'set `F2` A2Critical {sliders["a2criticalthresholdrsrp"]} dBm',
         f'set `F2` qRxLevMin {sliders["qrxlevminsib1"]} dB',
         f'set `F2` threshServingLow {sliders["f2_threshservinglow"]} dB',
-        f'set `F2` EUtranFreq `F1` threshXLow {sliders["f2_threshxlow"]} dB',
+        f'set `F2` EUtranFreqRelation `F1` threshXLow {sliders["f2_threshxlow"]} dB',
         f'set `F2` SIB3 sNonIntraSearch {sliders["f2_snonintrasearch"]} dB',
         f'set `F2` A1A2 SearchThreshold RSRP {sliders["f2_a1a2searchthresholdrsrp"]} dBm',
-        f'set `F2` COV A5Threshold1 {sliders["f2_cov_a5threshold1rsrp"]} dBm',
-        f'set `F2` COV A5Threshold2 {sliders["f2_cov_a5threshold2rsrp"]} dBm',
-        f'set `F2` IFLB A5Threshold1 {sliders["f2_iflb_a5threshold1rsrp"]} dBm',
-        f'set `F2` IFLB A5Threshold2 {sliders["f2_iflb_a5threshold2rsrp"]} dBm',
+        f'set `F2` COV a5Threshold1Rsrp {sliders["f2_cov_a5threshold1rsrp"]} dBm',
+        f'set `F2` COV a5Threshold2Rsrp {sliders["f2_cov_a5threshold2rsrp"]} dBm',
+        f'set `F2` IFLB a5Threshold1Rsrp {sliders["f2_iflb_a5threshold1rsrp"]} dBm',
+        f'set `F2` IFLB a5Threshold2Rsrp {sliders["f2_iflb_a5threshold2rsrp"]} dBm',
     ]
 
     script = "\n".join(script_lines)
@@ -256,13 +255,13 @@ def create_vertical_lines(
         # TODO: F1 vline
         # vline 1
         create_vertical_line(-18, -140, sliders["qrxlevmin"]),
-        create_vertical_line(-18, sliders["qrxlevmin"], max_value, "green"),
+        create_vertical_line(-18, sliders["qrxlevmin"], -44, "green"),
         # vline 2
         create_vertical_line(-16, -140, f2_threshxlow_map),
-        create_vertical_line(-16, f2_threshxlow_map, max_value, "green"),
+        create_vertical_line(-16, f2_threshxlow_map, -44, "green"),
         # vline 3
         create_vertical_line(-14, -140, sliders["f2_cov_a5threshold2rsrp"]),
-        create_vertical_line(-14, sliders["f2_cov_a5threshold2rsrp"], max_value, "red"),
+        create_vertical_line(-14, sliders["f2_cov_a5threshold2rsrp"], -44, "red"),
         # vline 4
         create_vertical_line(-12, -140, sliders["a2criticalthresholdrsrp"]),
         create_vertical_line(
@@ -271,12 +270,10 @@ def create_vertical_lines(
             sliders["f1_iflb_a5threshold1rsrp"],
             "blue",
         ),
-        create_vertical_line(-12, sliders["f1_iflb_a5threshold1rsrp"], max_value),
+        create_vertical_line(-12, sliders["f1_iflb_a5threshold1rsrp"], -44),
         # vline 5
         create_vertical_line(-10, -140, sliders["f2_iflb_a5threshold2rsrp"]),
-        create_vertical_line(
-            -10, sliders["f2_iflb_a5threshold2rsrp"], max_value, "blue"
-        ),
+        create_vertical_line(-10, sliders["f2_iflb_a5threshold2rsrp"], -44, "blue"),
         # TODO: F2 vline
         # vline 1-1
         create_vertical_line(18, -140, sliders["a2criticalthresholdrsrp"]),
@@ -286,16 +283,16 @@ def create_vertical_lines(
             sliders["f2_iflb_a5threshold1rsrp"],
             "blue",
         ),
-        create_vertical_line(18, sliders["f2_iflb_a5threshold1rsrp"], max_value),
+        create_vertical_line(18, sliders["f2_iflb_a5threshold1rsrp"], -44),
         # vline 1-2
         create_vertical_line(18, -140, f1_threshxhigh_map),
-        create_vertical_line(18, f1_threshxhigh_map, max_value, "green"),
+        create_vertical_line(18, f1_threshxhigh_map, -44, "green"),
         # vline 2
         create_vertical_line(19, -140, f2_threshservinglow_map),
         create_vertical_line(
             19, f2_threshservinglow_map, sliders["qrxlevmin"], "green"
         ),
-        create_vertical_line(19, sliders["qrxlevmin"], max_value),
+        create_vertical_line(19, sliders["qrxlevmin"], -44),
         # vline 3-1
         create_vertical_line(16, -140, sliders["a2criticalthresholdrsrp"]),
         create_vertical_line(
@@ -304,20 +301,10 @@ def create_vertical_lines(
             sliders["f2_cov_a5threshold1rsrp"],
             "red",
         ),
-        create_vertical_line(16, sliders["f2_cov_a5threshold1rsrp"], max_value),
+        create_vertical_line(16, sliders["f2_cov_a5threshold1rsrp"], -44),
         # vline 3-2
         create_vertical_line(16, -140, sliders["f1_iflb_a5threshold2rsrp"]),
-        create_vertical_line(
-            16, sliders["f1_iflb_a5threshold2rsrp"], max_value, "blue"
-        ),
-        create_vertical_line(
-            18,
-            f1_threshxhigh_map + 1,
-            sliders["f2_iflb_a5threshold1rsrp"] - 1,
-            color="rgba(25,31,52,0.2)",
-            width=4,
-            dash="dot",
-        ),
+        create_vertical_line(16, sliders["f1_iflb_a5threshold2rsrp"], -44, "blue"),
     ]
 
 
@@ -641,22 +628,22 @@ def configure_plot(
         "F1 A2ThresholdRSRP",
         "F1 QRxLevMin",
         "(set on F2) ThreshXLow",
-        "(set on F2) COV A5Threshold2",
-        "(set on F2) IFLB A5Threshold2",
-        "IFLB A5Threshold1",
+        "(set on F2) COV A5Threshold2RSRP",
+        "(set on F2) IFLB A5Threshold2RSRP",
+        "IFLB A5Threshold1RSRP",
     ]
 
     colors_left = ["blue", "blue", "green", "red", "blue", "blue"]
 
     labels_right = [
-        "F2 A2Threshold",
-        "F2 QRxLevMin",
-        "COV A5Threshold1",
-        "A1A2 Threshold",
+        "F2 A2ThresholdRSRP",
+        "F2 QRxLevMin SIB3",
+        "COV A5Threshold1RSRP",
+        "A1A2 ThresholdRSRP",
         "ThreshServingLow",
         "SNonIntraSearch",
-        "(set on F1) IFLB A5Threshold2",
-        "IFLB A5Threshold1",
+        "(set on F1) IFLB A5Threshold2RSRP",
+        "IFLB A5Threshold1RSRP",
         "(set on F1) ThreshXHigh",
     ]
     colors_right = [
@@ -710,21 +697,35 @@ def configure_plot(
                     yref="y",
                 )
             )
+
     # Title
     annotations.append(
         dict(
             xref="paper",
             yref="paper",
-            x=-0.01,
+            x=-0.25,
             y=1.1,
             xanchor="left",
             yanchor="bottom",
-            text="Thresholds for the Priority Carrier Configuration",
+            text="Mobility Actions and Thresholds for the Priority Carrier Configuration",
             font=dict(family="Arial", size=30, color="rgb(37,37,37)"),
             showarrow=False,
         )
     )
     # Source
+    annotations.append(
+        dict(
+            xref="paper",
+            yref="paper",
+            x=0.5,
+            y=-0.1,
+            xanchor="center",
+            yanchor="top",
+            text="Source: 3GPP",
+            font=dict(family="Arial", size=12, color="rgb(150,150,150)"),
+            showarrow=False,
+        )
+    )
 
     fig.add_annotation(
         x=21,
@@ -770,7 +771,6 @@ def configure_plot(
         xanchor="center",
         yanchor="top",
     )
-
     fig.update_layout(annotations=annotations)
 
     return fig
@@ -889,28 +889,33 @@ def run_priority():
                             "Blue : connected mode<br>&emsp;&emsp;&emsp;IFLB triggered",
                             "blue",
                         ),
+                        (
+                            "Conclusion :",
+                            "red",
+                        ),
+                        (
+                            "The Priority Carrier Configuration is designed to prioritize moving UEs to higher priority cells quickly, whereas the Sticky Carrier Configuration aims to keep UEs on their current cell longer unless specific conditions are met. The key parameters (threshXHigh, threshServingLow, threshXLow, a1a2SearchThresholdRsrp, a5Threshold1Rsrp, and a5Threshold2Rsrp) are set differently to achieve these behaviors. Identifying the configurations involves observing UE reselection and handover behavior based on these parameters.",
+                            "gray",
+                        ),
                     ]
                 ),
                 unsafe_allow_html=True,
             )
     st.markdown(
         """
-        ### ✨ Priority Carrier Configuration
+    ### ✨ Priority Carrier Configuration
 
-        **Conclusion:**
-        The Priority Carrier Configuration is designed to prioritize moving UEs to higher priority cells quickly, whereas the Sticky Carrier Configuration aims to keep UEs on their current cell longer unless specific
-        conditions are met. The key parameters `ThreshXHigh`, `ThreshServingLow`, `ThreshXLow`, `A1A2SearchThreshold`, `A5Threshold1`, and `A5Threshold2` are set differently to achieve these behaviors.
-        Identifying the configurations involves observing UE reselection and handover behavior based on these parameters.
+    1. **Idle Mode Actions:**
+        * **Reselection from F1 to F2:** Triggered when F2 RSRP exceeds `threshXHigh`.
+        * **Reselection from F2 to F1:** Triggered when F2 RSRP falls below `threshServingLow` and F1 RSRP is above `threshXLow`.
 
-        1. **Idle Mode Actions:**
-            - **Reselection from F1 to F2:** Triggered when F2 RSRP exceeds `threshXHigh`.
-            - **Reselection from F2 to F1:** Triggered when F2 RSRP falls below `threshServingLow` and F1 RSRP is above `threshXLow`.
+    2. **Connected Mode Actions - Coverage Triggered:**
+        - **Event A5 Handover from F2 to F1:** Triggered when F2 RSRP falls to `a1a2SearchThresholdRsrp` and `a5Threshold1Rsrp`, and F1 RSRP is above `a5Threshold2Rsrp`.
+        - **Critical Release:** Triggered at `a2CriticalThresholdRsrp`.
 
-        2. **Connected Mode Actions - Coverage Triggered:**
-            - **Event A5 Handover from F2 to F1:** Triggered when F2 RSRP falls to `A1A2SearchThreshold` and `A5Threshold1`, and F1 RSRP is above `A5Threshold2`.
-            - **Critical Release:** Triggered at `A2CriticalThreshold`.
+    3. **Connected Mode Actions - IFLB:**
+        - **IFLB from F1 to F2:** Triggered when F1 RSRP is below `a5Threshold1Rsrp` and F2 RSRP is above `a5Threshold2Rsrp`.
 
-        3. **Connected Mode Actions - IFLB:**
-            - **IFLB from F1 to F2:** Triggered when F1 RSRP is below `A5Threshold1` and F2 RSRP is above `A5Threshold2`.
-        """
+
+    """
     )

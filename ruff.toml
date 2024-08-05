@@ -8,6 +8,8 @@ exclude = [
     "venv",
     ]
 lint.select = ["ALL"]
+lint.ignore-init-module-imports = false
+
 lint.extend-ignore = [
     "D415", # First docstring line should end with a period, question mark, or exclamation point
     "DTZ004", # utcfromtimestamp makes sense for atmosphere model
