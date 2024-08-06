@@ -23,3 +23,42 @@ def homepage():
     | **Priority Carrier** | One frequency is given a higher priority than the other frequency. | UEs reselect to the higher priority frequency provided its level is above a configurable signal strength threshold. | The idle mode priority push is the primary mechanism for load distribution. | This configuration is best used between frequencies with very different coverage footprints and/or capacities, where it is necessary to actively push UEs to the frequency with the higher capacity and/or poorer coverage. |
     """
     )
+    st.markdown(
+        """
+    <style>
+    .left-align {
+        text-align: center;
+    }
+    </style>
+    """,
+        unsafe_allow_html=True,
+    )
+    st.markdown(
+        """
+    ### ✨ Mapping
+    """,
+        unsafe_allow_html=True,
+    )
+    st.latex(
+        r"""
+    \text{ThreshServingLow} = \text{QRxLevMinSIB1} + (\text{qRxLevMinOffset} + (\text{threshServingLow} \times \text{resolution}))
+    """
+    )
+
+    st.latex(
+        r"""
+    \text{sNonIntraSearch} = \text{QRxLevMinSIB1}  + (\text{qRxLevMinOffset} + (\text{sNonIntraSearch} \times  \text{resolution}))
+    """
+    )
+
+    st.latex(
+        r"""
+    \text{ThreshXHigh} = \text{QRxLevMinSIB3} + (\text{qRxLevMinOffset} + (\text{ThreshXHigh}\times   \text{resolution}))
+    """
+    )
+
+    st.latex(
+        r"""
+    \text{ThreshXLow} = \text{QRxLevMinSIB3}  + (\text{qRxLevMinOffset} + (\text{threshXLow} \times \text{resolution}))
+    """
+    )
