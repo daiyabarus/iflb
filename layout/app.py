@@ -1,3 +1,5 @@
+import webbrowser
+
 import streamlit as st
 import streamlit_antd_components as sac
 
@@ -17,6 +19,7 @@ def run_app():
             sac.TabsItem("Equal Priority", icon="1-circle-fill"),
             sac.TabsItem("Sticky Carrier", icon="2-circle-fill"),
             sac.TabsItem("Priority Carrier", icon="3-circle-fill"),
+            sac.TabsItem("github", icon="github"),
         ],
         align="center",
         return_index=True,
@@ -32,3 +35,6 @@ def run_app():
         run_sticky()
     elif tab_idx == 3:
         run_priority()
+    elif tab_idx == 4:
+        url = "https://github.com/daiyabarus/iflb"
+        webbrowser.open(url)
