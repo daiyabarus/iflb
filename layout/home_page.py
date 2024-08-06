@@ -72,10 +72,10 @@ def homepage():
             <ul>
                 <li>In idle mode, UEs reselect between carriers based on relative signal strengths, applying hysteresis and offsets.</li>
                 <li>The configuration divides the signal strength plane into three regions (blue, green, and grey), determining UE camping behavior.</li>
-                <li>The `sNonIntraSearch` parameter controls the "stickiness" of UEs to the serving frequency, which can be useful when combined with load balancing.</li>
+                <li>The `SNONINTRASEARCH` parameter controls the "stickiness" of UEs to the serving frequency, which can be useful when combined with load balancing.</li>
                 <li>This configuration works well for non-co-located cells but may not be ideal for pushing UEs towards a particular frequency in co-located cells.</li>
                 <li>Connected mode actions are governed by coverage-triggered events and Inter-Frequency Load Balancing (IFLB).</li>
-                <li>The alignment of various thresholds (e.g., `sNonIntraSearch`, `A5Threshold1`) is crucial for ensuring that idle mode behavior and IFLB work harmoniously.</li>
+                <li>The alignment of various thresholds (e.g., `SNONINTRASEARCH`, `A5THRESHOLD1`) is crucial for ensuring that idle mode behavior and IFLB work harmoniously.</li>
             </ul>
         </div>
         <div class="conclusion">
@@ -97,7 +97,7 @@ def homepage():
             <ul>
                 <li>In this configuration, the serving frequency is given a higher priority than the neighboring frequency, regardless of which frequency the UE is currently on.</li>
                 <li>It's most useful when two carriers have similar coverage properties, allowing Inter-Frequency Load Balancing (IFLB) to distribute UEs in connected mode and maintaining this distribution in idle mode.</li>
-                <li>The configuration divides the signal strength plane into three regions (blue, green, and grey) based on key parameters: `threshServingLow` and `threshXLow`.</li>
+                <li>The configuration divides the signal strength plane into three regions (blue, green, and grey) based on key parameters: `THRESHSERVINGLOW` and `THRESHXLOW`.</li>
                 <li>Unlike the Equal Priority Configuration, stickiness in the grey region is guaranteed by the standards, as reselection only occurs when both thresholds are met.</li>
                 <li>This configuration is not well-suited for pushing UEs strongly towards a particular frequency or for use between two primary LTE coverage layers. It's best used between capacity layers with similar coverage and performance.</li>
                 <li>The configuration allows for fine-tuning of both idle mode behavior and connected mode actions, including coverage-triggered handovers and IFLB.</li>
@@ -122,7 +122,7 @@ def homepage():
             <ul>
                 <li>This configuration is typically used when carriers have vastly different coverage areas, such as low band vs. high band or macro cells vs. small cells.</li>
                 <li>One carrier is assigned a higher idle mode priority via the `cellReselectionPriority` parameter.</li>
-                <li>The configuration divides the signal strength plane into three regions (blue, green, and grey) based on key parameters: `threshXHigh`, `threshServingLow`, and `threshXLow`.</li>
+                <li>The configuration divides the signal strength plane into three regions (blue, green, and grey) based on key parameters: `THRESHXHIGH`, `THRESHSERVINGLOW`, and `THRESHXLOW`.</li>
                 <li>It provides better control over UE distribution compared to Equal Priority or Sticky Carrier Configurations, balancing between actively pushing UEs to the high-priority carrier and leaving room for Inter-Frequency Load Balancing (IFLB).</li>
                 <li>The configuration allows for fine-tuning of both idle mode behavior and connected mode actions, including coverage-triggered handovers and IFLB.</li>
                 <li>Careful parameter setting is crucial to ensure that idle mode behavior, coverage fallback, and IFLB work harmoniously.</li>
@@ -130,7 +130,7 @@ def homepage():
         </div>
         <div class="conclusion">
             <h3>Conclusion:</h3>
-            <p>The Priority Carrier Configuration offers a powerful approach to managing UE distribution across multiple frequency carriers with different coverage characteristics. It is particularly effective in scenarios where one carrier needs to be prioritized to maximize its utilization, while still maintaining overall network efficiency and coverage. The configuration allows network operators to strike a balance between actively pushing UEs to a preferred carrier in idle mode and allowing IFLB to distribute traffic in connected mode. By carefully adjusting parameters such as `threshXHigh`, `threshServingLow`, and various IFLB thresholds, operators can optimize network performance, maximize the use of all available carriers, and ensure seamless coverage transitions. However, implementing this configuration requires careful planning and ongoing optimization. Network operators must consider the specific characteristics of their network, including coverage patterns, capacity requirements, and user behavior, to determine the optimal settings for their particular scenario.</p>
+            <p>The Priority Carrier Configuration offers a powerful approach to managing UE distribution across multiple frequency carriers with different coverage characteristics. It is particularly effective in scenarios where one carrier needs to be prioritized to maximize its utilization, while still maintaining overall network efficiency and coverage. The configuration allows network operators to strike a balance between actively pushing UEs to a preferred carrier in idle mode and allowing IFLB to distribute traffic in connected mode. By carefully adjusting parameters such as `THRESHXHIGH`, `THRESHSERVINGLOW`, and various IFLB thresholds, operators can optimize network performance, maximize the use of all available carriers, and ensure seamless coverage transitions. However, implementing this configuration requires careful planning and ongoing optimization. Network operators must consider the specific characteristics of their network, including coverage patterns, capacity requirements, and user behavior, to determine the optimal settings for their particular scenario.</p>
         </div>
     </div>
     """,
