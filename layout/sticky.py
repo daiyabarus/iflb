@@ -488,7 +488,7 @@ def configure_plot(
     )
 
     fig = go.Figure(data=lines)
-    bottom_range = sliders["a2criticalthresholdrsrp"] - 20
+    bottom_range = sliders["a2criticalthresholdrsrp"] - 4
     fig.update_layout(
         shapes=vertical_lines,
         xaxis=dict(range=[-12, 12], showticklabels=False, showgrid=False),
@@ -524,94 +524,105 @@ def configure_plot(
         line_width=0,
     )
 
+    def create_annotation(y_trace, label, color, x):
+        return dict(
+            xref="paper",
+            x=x,
+            y=y_trace,
+            xanchor="right" if x == LEFT_X_POS else "left",
+            yanchor="middle",
+            text=label,
+            font=dict(family="Ericsson Hilda Light", size=12, color=color),
+            showarrow=False,
+        )
+
+    def create_left_annotations():
+        annotations = []
+        annotations.append(
+            create_annotation(
+                sliders["f1_cov_a5threshold1rsrp"],
+                "COV A5Threshold1",
+                "red",
+                LEFT_X_POS,
+            )
+        )
+        annotations.append(
+            create_annotation(
+                sliders["f1_a1a2searchthresholdrsrp"],
+                "A1A2 Threshold",
+                "red",
+                LEFT_X_POS,
+            )
+        )
+        annotations.append(
+            create_annotation(
+                sliders["a2criticalthresholdrsrp"], "A2 Critical", "red", LEFT_X_POS
+            )
+        )
+        annotations.append(
+            create_annotation(sliders["qrxlevmin"], "QRxLevMin", "green", LEFT_X_POS)
+        )
+        annotations.append(
+            create_annotation(
+                f1_threshservinglow_map, "ThreshServingLow", "green", LEFT_X_POS
+            )
+        )
+        annotations.append(
+            create_annotation(
+                f1_snonintrasearch_map, "SNonIntraSearch", "green", LEFT_X_POS
+            )
+        )
+        annotations.append(
+            create_annotation(
+                sliders["f1_iflb_a5threshold1rsrp"],
+                "IFLB A5Threshold1",
+                "blue",
+                LEFT_X_POS,
+            )
+        )
+        return annotations
+
+    def create_right_annotations():
+        annotations = []
+        annotations.append(
+            create_annotation(
+                f1_threshxlow_map, "(Set on F1) ThreshXLow", "green", RIGHT_X_POS
+            )
+        )
+        annotations.append(
+            create_annotation(
+                sliders["f1_cov_a5threshold2rsrp"],
+                "(Set on F1) COV A5Threshold2",
+                "red",
+                RIGHT_X_POS,
+            )
+        )
+        annotations.append(
+            create_annotation(
+                sliders["f1_iflb_a5threshold2rsrp"],
+                "(Set on F1) IFLB A5Threshold2",
+                "blue",
+                RIGHT_X_POS,
+            )
+        )
+        return annotations
+
+    LEFT_X_POS = -0.01
+    RIGHT_X_POS = 1
+
     annotations = []
 
-    annotations = []
+    # Add left side annotations
+    annotations.extend(create_left_annotations())
 
-    y_data_left = [
-        sliders["a2criticalthresholdrsrp"],
-        sliders["qrxlevminsib1"],
-        sliders["f1_cov_a5threshold1rsrp"],
-        sliders["f1_a1a2searchthresholdrsrp"],
-        f1_threshservinglow_map,
-        f1_snonintrasearch_map,
-    ]
-    y_data_right = [
-        sliders["f1_cov_a5threshold2rsrp"],
-        f1_threshxlow_map,
-        sliders["f1_iflb_a5threshold2rsrp"],
-    ]
+    # Add right side annotations
+    annotations.extend(create_right_annotations())
 
-    labels_left = [
-        "A2 Critical",
-        "QRxLevMin",
-        "COV A5Threshold1",
-        "A1A2 Threshold",
-        "ThreshServingLow",
-        "SNonIntraSearch",
-    ]
-
-    colors_left = ["red", "green", "red", "red", "green", "green"]
-
-    labels_right = [
-        "(Set on F1) COV A5Threshold2",
-        "(Set on F1) ThreshXLow",
-        "(Set on F1) IFLB A5Threshold2",
-    ]
-    colors_right = ["red", "green", "blue"]
-
-    max_len_left = len(y_data_left)
-    max_len_right = len(y_data_right)
-    max_len = max(max_len_left, max_len_right)
-
-    for i in range(max_len):
-        if i < max_len_left:
-            y_trace = y_data_left[i]
-            label = labels_left[i]
-            color = colors_left[i]
-            print(f"Left Annotation: {label} at {y_trace}")  # Debugging
-            annotations.append(
-                dict(
-                    x=-12,
-                    y=y_trace,
-                    xanchor="right",
-                    yanchor="middle",
-                    text=f"{label}: {y_trace}",
-                    font=dict(family="Ericsson Hilda Light", size=12, color=color),
-                    showarrow=False,
-                    xref="x",
-                    yref="y",
-                )
-            )
-        if i < max_len_right:
-            y_trace = y_data_right[i]
-            label = labels_right[i]
-            color = colors_right[i]
-            print(f"Right Annotation: {label} at {y_trace}")  # Debugging
-            annotations.append(
-                dict(
-                    x=12,
-                    y=y_trace,
-                    xanchor="left",
-                    yanchor="middle",
-                    text=f"{label}: {y_trace}",
-                    font=dict(family="Ericsson Hilda Light", size=12, color=color),
-                    showarrow=False,
-                    xref="x",
-                    yref="y",
-                )
-            )
-    # st.write("Debug values:")
-    # st.write(sliders["a2criticalthresholdrsrp"])
-    # st.write(sliders["qrxlevminsib1"])
-    # st.write(sliders["f1_cov_a5threshold2rsrp"])
-    # st.write(f1_threshxlow_map)
-    # Title
     annotations.append(
         dict(
             xref="paper",
             yref="paper",
-            x=-0.15,
+            x=-0.23,
             y=1.1,
             xanchor="left",
             yanchor="bottom",
