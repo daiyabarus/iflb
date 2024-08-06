@@ -199,13 +199,13 @@ def compute_threshold_mappings(sliders):
     green_left = int(
         compute_value(f1_threshservinglow_map, sliders["qrxlevminsib3"], 2)
     )
-    green_right = int(compute_value(-44, f1_threshxlow_map, 3.2))
+    green_right = int(compute_value(-44, f1_threshxlow_map, 3))
     red_left = int(
         compute_value(
             sliders["f1_cov_a5threshold1rsrp"], sliders["a2criticalthresholdrsrp"], 2
         )
     )
-    red_right = int(compute_value(-44, sliders["f1_cov_a5threshold2rsrp"], 3))
+    red_right = int(compute_value(-44, sliders["f1_cov_a5threshold2rsrp"], 2.5))
 
     return {
         "f1_threshservinglow_map": f1_threshservinglow_map,
@@ -332,7 +332,8 @@ def create_spline_line(color, left, right):
     return go.Scatter(
         x=x_values,
         y=y_values,
-        line=dict(color=color, shape="spline", dash="dashdot"),
+        # line=dict(color=color, shape="spline", dash="dashdot"),
+        line=dict(color=color, dash="dashdot"),
         mode="lines+markers",
         marker=dict(
             symbol=marker_symbols,
@@ -347,7 +348,7 @@ def get_x_values(color):
     return {
         "blue": [-7, -4, -4, 7],
         "green": [-9, -2, -2, 9],
-        "red": [-8, 1, 1, 8],
+        "red": [-8, 0, 0, 8],
     }[color]
 
 
@@ -392,23 +393,60 @@ def add_all_annotations(fig, sliders, mappings):
     add_threshold_annotations(fig, sliders, mappings)
     add_title_annotation(fig)
     add_cell_annotations(fig)
+    add_spline_annotations(fig, mappings)
 
 
 def add_threshold_annotations(fig, sliders, mappings):
     LEFT_X_POS, RIGHT_X_POS = -0.01, 1
     left_annotations = [
-        (sliders["f1_cov_a5threshold1rsrp"], f"COV A5Threshold1: {sliders["f1_cov_a5threshold1rsrp"]}", "red"),
-        (sliders["f1_a1a2searchthresholdrsrp"], f"A1A2 Threshold: {sliders["f1_a1a2searchthresholdrsrp"]}", "red"),
-        (sliders["a2criticalthresholdrsrp"], f"A2 Critical: {sliders["a2criticalthresholdrsrp"]}", "red"),
-        (sliders["qrxlevminsib1"], f"QRxLevMin: {sliders["qrxlevminsib1"]}", "green"),
-        (mappings["f1_threshservinglow_map"], f"ThreshServingLow: {sliders["f1_threshxlow"]}", "green"),
-        (mappings["f1_snonintrasearch_map"], f"SNonIntraSearch: {sliders["f1_snonintrasearch"]}", "green"),
-        (sliders["f1_iflb_a5threshold1rsrp"], f"IFLB A5Threshold1: {sliders["f1_iflb_a5threshold1rsrp"]}", "blue"),
+        (
+            sliders["f1_cov_a5threshold1rsrp"],
+            f"COV A5Threshold1: {sliders['f1_cov_a5threshold1rsrp']}",
+            "red",
+        ),
+        (
+            sliders["f1_a1a2searchthresholdrsrp"],
+            f"A1A2 Threshold: {sliders['f1_a1a2searchthresholdrsrp']}",
+            "red",
+        ),
+        (
+            sliders["a2criticalthresholdrsrp"],
+            f"A2 Critical: {sliders['a2criticalthresholdrsrp']}",
+            "red",
+        ),
+        (sliders["qrxlevminsib1"], f"QRxLevMin: {sliders['qrxlevminsib1']}", "green"),
+        (
+            mappings["f1_threshservinglow_map"],
+            f"ThreshServingLow: {sliders['f1_threshxlow']}",
+            "green",
+        ),
+        (
+            mappings["f1_snonintrasearch_map"],
+            f"SNonIntraSearch: {sliders['f1_snonintrasearch']}",
+            "green",
+        ),
+        (
+            sliders["f1_iflb_a5threshold1rsrp"],
+            f"IFLB A5Threshold1: {sliders['f1_iflb_a5threshold1rsrp']}",
+            "blue",
+        ),
     ]
     right_annotations = [
-        (mappings["f1_threshxlow_map"], f"(Set on F1) ThreshXLow: {sliders["f1_threshxlow"]}", "green"),
-        (sliders["f1_cov_a5threshold2rsrp"], f"(Set on F1) COV A5Threshold2: {sliders["f1_cov_a5threshold2rsrp"]}", "red"),
-        (sliders["f1_iflb_a5threshold2rsrp"], f"(Set on F1) IFLB A5Threshold2: {sliders["f1_iflb_a5threshold2rsrp"]}", "blue"),
+        (
+            mappings["f1_threshxlow_map"],
+            f"(Set on F1) ThreshXLow: {sliders['f1_threshxlow']}",
+            "green",
+        ),
+        (
+            sliders["f1_cov_a5threshold2rsrp"],
+            f"(Set on F1) COV A5Threshold2: {sliders['f1_cov_a5threshold2rsrp']}",
+            "red",
+        ),
+        (
+            sliders["f1_iflb_a5threshold2rsrp"],
+            f"(Set on F1) IFLB A5Threshold2: {sliders['f1_iflb_a5threshold2rsrp']}",
+            "blue",
+        ),
     ]
 
     for y, label, color in left_annotations:
@@ -428,26 +466,12 @@ def add_threshold_annotations(fig, sliders, mappings):
             x=RIGHT_X_POS,
             y=y,
             xref="paper",
-            # text=f"{label}: {y}",
             text=label,
             showarrow=False,
             font=dict(family="Ericsson Hilda Light", size=12, color=color),
             xanchor="left",
             yanchor="middle",
         )
-
-
-def create_annotation(y_trace, label, color, x):
-    return dict(
-        xref="paper",
-        x=x,
-        y=y_trace,
-        xanchor="right" if x < 0 else "left",
-        yanchor="middle",
-        text=label,
-        font=dict(family="Ericsson Hilda Light", size=12, color=color),
-        showarrow=False,
-    )
 
 
 def add_title_annotation(fig):
@@ -462,6 +486,28 @@ def add_title_annotation(fig):
         font=dict(family="Arial", size=30, color="rgb(37,37,37)"),
         showarrow=False,
     )
+
+
+def add_spline_annotations(fig, mappings):
+    annotations = [
+        ("blue_right", "blue", "A5 IFLB HO"),
+        ("red_right", "red", "A5 COVERAGE HO"),
+        ("green_right", "green", "Reselect to lower priority"),
+    ]
+
+    for y_pos_key, color, text in annotations:
+        y_value = mappings[y_pos_key]
+        fig.add_annotation(
+            x=1,
+            y=y_value,
+            text=text,
+            showarrow=False,
+            font=dict(size=14, family="Ericsson Hilda Light", color=color),
+            xref="x",
+            yref="y",
+            xanchor="center",
+            yanchor="bottom",
+        )
 
 
 def add_cell_annotations(fig):
@@ -586,7 +632,8 @@ def run_sticky():
                 ),
                 unsafe_allow_html=True,
             )
-    st.markdown("""
+    st.markdown(
+        """
     <div class="section">
         <h2>✨ Sticky Carrier Configuration</h2>
         <div class="key-takeaways">
@@ -605,7 +652,9 @@ def run_sticky():
             <p>The Sticky Carrier Configuration offers a balanced approach to managing UE distribution across multiple frequency carriers with similar coverage characteristics. It allows network operators to leverage IFLB for efficient load distribution in connected mode while maintaining this distribution in idle mode, leading to more stable and predictable network behavior. This configuration is particularly effective in scenarios where active pushing of UEs to a specific carrier is not required, but maintaining a balanced load across carriers is desirable. By carefully adjusting parameters such as `threshServingLow`, `threshXLow`, and various IFLB thresholds, operators can optimize network performance and ensure efficient use of available carriers. However, implementing this configuration requires careful consideration of the network's specific characteristics. It's not suitable for all scenarios, particularly those involving primary coverage layers or carriers with significantly different coverage properties. In such cases, other configurations like the Equal Priority or Priority Carrier configurations may be more appropriate. Network operators should assess their specific needs, considering factors such as coverage patterns, capacity requirements, and desired load balancing behavior, to determine if the Sticky Carrier Configuration is the best choice for their network environment.</p>
         </div>
     </div>
-    """, unsafe_allow_html=True)
+    """,
+        unsafe_allow_html=True,
+    )
     st.markdown(
         """
         1. **Idle Mode Actions:**

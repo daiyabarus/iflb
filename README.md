@@ -2,6 +2,7 @@
 [![Made with Python](https://img.shields.io/badge/Python->=3.12-blue?logo=python&logoColor=white)](https://python.org "Go to Python homepage")
 [![License](https://img.shields.io/badge/License-MIT-blue)](#license)
 [![OS - Windows](https://img.shields.io/badge/OS-Windows-blue?logo=windows&logoColor=white)](https://www.microsoft.com/ "Go to Microsoft homepage")
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/daiyabarus/iflb/main)
 ![maintained - yes](https://img.shields.io/badge/maintained-yes-blue)
 
 # Mobility Carrier Configurations Simulations

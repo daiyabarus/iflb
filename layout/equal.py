@@ -298,8 +298,8 @@ def create_spline_line(color, left, right):
     return go.Scatter(
         x=x_values,
         y=y_values,
-        line=dict(color=color, shape="spline", dash="dashdot"),
-        # line=dict(color=color, dash="dashdot"),
+        # line=dict(color=color, shape="spline", dash="dashdot"),
+        line=dict(color=color, dash="dashdot"),
         mode="lines+markers",
         marker=dict(
             symbol=marker_symbols,
@@ -314,7 +314,7 @@ def get_x_values(color):
     return {
         "blue": [-7, -4, -4, 7],
         "green": [-9, -2, -2, 9],
-        "red": [-8, 1, 1, 8],
+        "red": [-8, 0, 0, 8],
     }[color]
 
 
@@ -359,6 +359,7 @@ def add_all_annotations(fig, sliders, mappings):
     add_threshold_annotations(fig, sliders, mappings)
     add_title_annotation(fig)
     add_cell_annotations(fig)
+    add_spline_annotations(fig, mappings)
 
 
 def add_threshold_annotations(fig, sliders, mappings):
@@ -428,6 +429,26 @@ def add_title_annotation(fig):
         showarrow=False,
     )
 
+def add_spline_annotations(fig, mappings):
+    annotations = [
+        ("blue_right", "blue", "A5 IFLB HO"),
+        ("red_right", "red", "A5 Coverage HO"),
+        ("green_right", "green", "Reselect if F2 Cell<br>is better by qHyst"),
+    ]
+
+    for y_pos_key, color, text in annotations:
+        y_value = mappings[y_pos_key]
+        fig.add_annotation(
+            x=1,
+            y=y_value,
+            text=text,
+            showarrow=False,
+            font=dict(size=14, family="Ericsson Hilda Light", color=color),
+            xref="x",
+            yref="y",
+            xanchor="center",
+            yanchor="bottom",
+        )
 
 def add_cell_annotations(fig):
     cell_annotations = [
