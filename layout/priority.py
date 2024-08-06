@@ -668,26 +668,26 @@ def configure_plot(
     ]
 
     labels_left = [
-        "F1 A2ThresholdRSRP",
-        "F1 QRxLevMin",
-        "(set on F2) ThreshXLow",
-        "(set on F2) COV A5Threshold2",
-        "(set on F2) IFLB A5Threshold2",
-        "IFLB A5Threshold1",
+        f"F1 A2ThresholdRSRP: {sliders["a2criticalthresholdrsrp"]}",
+        f"F1 QRxLevMin: {sliders["qrxlevmin"]}",
+        f"(set on F2) ThreshXLow: {sliders["f2_threshservinglow"]}",
+        f"(set on F2) COV A5Threshold2: {sliders["f2_cov_a5threshold2rsrp"]}",
+        f"(set on F2) IFLB A5Threshold2: {sliders["f2_iflb_a5threshold2rsrp"]}",
+        f"IFLB A5Threshold1: {sliders["f1_iflb_a5threshold1rsrp"]}",
     ]
 
     colors_left = ["blue", "blue", "green", "red", "blue", "blue"]
 
     labels_right = [
-        "F2 A2Threshold",
-        "F2 QRxLevMin",
-        "COV A5Threshold1",
-        "A1A2 Threshold",
-        "ThreshServingLow",
-        "SNonIntraSearch",
-        "(set on F1) IFLB A5Threshold2",
-        "IFLB A5Threshold1",
-        "(set on F1) ThreshXHigh",
+        f"F2 A2Threshold: {sliders["a2criticalthresholdrsrp"]}",
+        f"F2 QRxLevMin: {sliders["qrxlevmin"]}",
+        f"COV A5Threshold1: {sliders["f2_cov_a5threshold1rsrp"]}",
+        f"A1A2 Threshold: {sliders["f2_a1a2searchthresholdrsrp"]}",
+        f"ThreshServingLow: {sliders["f2_threshservinglow"]}",
+        f"SNonIntraSearch: {sliders["f2_snonintrasearch"]}",
+        f"(set on F1) IFLB A5Threshold2: {sliders["a2criticalthresholdrsrp"]}",
+        f"IFLB A5Threshold1: {sliders["f1_iflb_a5threshold2rsrp"]}",
+        f"(set on F1) ThreshXHigh: {sliders["f1_threshxhigh"]}",
     ]
     colors_right = [
         "red",
@@ -716,7 +716,7 @@ def configure_plot(
                     y=y_trace,
                     xanchor="right",
                     yanchor="middle",
-                    text=f"{label}:{y_trace}",
+                    text=label,
                     font=dict(family="Ericsson Hilda Light", size=12, color=color),
                     showarrow=False,
                     xref="x",
@@ -733,7 +733,7 @@ def configure_plot(
                     y=y_trace,
                     xanchor="left",
                     yanchor="middle",
-                    text=f"{label}:{y_trace}",
+                    text=label,
                     font=dict(family="Ericsson Hilda Light", size=12, color=color),
                     showarrow=False,
                     xref="x",

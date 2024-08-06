@@ -4,21 +4,23 @@
 [![OS - Windows](https://img.shields.io/badge/OS-Windows-blue?logo=windows&logoColor=white)](https://www.microsoft.com/ "Go to Microsoft homepage")
 ![maintained - yes](https://img.shields.io/badge/maintained-yes-blue)
 
+## Table of Contents
+
+* 1. [✨ Overview](#overview)
+* 2. [⚙️ Configurations](#configurations)
+  * 2.1. [📊 Equal Priority Carrier Configuration](#equal-priority-carrier-configuration)
+  * 2.2 [📊 Sticky Carrier Configuration](#sticky-carrier-configuration)
+  * 2.3 [📊 Priority Carrier Configuration](#priority-carrier-configuration)
+* 3. [Installation](#installation)
+* 4. [Usage](#usage)
+* 5. [Contributing](#contributing)
+* 6. [License](#license)
+* 7. [Demo](#demo)
+
 # Mobile Network Carrier Configurations
 
 This repository contains a Streamlit application for visualizing and understanding different mobile network carrier configurations using Plotly. The application provides detailed summaries and visualizations for three primary configurations: Equal Priority Carrier Configuration, Sticky Carrier Configuration, and Priority Carrier Configuration.
 
-## Table of Contents
-
-- [Overview](#overview)
-- [Configurations](#configurations)
-  - [Equal Priority Carrier Configuration](#equal-priority-carrier-configuration)
-  - [Sticky Carrier Configuration](#sticky-carrier-configuration)
-  - [Priority Carrier Configuration](#priority-carrier-configuration)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Overview
 
@@ -41,6 +43,8 @@ This project aims to provide a comprehensive understanding of different strategi
 5. Connected mode actions are governed by coverage-triggered events and Inter-Frequency Load Balancing (IFLB).
 6. The alignment of various thresholds (e.g., `sNonIntraSearch`, `a5Threshold2Rsrp`) is crucial for ensuring that idle mode behavior and IFLB work harmoniously.
 
+![Equal Carrier Configuration](assets/equal.png)
+
 #### Conclusion:
 
 The Equal Priority Configuration offers a flexible approach to managing UE distribution across multiple frequency carriers. It is most effective for non-co-located cells, allowing UEs to select the strongest frequency. Careful parameter tuning is essential to balance signal strength-based selection and load-based distribution.
@@ -56,6 +60,8 @@ The Equal Priority Configuration offers a flexible approach to managing UE distr
 5. This configuration is not suited for pushing UEs strongly towards a particular frequency or for use between two primary LTE coverage layers. It's best used between capacity layers with similar coverage and performance.
 6. The configuration allows fine-tuning of both idle mode behavior and connected mode actions, including coverage-triggered handovers and IFLB.
 
+![Sticky Carrier Configuration](assets/sticky.png)
+
 #### Conclusion:
 
 The Sticky Carrier Configuration balances UE distribution across multiple frequency carriers with similar coverage characteristics. It leverages IFLB for efficient load distribution in connected mode, leading to stable and predictable network behavior. This configuration is ideal when active pushing of UEs to a specific carrier is not required but maintaining a balanced load across carriers is desirable.
@@ -70,6 +76,8 @@ The Sticky Carrier Configuration balances UE distribution across multiple freque
 4. It provides better control over UE distribution compared to Equal Priority or Sticky Carrier Configurations, balancing between actively pushing UEs to the high-priority carrier and leaving room for Inter-Frequency Load Balancing (IFLB).
 5. The configuration allows for fine-tuning of both idle mode behavior and connected mode actions, including coverage-triggered handovers and IFLB.
 6. Careful parameter setting is crucial to ensure that idle mode behavior, coverage fallback, and IFLB work harmoniously.
+
+![Priority Carrier Configuration](assets/priority.png)
 
 #### Conclusion:
 
@@ -95,3 +103,7 @@ The Priority Carrier Configuration is effective in scenarios where one carrier n
 To run the Streamlit application, execute the following command in the project directory:
 ```bash
 streamlit run main.py
+```
+
+## <a name='Demo'></a>Demo
+![Demo](assets/iflb.gif)
