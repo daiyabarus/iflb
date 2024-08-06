@@ -1,7 +1,7 @@
 import streamlit as st
 import streamlit_antd_components as sac
 
-from layout import page_config, run_priority, run_sticky
+from layout import homepage, page_config, run_equal, run_priority, run_sticky
 
 
 def init_session_state():
@@ -13,9 +13,10 @@ def run_app():
     page_config()
     tab_idx = sac.tabs(
         items=[
-            sac.TabsItem("Priority", icon="1-circle-fill"),
+            sac.TabsItem("Home", icon="house-door-fill"),
+            sac.TabsItem("Equal", icon="1-circle-fill"),
             sac.TabsItem("Sticky", icon="2-circle-fill"),
-            sac.TabsItem("IFLB", icon="3-circle-fill"),
+            sac.TabsItem("Priority", icon="3-circle-fill"),
         ],
         align="center",
         return_index=True,
@@ -24,8 +25,10 @@ def run_app():
     )
 
     if tab_idx == 0:
-        run_priority()
+        homepage()
     elif tab_idx == 1:
-        run_sticky()
+        run_equal()
     elif tab_idx == 2:
-        st.write("lBact content goes here")
+        run_sticky()
+    elif tab_idx == 3:
+        run_priority()

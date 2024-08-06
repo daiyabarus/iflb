@@ -1,2 +1,5 @@
-# iflb
-IFLB Visual Illustrated
+[![jarvis-timeseries](https://img.shields.io/static/v1?label=&message=iflb&color=blue&logo=github)](https://github.com/daiyabarus/iflb "Go to GitHub repo")
+[![Made with Python](https://img.shields.io/badge/Python->=3.12-blue?logo=python&logoColor=white)](https://python.org "Go to Python homepage")
+[![License](https://img.shields.io/badge/License-MIT-blue)](#license)
+[![OS - Windows](https://img.shields.io/badge/OS-Windows-blue?logo=windows&logoColor=white)](https://www.microsoft.com/ "Go to Microsoft homepage")
+![maintained - yes](https://img.shields.io/badge/maintained-yes-blue)

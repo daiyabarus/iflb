@@ -50,43 +50,23 @@ def configure_sliders(columns):
             "step": 2,
             "min_value": -140,
             "max_value": -44,
-            "default_value": -124,
-            "slider_color": "#AAE89F",
-            "track_color": "lightgrey",
-            "thumb_color": "#5DC93E",
-        },
-        {
-            "key": "qrxlevmin",
-            "step": 2,
-            "min_value": -140,
-            "max_value": -44,
             "default_value": -120,
             "slider_color": "#AAE89F",
             "track_color": "lightgrey",
             "thumb_color": "#5DC93E",
         },
         {
+            "key": "qrxlevminsib3",
+            "step": 2,
+            "min_value": -140,
+            "max_value": -44,
+            "default_value": -124,
+            "slider_color": "#AAE89F",
+            "track_color": "lightgrey",
+            "thumb_color": "#5DC93E",
+        },
+        {
             "key": "f1_snonintrasearch",
-            "step": 2,
-            "min_value": 0,
-            "max_value": 62,
-            "default_value": 12,
-            "slider_color": "#AAE89F",
-            "track_color": "lightgrey",
-            "thumb_color": "#5DC93E",
-        },
-        {
-            "key": "f1_threshservinglow",
-            "step": 2,
-            "min_value": 0,
-            "max_value": 62,
-            "default_value": 8,
-            "slider_color": "#AAE89F",
-            "track_color": "lightgrey",
-            "thumb_color": "#5DC93E",
-        },
-        {
-            "key": "f1_threshxlow",
             "step": 2,
             "min_value": 0,
             "max_value": 62,
@@ -158,10 +138,9 @@ def generate_scripts(sliders):
     script_lines = [
         "# SET ON F1",
         f'set `F1` A2Critical {sliders["a2criticalthresholdrsrp"]} dBm',
-        f'set `F1` QRxLevMin {sliders["qrxlevminsib1"]} dBm ',
+        f'set `F1` QRxLevMin SIB1 {sliders["qrxlevminsib1"]} dBm ',
+        f'set `F1` QRxLevMin SIB3 {sliders["qrxlevminsib3"]} dBm ',
         f'set `F1` SIB3 sNonIntraSearch {sliders["f1_snonintrasearch"]} dB',
-        f'set `F1` threshServingLow {sliders["f1_threshservinglow"]} dB',
-        f'set `F1` EUtranFreq `F2` threshXLow {sliders["f1_threshxlow"]} dB',
         f'set `F1` A1A2 SearchThreshold RSRP {sliders["f1_a1a2searchthresholdrsrp"]} dBm',
         f'set `F1` COV A5Threshold1 {sliders["f1_cov_a5threshold1rsrp"]} dBm',
         f'set `F1` COV A5Threshold2 {sliders["f1_cov_a5threshold2rsrp"]} dBm',
@@ -181,28 +160,28 @@ def compute_threshold_mappings(sliders):
             return threshold + ((critical_threshold - threshold) / factor)
         return threshold
 
-    f1_threshservinglow_map = (sliders["f1_threshservinglow"] * 2) + sliders[
-        "qrxlevmin"
-    ]
-    f1_threshxlow_map = (sliders["f1_threshxlow"] * 2) + sliders["qrxlevmin"]
     f1_snonintrasearch_map = (sliders["f1_snonintrasearch"] * 2) + sliders[
         "qrxlevminsib1"
     ]
 
-    blue_left = compute_value(
-        sliders["f1_iflb_a5threshold1rsrp"], sliders["a2criticalthresholdrsrp"], 1.2
+    blue_left = int(
+        compute_value(
+            sliders["f1_iflb_a5threshold1rsrp"], sliders["a2criticalthresholdrsrp"], 1.2
+        )
     )
-    blue_right = compute_value(-44, sliders["f1_iflb_a5threshold2rsrp"], 4)
-    green_left = compute_value(f1_threshservinglow_map, sliders["qrxlevmin"], 2)
-    green_right = compute_value(-44, f1_threshxlow_map, 3.2)
-    red_left = compute_value(
-        sliders["f1_cov_a5threshold1rsrp"], sliders["a2criticalthresholdrsrp"], 2
+    blue_right = int(compute_value(-44, sliders["f1_iflb_a5threshold2rsrp"], 4))
+    green_left = int(compute_value(f1_snonintrasearch_map, sliders["qrxlevminsib1"], 2))
+    green_right = int(
+        compute_value(-44, sliders["qrxlevminsib3"], 3.8),
     )
-    red_right = compute_value(-44, sliders["f1_cov_a5threshold2rsrp"], 3.8)
+    red_left = int(
+        compute_value(
+            sliders["f1_cov_a5threshold1rsrp"], sliders["a2criticalthresholdrsrp"], 2
+        )
+    )
+    red_right = int(compute_value(-44, sliders["f1_cov_a5threshold2rsrp"], 3.8))
 
     return {
-        "f1_threshservinglow_map": f1_threshservinglow_map,
-        "f1_threshxlow_map": f1_threshxlow_map,
         "f1_snonintrasearch_map": f1_snonintrasearch_map,
         "MAX_VALUE": MAX_VALUE,
         "blue_left": blue_left,
@@ -216,13 +195,8 @@ def compute_threshold_mappings(sliders):
 
 def create_vertical_lines(sliders, mappings):
     return [
-        create_vertical_line(-9, -140, sliders["qrxlevmin"]),
         create_vertical_line(
-            -9, sliders["qrxlevmin"], mappings["f1_threshservinglow_map"], "green"
-        ),
-        create_vertical_line(-9, -140, mappings["f1_threshservinglow_map"]),
-        create_vertical_line(
-            -9, mappings["f1_threshservinglow_map"], sliders["qrxlevmin"], "green"
+            -9, mappings["f1_snonintrasearch_map"], sliders["qrxlevminsib1"], "green"
         ),
         create_vertical_line(
             -8,
@@ -237,7 +211,7 @@ def create_vertical_lines(sliders, mappings):
             "blue",
         ),
         create_vertical_line(
-            9, mappings["MAX_VALUE"], mappings["f1_threshxlow_map"], "green"
+            9, mappings["MAX_VALUE"], sliders["qrxlevminsib3"], "green"
         ),
         create_vertical_line(
             8, mappings["MAX_VALUE"], sliders["f1_cov_a5threshold2rsrp"], "red"
@@ -259,16 +233,15 @@ def create_lines(sliders, mappings):
 
 def create_threshold_lines(sliders, mappings):
     threshold_configs = [
-        ([-12, -7], sliders["f1_iflb_a5threshold1rsrp"], "blue"),
-        ([-12, -10], mappings["f1_snonintrasearch_map"], "green"),
-        ([-12, -9], mappings["f1_threshservinglow_map"], "green"),
+        ([-11, -7], sliders["f1_iflb_a5threshold1rsrp"], "blue"),
+        ([-12, -9], mappings["f1_snonintrasearch_map"], "green"),
         ([-12, -10], sliders["f1_a1a2searchthresholdrsrp"], "red"),
         ([-12, -8], sliders["f1_cov_a5threshold1rsrp"], "red"),
-        ([-12, -9], sliders["qrxlevmin"], "green"),
+        ([-12, -9], sliders["qrxlevminsib1"], "green"),
         ([-12, -8], sliders["a2criticalthresholdrsrp"], "red"),
-        ([9, 12], mappings["f1_threshxlow_map"], "green"),
-        ([8, 12], sliders["f1_cov_a5threshold2rsrp"], "red"),
         ([7, 12], sliders["f1_iflb_a5threshold2rsrp"], "blue"),
+        ([8, 12], sliders["f1_cov_a5threshold2rsrp"], "red"),
+        ([9, 12], sliders["qrxlevminsib3"], "green"),
     ]
     return [create_threshold_line(x, y, color) for x, y, color in threshold_configs]
 
@@ -338,9 +311,9 @@ def create_spline_line(color, left, right):
 
 def get_x_values(color):
     return {
-        "blue": [-7, -1.5, 1.5, 7],
-        "green": [-9, -1.8, 1.8, 9],
-        "red": [-8, -2.1, 2.1, 8],
+        "blue": [-7, -5, 5, 7],
+        "green": [-9, -7, 7, 9],
+        "red": [-8, -6, 6, 8],
     }[color]
 
 
@@ -393,13 +366,12 @@ def add_threshold_annotations(fig, sliders, mappings):
         (sliders["f1_cov_a5threshold1rsrp"], "COV A5Threshold1", "red"),
         (sliders["f1_a1a2searchthresholdrsrp"], "A1A2 Threshold", "red"),
         (sliders["a2criticalthresholdrsrp"], "A2 Critical", "red"),
-        (sliders["qrxlevmin"], "QRxLevMin", "green"),
-        (mappings["f1_threshservinglow_map"], "ThreshServingLow", "green"),
+        (sliders["qrxlevminsib1"], "QRxLevMin SIB1", "green"),
         (mappings["f1_snonintrasearch_map"], "SNonIntraSearch", "green"),
         (sliders["f1_iflb_a5threshold1rsrp"], "IFLB A5Threshold1", "blue"),
     ]
     right_annotations = [
-        (mappings["f1_threshxlow_map"], "(Set on F1) ThreshXLow", "green"),
+        (sliders["qrxlevminsib3"], "(Set on F1) QRxLevmin SIB3", "green"),
         (sliders["f1_cov_a5threshold2rsrp"], "(Set on F1) COV A5Threshold2", "red"),
         (sliders["f1_iflb_a5threshold2rsrp"], "(Set on F1) IFLB A5Threshold2", "blue"),
     ]
@@ -450,7 +422,7 @@ def add_title_annotation(fig):
         y=1.1,
         xanchor="left",
         yanchor="bottom",
-        text="Mobility Actions and Thresholds for the Sticky Carrier Configuration",
+        text="Mobility Actions and Thresholds for the Equal Priority Configuration",
         font=dict(family="Arial", size=30, color="rgb(37,37,37)"),
         showarrow=False,
     )
@@ -458,8 +430,8 @@ def add_title_annotation(fig):
 
 def add_cell_annotations(fig):
     cell_annotations = [
-        (11, 1, "F2 Cell<br>Higher Prio", "bottom"),
-        (-11, 1, "F1 Cell<br>Lower Prio", "bottom"),
+        (11, 1, "F2 Cell<br> ", "bottom"),
+        (-11, 1, "F1 Cell<br> ", "bottom"),
         (11, -0.01, "🔻<br>Lowest<br>RSRP", "top"),
         (-11, -0.01, "🔻<br>Lowest<br>RSRP", "top"),
     ]
@@ -498,16 +470,14 @@ def stylings(text, font_size=10, text_align="center"):
     return style
 
 
-def run_sticky():
-    columns = st.columns(11, gap="small")
+def run_equal():
+    columns = st.columns(9, gap="small")
 
     column_texts = [
         "F1<br>A2 Critical<br>&emsp;&emsp;&emsp;",
         "F1<br>QRxLevMin<br>SIB1",
         "F1<br>QRxLevMin<br>SIB3",
         "F1<br>sNonIntraSearch<br>&emsp;&emsp;&emsp;",
-        "F1<br>threshServingLow<br>&emsp;&emsp;&emsp;",
-        "F1<br>threshXLow<br>&emsp;&emsp;&emsp;",
         "F1<br>A1A2 SearchThreshold<br>&emsp;&emsp;&emsp;",
         "F1<br>COV<br>A5Threshold1",
         "F1<br>COV<br>A5Threshold2",
@@ -580,21 +550,23 @@ def run_sticky():
             )
     st.markdown(
         """
-        ### ✨ Sticky Carrier Configuration
+        ### ✨ Equal Priority Carrier Configuration
 
         1. **Idle Mode Actions:**
-            - A UE camped on F1 measures other frequencies when the serving RSRP drops below `sNonIntraSearch`.
-            - Reselection to F2 occurs if F1 RSRP falls below `threshServingLow` and F2 RSRP is above `threshXLow`.
-            - Above `threshServingLow`, the UE remains on F1 regardless of F2's strength.
+            - A UE camped on F1 does not begin to measure F2 until the serving RSRP drops below `sNonIntraSearch`.
+            - UE reselects to F2 when it becomes stronger by `qHyst`.
+            - Similar rules apply when reselecting from F2 back to F1.
 
         2. **Connected Mode Actions - Coverage Triggered:**
             - Triggered by the feature Mobility Control at Poor Coverage using `EVENT_A5`.
-            - Handover to F2 occurs when F1 RSRP falls to `a5Threshold1Rsrp` and F2 RSRP is above `a5Threshold2Rsrp`.
-            - Blind release-with-redirect can be triggered at `a2CriticalThresholdRsrp` if no suitable target is found.
+            - A UE encountering falling RSRP on F1 eventually reaches `A1A2SearchThreshold`, triggering entry to the search zone.
+            - If the RSRP on F1 falls further, to `A5Threshold1`, and the RSRP on F2 is simultaneously above `A5Threshold2`, then handover to F2 is triggered.
+            - On the other hand, if a suitable target is not found, then a blind release-with-redirect can be triggered at `A2CriticalThreshold`.
+            - In practice, `A1A22SearchThreshold` and `A5Threshold1` can be set to the same value, so that handover can occur as soon as a suitable target is found (without having to wait for the serving RSRP to fall still lower). This reduces unproductive searching. Similar rules apply for coverage handovers in the other direction (from F2 to F1).
 
         3. **Connected Mode Actions - IFLB:**
-            - IFLB from F1 to F2 occurs when F1 RSRP is below `a5Threshold1Rsrp` (set to -44 dBm for IFLB) and F2 RSRP is above `a5Threshold2rsrp`.
-            - `a5Threshold2Rsrp` is typically set at or above `threshServingLow` to avoid immediate reselection to F1 in idle mode.
+            - IFLB from F1 to F2 occurs when F1 RSRP is below `A5Threshold1` (set to -44 dBm for IFLB) and F2 RSRP is above `A5Threshold2`.
+            - `a5Threshold2Rsrp` is typically set at or above `sNonIntraSearch` to provide a buffer against UEs being returned to F1 as soon as they reenter idle mode on F2.
 
         These mobility actions ensure efficient UE reselection and handover, maintaining connectivity and load balancing between cells.
 
