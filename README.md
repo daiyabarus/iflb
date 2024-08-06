@@ -40,7 +40,7 @@ This project aims to provide a comprehensive understanding of different strategi
 3. The `sNonIntraSearch` parameter controls the "stickiness" of UEs to the serving frequency, which can be useful when combined with load balancing.
 4. This configuration works well for non-co-located cells but may not be ideal for pushing UEs towards a particular frequency in co-located cells.
 5. Connected mode actions are governed by coverage-triggered events and Inter-Frequency Load Balancing (IFLB).
-6. The alignment of various thresholds (e.g., `sNonIntraSearch`, `a5Threshold2Rsrp`) is crucial for ensuring that idle mode behavior and IFLB work harmoniously.
+6. The alignment of various thresholds (e.g., `sNonIntraSearch`, `A5Threshold2`) is crucial for ensuring that idle mode behavior and IFLB work harmoniously.
 
 ![Equal Carrier Configuration](assets/equal.png)
 
