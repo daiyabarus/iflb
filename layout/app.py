@@ -14,9 +14,9 @@ def run_app():
     tab_idx = sac.tabs(
         items=[
             sac.TabsItem("Home", icon="house-door-fill"),
-            sac.TabsItem("Equal", icon="1-circle-fill"),
-            sac.TabsItem("Sticky", icon="2-circle-fill"),
-            sac.TabsItem("Priority", icon="3-circle-fill"),
+            sac.TabsItem("Equal Priority", icon="1-circle-fill"),
+            sac.TabsItem("Sticky Carrier", icon="2-circle-fill"),
+            sac.TabsItem("Priority Carrier", icon="3-circle-fill"),
         ],
         align="center",
         return_index=True,

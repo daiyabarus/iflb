@@ -589,12 +589,12 @@ def run_sticky():
 
         2. **Connected Mode Actions - Coverage Triggered:**
             - Triggered by the feature Mobility Control at Poor Coverage using `EVENT_A5`.
-            - Handover to F2 occurs when F1 RSRP falls to `a5Threshold1Rsrp` and F2 RSRP is above `a5Threshold2Rsrp`.
-            - Blind release-with-redirect can be triggered at `a2CriticalThresholdRsrp` if no suitable target is found.
+            - Handover to F2 occurs when F1 RSRP falls to `A5Threshold1` and F2 RSRP is above `A5Threshold2`.
+            - Blind release-with-redirect can be triggered at `A2Critical` if no suitable target is found.
 
         3. **Connected Mode Actions - IFLB:**
-            - IFLB from F1 to F2 occurs when F1 RSRP is below `a5Threshold1Rsrp` (set to -44 dBm for IFLB) and F2 RSRP is above `a5Threshold2rsrp`.
-            - `a5Threshold2Rsrp` is typically set at or above `threshServingLow` to avoid immediate reselection to F1 in idle mode.
+            - IFLB from F1 to F2 occurs when F1 RSRP is below `A5Threshold1` (set to -44 dBm for IFLB) and F2 RSRP is above `A5Threshold2`.
+            - `A5Threshold2` is typically set at or above `threshServingLow` to avoid immediate reselection to F1 in idle mode.
 
         These mobility actions ensure efficient UE reselection and handover, maintaining connectivity and load balancing between cells.
 
