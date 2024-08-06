@@ -4,7 +4,7 @@
 [![OS - Windows](https://img.shields.io/badge/OS-Windows-blue?logo=windows&logoColor=white)](https://www.microsoft.com/ "Go to Microsoft homepage")
 ![maintained - yes](https://img.shields.io/badge/maintained-yes-blue)
 
-# Mobile Network Carrier Configurations
+# Mobility Carrier Configurations Simulations
 
 This repository contains a Streamlit application for visualizing and understanding different mobile network carrier configurations using Plotly. The application provides detailed summaries and visualizations for three primary configurations: Equal Priority Carrier Configuration, Sticky Carrier Configuration, and Priority Carrier Configuration.
 
