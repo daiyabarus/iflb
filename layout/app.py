@@ -1,5 +1,3 @@
-import webbrowser
-
 import streamlit as st
 import streamlit_antd_components as sac
 
@@ -36,5 +34,4 @@ def run_app():
     elif tab_idx == 3:
         run_priority()
     elif tab_idx == 4:
-        url = "https://github.com/daiyabarus/iflb"
-        webbrowser.open(url)
+        st.link_button("github", "https://github.com/daiyabarus/iflb")
