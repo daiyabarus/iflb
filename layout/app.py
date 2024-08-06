@@ -34,4 +34,4 @@ def run_app():
     elif tab_idx == 3:
         run_priority()
     elif tab_idx == 4:
-        st.link_button("github", "https://github.com/daiyabarus/iflb")
+        st.link_button("Github", "https://github.com/daiyabarus/iflb")

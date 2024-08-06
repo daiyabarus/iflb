@@ -1,28 +1,27 @@
-[![jarvis-timeseries](https://img.shields.io/static/v1?label=&message=iflb&color=blue&logo=github)](https://github.com/daiyabarus/iflb "Go to GitHub repo")
+[![iflb](https://img.shields.io/static/v1?label=&message=iflb&color=blue&logo=github)](https://github.com/daiyabarus/iflb "Go to GitHub repo")
 [![Made with Python](https://img.shields.io/badge/Python->=3.12-blue?logo=python&logoColor=white)](https://python.org "Go to Python homepage")
 [![License](https://img.shields.io/badge/License-MIT-blue)](#license)
 [![OS - Windows](https://img.shields.io/badge/OS-Windows-blue?logo=windows&logoColor=white)](https://www.microsoft.com/ "Go to Microsoft homepage")
 ![maintained - yes](https://img.shields.io/badge/maintained-yes-blue)
 
-## Table of Contents
-
-* 1. [✨ Overview](#overview)
-* 2. [⚙️ Configurations](#configurations)
-  * 2.1. [📊 Equal Priority Carrier Configuration](#equal-priority-carrier-configuration)
-  * 2.2 [📊 Sticky Carrier Configuration](#sticky-carrier-configuration)
-  * 2.3 [📊 Priority Carrier Configuration](#priority-carrier-configuration)
-* 3. [Installation](#installation)
-* 4. [Usage](#usage)
-* 5. [Contributing](#contributing)
-* 6. [License](#license)
-* 7. [Demo](#demo)
-
 # Mobile Network Carrier Configurations
 
 This repository contains a Streamlit application for visualizing and understanding different mobile network carrier configurations using Plotly. The application provides detailed summaries and visualizations for three primary configurations: Equal Priority Carrier Configuration, Sticky Carrier Configuration, and Priority Carrier Configuration.
 
+## Table of Contents
 
-## Overview
+1. [✨ Overview](#overview)
+2. [⚙️ Configurations](#configurations)
+   - [📊 Equal Priority Carrier Configuration](#equal-priority-carrier-configuration)
+   - [📊 Sticky Carrier Configuration](#sticky-carrier-configuration)
+   - [📊 Priority Carrier Configuration](#priority-carrier-configuration)
+3. [🚀 Installation](#installation)
+4. [📖 Usage](#usage)
+5. [🤝 Contributing](#contributing)
+6. [📜 License](#license)
+7. [🎥 Demo](#demo)
+
+## 1. ✨ Overview
 
 This project aims to provide a comprehensive understanding of different strategies for managing User Equipment (UE) behavior in mobile networks with multiple frequency carriers. The configurations discussed here are:
 
@@ -30,9 +29,9 @@ This project aims to provide a comprehensive understanding of different strategi
 2. **Sticky Carrier Configuration**
 3. **Priority Carrier Configuration**
 
-## Configurations
+## 2. ⚙️ Configurations
 
-### Equal Priority Carrier Configuration
+### 2.1. 📊 Equal Priority Carrier Configuration
 
 #### Key Takeaways:
 
@@ -49,7 +48,7 @@ This project aims to provide a comprehensive understanding of different strategi
 
 The Equal Priority Configuration offers a flexible approach to managing UE distribution across multiple frequency carriers. It is most effective for non-co-located cells, allowing UEs to select the strongest frequency. Careful parameter tuning is essential to balance signal strength-based selection and load-based distribution.
 
-### Sticky Carrier Configuration
+### 2.2. 📊 Sticky Carrier Configuration
 
 #### Key Takeaways:
 
@@ -66,7 +65,7 @@ The Equal Priority Configuration offers a flexible approach to managing UE distr
 
 The Sticky Carrier Configuration balances UE distribution across multiple frequency carriers with similar coverage characteristics. It leverages IFLB for efficient load distribution in connected mode, leading to stable and predictable network behavior. This configuration is ideal when active pushing of UEs to a specific carrier is not required but maintaining a balanced load across carriers is desirable.
 
-### Priority Carrier Configuration
+### 2.3. 📊 Priority Carrier Configuration
 
 #### Key Takeaways:
 
@@ -83,7 +82,7 @@ The Sticky Carrier Configuration balances UE distribution across multiple freque
 
 The Priority Carrier Configuration is effective in scenarios where one carrier needs prioritization to maximize its utilization while maintaining overall network efficiency and coverage. This configuration balances pushing UEs to a preferred carrier in idle mode and distributing traffic in connected mode. Careful planning and ongoing optimization are required to determine the optimal settings based on network characteristics.
 
-## Installation
+## 3. 🚀 Installation
 
 1. Clone the repository:
     ```bash
@@ -98,12 +97,11 @@ The Priority Carrier Configuration is effective in scenarios where one carrier n
     pip install -r requirements.txt
     ```
 
-## Usage
+## 4. 📖 Usage
 
 To run the Streamlit application, execute the following command in the project directory:
 ```bash
 streamlit run main.py
 ```
-
 ## <a name='Demo'></a>Demo
 ![Demo](assets/iflb.gif)
