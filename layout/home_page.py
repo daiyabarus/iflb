@@ -75,7 +75,7 @@ def homepage():
                 <li>The `sNonIntraSearch` parameter controls the "stickiness" of UEs to the serving frequency, which can be useful when combined with load balancing.</li>
                 <li>This configuration works well for non-co-located cells but may not be ideal for pushing UEs towards a particular frequency in co-located cells.</li>
                 <li>Connected mode actions are governed by coverage-triggered events and Inter-Frequency Load Balancing (IFLB).</li>
-                <li>The alignment of various thresholds (e.g., `sNonIntraSearch`, `a5Threshold2Rsrp`) is crucial for ensuring that idle mode behavior and IFLB work harmoniously.</li>
+                <li>The alignment of various thresholds (e.g., `sNonIntraSearch`, `A5Threshold1`) is crucial for ensuring that idle mode behavior and IFLB work harmoniously.</li>
             </ul>
         </div>
         <div class="conclusion">
