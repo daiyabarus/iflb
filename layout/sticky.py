@@ -56,7 +56,7 @@ def configure_sliders(columns):
             "thumb_color": "#5DC93E",
         },
         {
-            "key": "qrxlevmin",
+            "key": "qrxlevminsib3",
             "step": 2,
             "min_value": -140,
             "max_value": -44,
@@ -158,7 +158,8 @@ def generate_scripts(sliders):
     script_lines = [
         "# SET ON F1",
         f'set `F1` A2Critical {sliders["a2criticalthresholdrsrp"]} dBm',
-        f'set `F1` QRxLevMin {sliders["qrxlevminsib1"]} dBm ',
+        f'set `F1` QRxLevMin SIB1 {sliders["qrxlevminsib1"]} dBm ',
+        f'set `F1` QRxLevMin SIB3 {sliders["qrxlevminsib3"]} dBm ',
         f'set `F1` SIB3 sNonIntraSearch {sliders["f1_snonintrasearch"]} dB',
         f'set `F1` threshServingLow {sliders["f1_threshservinglow"]} dB',
         f'set `F1` EUtranFreq `F2` threshXLow {sliders["f1_threshxlow"]} dB',
@@ -182,23 +183,29 @@ def compute_threshold_mappings(sliders):
         return threshold
 
     f1_threshservinglow_map = (sliders["f1_threshservinglow"] * 2) + sliders[
-        "qrxlevmin"
+        "qrxlevminsib3"
     ]
-    f1_threshxlow_map = (sliders["f1_threshxlow"] * 2) + sliders["qrxlevmin"]
+    f1_threshxlow_map = (sliders["f1_threshxlow"] * 2) + sliders["qrxlevminsib3"]
     f1_snonintrasearch_map = (sliders["f1_snonintrasearch"] * 2) + sliders[
-        "qrxlevminsib1"
+        "qrxlevminsib3"
     ]
 
-    blue_left = compute_value(
-        sliders["f1_iflb_a5threshold1rsrp"], sliders["a2criticalthresholdrsrp"], 1.2
+    blue_left = int(
+        compute_value(
+            sliders["f1_iflb_a5threshold1rsrp"], sliders["a2criticalthresholdrsrp"], 1.2
+        )
     )
-    blue_right = compute_value(-44, sliders["f1_iflb_a5threshold2rsrp"], 4)
-    green_left = compute_value(f1_threshservinglow_map, sliders["qrxlevmin"], 2)
-    green_right = compute_value(-44, f1_threshxlow_map, 3.2)
-    red_left = compute_value(
-        sliders["f1_cov_a5threshold1rsrp"], sliders["a2criticalthresholdrsrp"], 2
+    blue_right = int(compute_value(-44, sliders["f1_iflb_a5threshold2rsrp"], 4))
+    green_left = int(
+        compute_value(f1_threshservinglow_map, sliders["qrxlevminsib3"], 2)
     )
-    red_right = compute_value(-44, sliders["f1_cov_a5threshold2rsrp"], 3.8)
+    green_right = int(compute_value(-44, f1_threshxlow_map, 3.2))
+    red_left = int(
+        compute_value(
+            sliders["f1_cov_a5threshold1rsrp"], sliders["a2criticalthresholdrsrp"], 2
+        )
+    )
+    red_right = int(compute_value(-44, sliders["f1_cov_a5threshold2rsrp"], 3))
 
     return {
         "f1_threshservinglow_map": f1_threshservinglow_map,
@@ -216,13 +223,13 @@ def compute_threshold_mappings(sliders):
 
 def create_vertical_lines(sliders, mappings):
     return [
-        create_vertical_line(-9, -140, sliders["qrxlevmin"]),
+        create_vertical_line(-9, -140, sliders["qrxlevminsib3"]),
         create_vertical_line(
-            -9, sliders["qrxlevmin"], mappings["f1_threshservinglow_map"], "green"
+            -9, sliders["qrxlevminsib3"], mappings["f1_threshservinglow_map"], "green"
         ),
         create_vertical_line(-9, -140, mappings["f1_threshservinglow_map"]),
         create_vertical_line(
-            -9, mappings["f1_threshservinglow_map"], sliders["qrxlevmin"], "green"
+            -9, mappings["f1_threshservinglow_map"], sliders["qrxlevminsib1"], "green"
         ),
         create_vertical_line(
             -8,
@@ -264,7 +271,7 @@ def create_threshold_lines(sliders, mappings):
         ([-12, -9], mappings["f1_threshservinglow_map"], "green"),
         ([-12, -10], sliders["f1_a1a2searchthresholdrsrp"], "red"),
         ([-12, -8], sliders["f1_cov_a5threshold1rsrp"], "red"),
-        ([-12, -9], sliders["qrxlevmin"], "green"),
+        ([-12, -9], sliders["qrxlevminsib1"], "green"),
         ([-12, -8], sliders["a2criticalthresholdrsrp"], "red"),
         ([9, 12], mappings["f1_threshxlow_map"], "green"),
         ([8, 12], sliders["f1_cov_a5threshold2rsrp"], "red"),
@@ -338,9 +345,9 @@ def create_spline_line(color, left, right):
 
 def get_x_values(color):
     return {
-        "blue": [-7, -1.5, 1.5, 7],
-        "green": [-9, -1.8, 1.8, 9],
-        "red": [-8, -2.1, 2.1, 8],
+        "blue": [-7, -4, -4, 7],
+        "green": [-9, -2, -2, 9],
+        "red": [-8, 1, 1, 8],
     }[color]
 
 
@@ -390,18 +397,18 @@ def add_all_annotations(fig, sliders, mappings):
 def add_threshold_annotations(fig, sliders, mappings):
     LEFT_X_POS, RIGHT_X_POS = -0.01, 1
     left_annotations = [
-        (sliders["f1_cov_a5threshold1rsrp"], "COV A5Threshold1", "red"),
-        (sliders["f1_a1a2searchthresholdrsrp"], "A1A2 Threshold", "red"),
-        (sliders["a2criticalthresholdrsrp"], "A2 Critical", "red"),
-        (sliders["qrxlevmin"], "QRxLevMin", "green"),
-        (mappings["f1_threshservinglow_map"], "ThreshServingLow", "green"),
-        (mappings["f1_snonintrasearch_map"], "SNonIntraSearch", "green"),
-        (sliders["f1_iflb_a5threshold1rsrp"], "IFLB A5Threshold1", "blue"),
+        (sliders["f1_cov_a5threshold1rsrp"], f"COV A5Threshold1: {sliders["f1_cov_a5threshold1rsrp"]}", "red"),
+        (sliders["f1_a1a2searchthresholdrsrp"], f"A1A2 Threshold: {sliders["f1_a1a2searchthresholdrsrp"]}", "red"),
+        (sliders["a2criticalthresholdrsrp"], f"A2 Critical: {sliders["a2criticalthresholdrsrp"]}", "red"),
+        (sliders["qrxlevminsib1"], f"QRxLevMin: {sliders["qrxlevminsib1"]}", "green"),
+        (mappings["f1_threshservinglow_map"], f"ThreshServingLow: {sliders["f1_threshxlow"]}", "green"),
+        (mappings["f1_snonintrasearch_map"], f"SNonIntraSearch: {sliders["f1_snonintrasearch"]}", "green"),
+        (sliders["f1_iflb_a5threshold1rsrp"], f"IFLB A5Threshold1: {sliders["f1_iflb_a5threshold1rsrp"]}", "blue"),
     ]
     right_annotations = [
-        (mappings["f1_threshxlow_map"], "(Set on F1) ThreshXLow", "green"),
-        (sliders["f1_cov_a5threshold2rsrp"], "(Set on F1) COV A5Threshold2", "red"),
-        (sliders["f1_iflb_a5threshold2rsrp"], "(Set on F1) IFLB A5Threshold2", "blue"),
+        (mappings["f1_threshxlow_map"], f"(Set on F1) ThreshXLow: {sliders["f1_threshxlow"]}", "green"),
+        (sliders["f1_cov_a5threshold2rsrp"], f"(Set on F1) COV A5Threshold2: {sliders["f1_cov_a5threshold2rsrp"]}", "red"),
+        (sliders["f1_iflb_a5threshold2rsrp"], f"(Set on F1) IFLB A5Threshold2: {sliders["f1_iflb_a5threshold2rsrp"]}", "blue"),
     ]
 
     for y, label, color in left_annotations:
@@ -409,7 +416,7 @@ def add_threshold_annotations(fig, sliders, mappings):
             x=LEFT_X_POS,
             y=y,
             xref="paper",
-            text=f"{label}: {y}",
+            text=label,
             showarrow=False,
             font=dict(family="Ericsson Hilda Light", size=12, color=color),
             xanchor="right",
@@ -421,7 +428,8 @@ def add_threshold_annotations(fig, sliders, mappings):
             x=RIGHT_X_POS,
             y=y,
             xref="paper",
-            text=f"{label}: {y}",
+            # text=f"{label}: {y}",
+            text=label,
             showarrow=False,
             font=dict(family="Ericsson Hilda Light", size=12, color=color),
             xanchor="left",
@@ -458,8 +466,8 @@ def add_title_annotation(fig):
 
 def add_cell_annotations(fig):
     cell_annotations = [
-        (11, 1, "F2 Cell<br>Higher Prio", "bottom"),
-        (-11, 1, "F1 Cell<br>Lower Prio", "bottom"),
+        (11, 1, "F2 Cell<br> ", "bottom"),
+        (-11, 1, "F1 Cell<br> ", "bottom"),
         (11, -0.01, "🔻<br>Lowest<br>RSRP", "top"),
         (-11, -0.01, "🔻<br>Lowest<br>RSRP", "top"),
     ]
@@ -578,10 +586,28 @@ def run_sticky():
                 ),
                 unsafe_allow_html=True,
             )
+    st.markdown("""
+    <div class="section">
+        <h2>✨ Sticky Carrier Configuration</h2>
+        <div class="key-takeaways">
+            <h3>Key Takeaways:</h3>
+            <ul>
+                <li>In this configuration, the serving frequency is given a higher priority than the neighboring frequency, regardless of which frequency the UE is currently on.</li>
+                <li>It's most useful when two carriers have similar coverage properties, allowing Inter-Frequency Load Balancing (IFLB) to distribute UEs in connected mode and maintaining this distribution in idle mode.</li>
+                <li>The configuration divides the signal strength plane into three regions (blue, green, and grey) based on key parameters: `threshServingLow` and `threshXLow`.</li>
+                <li>Unlike the Equal Priority Configuration, stickiness in the grey region is guaranteed by the standards, as reselection only occurs when both thresholds are met.</li>
+                <li>This configuration is not well-suited for pushing UEs strongly towards a particular frequency or for use between two primary LTE coverage layers. It's best used between capacity layers with similar coverage and performance.</li>
+                <li>The configuration allows for fine-tuning of both idle mode behavior and connected mode actions, including coverage-triggered handovers and IFLB.</li>
+            </ul>
+        </div>
+        <div class="conclusion">
+            <h3>Conclusion:</h3>
+            <p>The Sticky Carrier Configuration offers a balanced approach to managing UE distribution across multiple frequency carriers with similar coverage characteristics. It allows network operators to leverage IFLB for efficient load distribution in connected mode while maintaining this distribution in idle mode, leading to more stable and predictable network behavior. This configuration is particularly effective in scenarios where active pushing of UEs to a specific carrier is not required, but maintaining a balanced load across carriers is desirable. By carefully adjusting parameters such as `threshServingLow`, `threshXLow`, and various IFLB thresholds, operators can optimize network performance and ensure efficient use of available carriers. However, implementing this configuration requires careful consideration of the network's specific characteristics. It's not suitable for all scenarios, particularly those involving primary coverage layers or carriers with significantly different coverage properties. In such cases, other configurations like the Equal Priority or Priority Carrier configurations may be more appropriate. Network operators should assess their specific needs, considering factors such as coverage patterns, capacity requirements, and desired load balancing behavior, to determine if the Sticky Carrier Configuration is the best choice for their network environment.</p>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
     st.markdown(
         """
-        ### ✨ Sticky Carrier Configuration
-
         1. **Idle Mode Actions:**
             - A UE camped on F1 measures other frequencies when the serving RSRP drops below `sNonIntraSearch`.
             - Reselection to F2 occurs if F1 RSRP falls below `threshServingLow` and F2 RSRP is above `threshXLow`.

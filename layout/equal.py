@@ -70,7 +70,7 @@ def configure_sliders(columns):
             "step": 2,
             "min_value": 0,
             "max_value": 62,
-            "default_value": 8,
+            "default_value": 6,
             "slider_color": "#AAE89F",
             "track_color": "lightgrey",
             "thumb_color": "#5DC93E",
@@ -110,7 +110,7 @@ def configure_sliders(columns):
             "step": 1,
             "min_value": -140,
             "max_value": -44,
-            "default_value": -50,
+            "default_value": -44,
             "slider_color": "#0000FF",
             "track_color": "lightgray",
             "thumb_color": "#F1C40F",
@@ -120,7 +120,7 @@ def configure_sliders(columns):
             "step": 1,
             "min_value": -140,
             "max_value": -44,
-            "default_value": -100,
+            "default_value": -102,
             "slider_color": "#0000FF",
             "track_color": "lightgray",
             "thumb_color": "#F1C40F",
@@ -179,7 +179,7 @@ def compute_threshold_mappings(sliders):
             sliders["f1_cov_a5threshold1rsrp"], sliders["a2criticalthresholdrsrp"], 2
         )
     )
-    red_right = int(compute_value(-44, sliders["f1_cov_a5threshold2rsrp"], 3.8))
+    red_right = int(compute_value(-44, sliders["f1_cov_a5threshold2rsrp"], 2.5))
 
     return {
         "f1_snonintrasearch_map": f1_snonintrasearch_map,
@@ -299,6 +299,7 @@ def create_spline_line(color, left, right):
         x=x_values,
         y=y_values,
         line=dict(color=color, shape="spline", dash="dashdot"),
+        # line=dict(color=color, dash="dashdot"),
         mode="lines+markers",
         marker=dict(
             symbol=marker_symbols,
@@ -311,9 +312,9 @@ def create_spline_line(color, left, right):
 
 def get_x_values(color):
     return {
-        "blue": [-7, -5, 5, 7],
-        "green": [-9, -7, 7, 9],
-        "red": [-8, -6, 6, 8],
+        "blue": [-7, -4, -4, 7],
+        "green": [-9, -2, -2, 9],
+        "red": [-8, 1, 1, 8],
     }[color]
 
 
@@ -363,17 +364,17 @@ def add_all_annotations(fig, sliders, mappings):
 def add_threshold_annotations(fig, sliders, mappings):
     LEFT_X_POS, RIGHT_X_POS = -0.01, 1
     left_annotations = [
-        (sliders["f1_cov_a5threshold1rsrp"], "COV A5Threshold1", "red"),
-        (sliders["f1_a1a2searchthresholdrsrp"], "A1A2 Threshold", "red"),
-        (sliders["a2criticalthresholdrsrp"], "A2 Critical", "red"),
-        (sliders["qrxlevminsib1"], "QRxLevMin SIB1", "green"),
-        (mappings["f1_snonintrasearch_map"], "SNonIntraSearch", "green"),
-        (sliders["f1_iflb_a5threshold1rsrp"], "IFLB A5Threshold1", "blue"),
+        (sliders["f1_cov_a5threshold1rsrp"], f"COV A5Threshold1: {sliders["f1_cov_a5threshold1rsrp"]}", "red"),
+        (sliders["f1_a1a2searchthresholdrsrp"], f"A1A2 Threshold: {sliders["f1_a1a2searchthresholdrsrp"]}", "red"),
+        (sliders["a2criticalthresholdrsrp"], f"A2 Critical: {sliders["a2criticalthresholdrsrp"]}", "red"),
+        (sliders["qrxlevminsib1"], f"QRxLevMin SIB1: {sliders["qrxlevminsib1"]}", "green"),
+        (mappings["f1_snonintrasearch_map"], f"SNonIntraSearch: {sliders["f1_snonintrasearch"]}", "green"),
+        (sliders["f1_iflb_a5threshold1rsrp"], f"IFLB A5Threshold1: {sliders["f1_iflb_a5threshold1rsrp"]}", "blue"),
     ]
     right_annotations = [
-        (sliders["qrxlevminsib3"], "(Set on F1) QRxLevmin SIB3", "green"),
-        (sliders["f1_cov_a5threshold2rsrp"], "(Set on F1) COV A5Threshold2", "red"),
-        (sliders["f1_iflb_a5threshold2rsrp"], "(Set on F1) IFLB A5Threshold2", "blue"),
+        (sliders["qrxlevminsib3"], f"(Set on F1) QRxLevmin SIB3: {sliders["qrxlevminsib3"]}", "green"),
+        (sliders["f1_cov_a5threshold2rsrp"], f"(Set on F1) COV A5Threshold2: {sliders["f1_cov_a5threshold2rsrp"]}", "red"),
+        (sliders["f1_iflb_a5threshold2rsrp"], f"(Set on F1) IFLB A5Threshold2: {sliders["f1_iflb_a5threshold2rsrp"]}", "blue"),
     ]
 
     for y, label, color in left_annotations:
@@ -381,7 +382,7 @@ def add_threshold_annotations(fig, sliders, mappings):
             x=LEFT_X_POS,
             y=y,
             xref="paper",
-            text=f"{label}: {y}",
+            text=label,
             showarrow=False,
             font=dict(family="Ericsson Hilda Light", size=12, color=color),
             xanchor="right",
@@ -393,7 +394,7 @@ def add_threshold_annotations(fig, sliders, mappings):
             x=RIGHT_X_POS,
             y=y,
             xref="paper",
-            text=f"{label}: {y}",
+            text=label,
             showarrow=False,
             font=dict(family="Ericsson Hilda Light", size=12, color=color),
             xanchor="left",
@@ -548,29 +549,49 @@ def run_equal():
                 ),
                 unsafe_allow_html=True,
             )
-    st.markdown(
-        """
-        ### ✨ Equal Priority Carrier Configuration
 
-        1. **Idle Mode Actions:**
-            - A UE camped on F1 does not begin to measure F2 until the serving RSRP drops below `sNonIntraSearch`.
-            - UE reselects to F2 when it becomes stronger by `qHyst`.
-            - Similar rules apply when reselecting from F2 back to F1.
+    # Equal Priority Configuration Summary
+    st.markdown("""
+    <div class="section">
+        <h2>✨ Equal Priority Carrier Configuration</h2>
+        <div class="key-takeaways">
+            <h3>Key Takeaways:</h3>
+            <ul>
+                <li>In idle mode, UEs reselect between carriers based on relative signal strengths, applying hysteresis and offsets.</li>
+                <li>The configuration divides the signal strength plane into three regions (blue, green, and grey), determining UE camping behavior.</li>
+                <li>The `sNonIntraSearch` parameter controls the "stickiness" of UEs to the serving frequency, which can be useful when combined with load balancing.</li>
+                <li>This configuration works well for non-co-located cells but may not be ideal for pushing UEs towards a particular frequency in co-located cells.</li>
+                <li>Connected mode actions are governed by coverage-triggered events and Inter-Frequency Load Balancing (IFLB).</li>
+                <li>The alignment of various thresholds (e.g., `sNonIntraSearch`, `a5Threshold2Rsrp`) is crucial for ensuring that idle mode behavior and IFLB work harmoniously.</li>
+            </ul>
+        </div>
+        <div class="conclusion">
+            <h3>Conclusion:</h3>
+            <p>The Equal Priority Configuration offers a flexible approach to managing UE distribution across multiple frequency carriers. It is most effective when dealing with non-co-located cells and when the goal is to allow UEs to select the strongest frequency. However, for more specific traffic steering in co-located cell scenarios, other configurations like the Priority Carrier Configuration may be more suitable. Careful parameter tuning is essential to achieve the desired balance between signal strength-based selection and load-based distribution.</p>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
-        2. **Connected Mode Actions - Coverage Triggered:**
-            - Triggered by the feature Mobility Control at Poor Coverage using `EVENT_A5`.
-            - A UE encountering falling RSRP on F1 eventually reaches `A1A2SearchThreshold`, triggering entry to the search zone.
-            - If the RSRP on F1 falls further, to `A5Threshold1`, and the RSRP on F2 is simultaneously above `A5Threshold2`, then handover to F2 is triggered.
-            - On the other hand, if a suitable target is not found, then a blind release-with-redirect can be triggered at `A2CriticalThreshold`.
-            - In practice, `A1A22SearchThreshold` and `A5Threshold1` can be set to the same value, so that handover can occur as soon as a suitable target is found (without having to wait for the serving RSRP to fall still lower). This reduces unproductive searching. Similar rules apply for coverage handovers in the other direction (from F2 to F1).
+    # Summary below chart
+    st.markdown("""
 
-        3. **Connected Mode Actions - IFLB:**
-            - IFLB from F1 to F2 occurs when F1 RSRP is below `A5Threshold1` (set to -44 dBm for IFLB) and F2 RSRP is above `A5Threshold2`.
-            - `a5Threshold2Rsrp` is typically set at or above `sNonIntraSearch` to provide a buffer against UEs being returned to F1 as soon as they reenter idle mode on F2.
+    1. **Idle Mode Actions:**
+        - A UE camped on F1 does not begin to measure F2 until the serving RSRP drops below `sNonIntraSearch`.
+        - UE reselects to F2 when it becomes stronger by `qHyst`.
+        - Similar rules apply when reselecting from F2 back to F1.
 
-        These mobility actions ensure efficient UE reselection and handover, maintaining connectivity and load balancing between cells.
+    2. **Connected Mode Actions - Coverage Triggered:**
+        - Triggered by the feature Mobility Control at Poor Coverage using `EVENT_A5`.
+        - A UE encountering falling RSRP on F1 eventually reaches `A1A2SearchThreshold`, triggering entry to the search zone.
+        - If the RSRP on F1 falls further, to `A5Threshold1`, and the RSRP on F2 is simultaneously above `A5Threshold2`, then handover to F2 is triggered.
+        - On the other hand, if a suitable target is not found, then a blind release-with-redirect can be triggered at `A2CriticalThreshold`.
+        - In practice, `A1A2SearchThreshold` and `A5Threshold1` can be set to the same value, so that handover can occur as soon as a suitable target is found (without having to wait for the serving RSRP to fall still lower). This reduces unproductive searching. Similar rules apply for coverage handovers in the other direction (from F2 to F1).
 
-        <span style="color:red"><strong>Nb:</strong> MCPC must be active.
-        """,
-        unsafe_allow_html=True,
-    )
+    3. **Connected Mode Actions - IFLB:**
+        - IFLB from F1 to F2 occurs when F1 RSRP is below `A5Threshold1` (set to -44 dBm for IFLB) and F2 RSRP is above `A5Threshold2`.
+        - `a5Threshold2Rsrp` is typically set at or above `sNonIntraSearch` to provide a buffer against UEs being returned to F1 as soon as they reenter idle mode on F2.
+
+    These mobility actions ensure efficient UE reselection and handover, maintaining connectivity and load balancing between cells.
+
+    <span style="color:red"><strong>Nb:</strong> MCPC must be active.</span>
+    """, unsafe_allow_html=True)

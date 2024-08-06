@@ -925,13 +925,29 @@ def run_priority():
             )
     st.markdown(
         """
-        ### ✨ Priority Carrier Configuration
-
-        **Conclusion:**
-        The Priority Carrier Configuration is designed to prioritize moving UEs to higher priority cells quickly, whereas the Sticky Carrier Configuration aims to keep UEs on their current cell longer unless specific
-        conditions are met. The key parameters `ThreshXHigh`, `ThreshServingLow`, `ThreshXLow`, `A1A2SearchThreshold`, `A5Threshold1`, and `A5Threshold2` are set differently to achieve these behaviors.
-        Identifying the configurations involves observing UE reselection and handover behavior based on these parameters.
-
+    <div class="section">
+        <h2>✨ Priority Carrier Configuration</h2>
+        <div class="key-takeaways">
+            <h3>Key Takeaways:</h3>
+            <ul>
+                <li>This configuration is typically used when carriers have vastly different coverage areas, such as low band vs. high band or macro cells vs. small cells.</li>
+                <li>One carrier is assigned a higher idle mode priority via the `cellReselectionPriority` parameter.</li>
+                <li>The configuration divides the signal strength plane into three regions (blue, green, and grey) based on key parameters: `threshXHigh`, `threshServingLow`, and `threshXLow`.</li>
+                <li>It provides better control over UE distribution compared to Equal Priority or Sticky Carrier Configurations, balancing between actively pushing UEs to the high-priority carrier and leaving room for Inter-Frequency Load Balancing (IFLB).</li>
+                <li>The configuration allows for fine-tuning of both idle mode behavior and connected mode actions, including coverage-triggered handovers and IFLB.</li>
+                <li>Careful parameter setting is crucial to ensure that idle mode behavior, coverage fallback, and IFLB work harmoniously.</li>
+            </ul>
+        </div>
+        <div class="conclusion">
+            <h3>Conclusion:</h3>
+            <p>The Priority Carrier Configuration offers a powerful approach to managing UE distribution across multiple frequency carriers with different coverage characteristics. It is particularly effective in scenarios where one carrier needs to be prioritized to maximize its utilization, while still maintaining overall network efficiency and coverage. The configuration allows network operators to strike a balance between actively pushing UEs to a preferred carrier in idle mode and allowing IFLB to distribute traffic in connected mode. By carefully adjusting parameters such as `threshXHigh`, `threshServingLow`, and various IFLB thresholds, operators can optimize network performance, maximize the use of all available carriers, and ensure seamless coverage transitions. However, implementing this configuration requires careful planning and ongoing optimization. Network operators must consider the specific characteristics of their network, including coverage patterns, capacity requirements, and user behavior, to determine the optimal settings for their particular scenario.</p>
+        </div>
+    </div>
+    """,
+        unsafe_allow_html=True,
+    )
+    st.markdown(
+        """
         1. **Idle Mode Actions:**
             - **Reselection from F1 to F2:** Triggered when F2 RSRP exceeds `threshXHigh`.
             - **Reselection from F2 to F1:** Triggered when F2 RSRP falls below `threshServingLow` and F1 RSRP is above `threshXLow`.
