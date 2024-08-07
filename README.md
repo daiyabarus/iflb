@@ -105,4 +105,5 @@ To run the Streamlit application, execute the following command in the project d
 streamlit run main.py
 ```
 ## <a name='Demo'></a>Demo
+[deploy](https://bit.ly/3LSJOOn)
 ![Demo](assets/iflb.gif)
