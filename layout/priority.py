@@ -694,16 +694,16 @@ def run_priority():
         "F1 & F2<br>QRxLevMin<br>SIB1",
         "F1 & F2<br>QRxLevMin<br>SIB3",
         "F1<br>ThreshXHigh<br>&emsp;&emsp;&emsp;",
-        "F1<br>IFLB<br>A5Threshold1RSRP",
-        "F1<br>IFLB<br>A5Threshold2RSRP",
+        "F1<br>IFLB<br>A5Threshold1",
+        "F1<br>IFLB<br>A5Threshold2",
         "F2<br>ThreshServingLow<br>&emsp;&emsp;&emsp;",
         "F2<br>ThreshXLow<br>&emsp;&emsp;&emsp;",
         "F2<br>SNonIntraSearch<br>&emsp;&emsp;&emsp;",
         "F2<br>A1A2 Search<br>&emsp;&emsp;&emsp;",
-        "F2<br>COV<br>A5Threshold1RSRP",
-        "F2<br>COV<br>a5Threshold2RSRP",
-        "F2<br>IFLB<br>A5Threshold1RSRP",
-        "F2<br>IFLB<br>a5Threshold2RSRP",
+        "F2<br>COV<br>A5Threshold1",
+        "F2<br>COV<br>a5Threshold2",
+        "F2<br>IFLB<br>A5Threshold1",
+        "F2<br>IFLB<br>a5Threshold2",
     ]
 
     for column, text in zip(columns, column_texts):
