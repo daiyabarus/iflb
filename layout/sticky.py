@@ -308,7 +308,9 @@ def create_critical_handover_line(sliders):
             text=["", "A2 Critical HO"],
             textposition="bottom center",
             textfont=dict(color="red", size=15),
-            marker=dict(symbol="arrow-bar-up", size=15, angleref="previous"),
+            marker=dict(
+                symbol=["circle", "arrow-bar-up"], size=15, angleref="previous"
+            ),
         )
     ]
 
@@ -337,7 +339,7 @@ def create_spline_line(color, left, right):
         mode="lines+markers",
         marker=dict(
             symbol=marker_symbols,
-            size=[0, 0, 0, 15] if color != "red" else [15, 0, 0, 15],
+            size=[15, 0, 0, 15] if color != "red" else [15, 0, 0, 15],
             color=color,
             angleref="previous",
         ),
@@ -353,7 +355,7 @@ def get_x_values(color):
 
 
 def get_marker_symbols(color):
-    default_symbols = ["circle", "circle", "circle", "arrow-bar-up"]
+    default_symbols = ["arrow-bar-up", "circle", "circle", "arrow-bar-up"]
     return ["y-right"] + default_symbols[1:] if color == "red" else default_symbols
 
 

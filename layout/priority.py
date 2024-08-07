@@ -6,201 +6,182 @@ from streamlit_vertical_slider import vertical_slider as svs
 from layout.styles import multi_color_styling
 
 
-def create_slider(
-    col,
-    key,
-    step,
-    min_value,
-    max_value,
-    default_value,
-    slider_color,
-    track_color,
-    thumb_color,
-):
+def create_slider(col, slider_config):
     with col:
         return svs(
-            key=key,
-            step=step,
-            min_value=min_value,
-            max_value=max_value,
-            default_value=default_value,
-            slider_color=slider_color,
-            track_color=track_color,
-            thumb_color=thumb_color,
+            key=slider_config["key"],
+            step=slider_config["step"],
+            min_value=slider_config["min_value"],
+            max_value=slider_config["max_value"],
+            default_value=slider_config["default_value"],
+            slider_color=slider_config["slider_color"],
+            track_color=slider_config["track_color"],
+            thumb_color=slider_config["thumb_color"],
             height=60,
             value_always_visible=True,
         )
 
 
-def create_vertical_line(x, y0, y1, color="rgba(0,0,0,0)", width=2, dash="solid"):
+def create_vertical_line(x, y0, y1, color="rgba(0,0,0,0)", width=2):
     return {
         "type": "line",
         "x0": x,
         "y0": y0,
         "x1": x,
         "y1": y1,
-        "line": {"color": color, "width": width, "dash": dash},
+        "line": {"color": color, "width": width},
     }
 
 
 def configure_sliders(columns):
-    slider_values = {
-        "a2criticalthresholdrsrp": create_slider(
-            columns[0],
-            "a2criticalthresholdrsrp",
-            1,
-            -140,
-            -44,
-            -123,
-            "#AAE89F",
-            "lightgrey",
-            "#5DC93E",
-        ),
-        "qrxlevminsib1": create_slider(
-            columns[1],
-            "qrxlevminsib1",
-            2,
-            -140,
-            -44,
-            -124,
-            "#AAE89F",
-            "lightgrey",
-            "#5DC93E",
-        ),
-        "qrxlevmin": create_slider(
-            columns[2],
-            "qrxlevmin",
-            2,
-            -140,
-            -44,
-            -120,
-            "#AAE89F",
-            "lightgrey",
-            "#5DC93E",
-        ),
-        "f1_threshxhigh": create_slider(
-            columns[3],
-            "threshxhigh",
-            2,
-            0,
-            62,
-            24,
-            "#008000",
-            "lightgray",
-            "#F1C40F",
-        ),
-        "f1_iflb_a5threshold1rsrp": create_slider(
-            columns[4],
-            "iflba5threshold1rsrp",
-            1,
-            -140,
-            -44,
-            -50,
-            "#0000FF",
-            "lightgray",
-            "#F1C40F",
-        ),
-        "f1_iflb_a5threshold2rsrp": create_slider(
-            columns[5],
-            "iflba5threshold2rsrp",
-            1,
-            -140,
-            -44,
-            -96,
-            "#0000FF",
-            "lightgray",
-            "#F1C40F",
-        ),
-        "f2_threshservinglow": create_slider(
-            columns[6],
-            "f2threshservinglow",
-            2,
-            0,
-            62,
-            6,
-            "#008000",
-            "lightgray",
-            "#C1392B",
-        ),
-        "f2_threshxlow": create_slider(
-            columns[7],
-            "f2_threshXLow",
-            2,
-            0,
-            62,
-            4,
-            "#008000",
-            "lightgray",
-            "#C1392B",
-        ),
-        "f2_snonintrasearch": create_slider(
-            columns[8],
-            "f2_snonintrasearch",
-            2,
-            0,
-            62,
-            8,
-            "#008000",
-            "lightgray",
-            "#C1392B",
-        ),
-        "f2_a1a2searchthresholdrsrp": create_slider(
-            columns[9],
-            "f2_a1a2searchthresholdrsrp",
-            1,
-            -140,
-            -44,
-            -110,
-            "#FA0101",
-            "lightgray",
-            "#C1392B",
-        ),
-        "f2_cov_a5threshold1rsrp": create_slider(
-            columns[10],
-            "f2_cov_a5threshold1rsrp",
-            1,
-            -140,
-            -44,
-            -113,
-            "#FA0101",
-            "lightgray",
-            "#C1392B",
-        ),
-        "f2_cov_a5threshold2rsrp": create_slider(
-            columns[11],
-            "f2_cov_a5threshold2rsrp",
-            1,
-            -140,
-            -44,
-            -106,
-            "#FA0101",
-            "lightgray",
-            "#C1392B",
-        ),
-        "f2_iflb_a5threshold1rsrp": create_slider(
-            columns[12],
-            "f2iflba5threshold1rsrp",
-            1,
-            -140,
-            -44,
-            -74,
-            "#0000FF",
-            "lightgray",
-            "#C1392B",
-        ),
-        "f2_iflb_a5threshold2rsrp": create_slider(
-            columns[13],
-            "f2iflba5threshold2rsrp",
-            1,
-            -140,
-            -44,
-            -90,
-            "#0000FF",
-            "lightgray",
-            "#C1392B",
-        ),
-    }
-    return slider_values
+    slider_configs = [
+        {
+            "key": "a2criticalthresholdrsrp",
+            "step": 1,
+            "min_value": -140,
+            "max_value": -44,
+            "default_value": -126,
+            "slider_color": "#AAE89F",
+            "track_color": "lightgrey",
+            "thumb_color": "#5DC93E",
+        },
+        {
+            "key": "qrxlevminsib3",
+            "step": 1,
+            "min_value": -140,
+            "max_value": -44,
+            "default_value": -124,
+            "slider_color": "#AAE89F",
+            "track_color": "lightgrey",
+            "thumb_color": "#5DC93E",
+        },
+        {
+            "key": "qrxlevminsib1",
+            "step": 1,
+            "min_value": -140,
+            "max_value": -44,
+            "default_value": -124,
+            "slider_color": "#AAE89F",
+            "track_color": "lightgrey",
+            "thumb_color": "#5DC93E",
+        },
+        {
+            "key": "f1_threshxhigh",
+            "step": 1,
+            "min_value": 0,
+            "max_value": 62,
+            "default_value": 28,
+            "slider_color": "#008000",
+            "track_color": "lightgray",
+            "thumb_color": "#F1C40F",
+        },
+        {
+            "key": "f1_iflb_a5threshold1rsrp",
+            "step": 1,
+            "min_value": -140,
+            "max_value": -44,
+            "default_value": -50,
+            "slider_color": "#0000FF",
+            "track_color": "lightgray",
+            "thumb_color": "#F1C40F",
+        },
+        {
+            "key": "f1_iflb_a5threshold2rsrp",
+            "step": 1,
+            "min_value": -140,
+            "max_value": -44,
+            "default_value": -96,
+            "slider_color": "#0000FF",
+            "track_color": "lightgray",
+            "thumb_color": "#F1C40F",
+        },
+        {
+            "key": "f2_threshservinglow",
+            "step": 1,
+            "min_value": 0,
+            "max_value": 62,
+            "default_value": 6,
+            "slider_color": "#008000",
+            "track_color": "lightgray",
+            "thumb_color": "#C1392B",
+        },
+        {
+            "key": "f2_threshxlow",
+            "step": 1,
+            "min_value": 0,
+            "max_value": 62,
+            "default_value": 4,
+            "slider_color": "#008000",
+            "track_color": "lightgray",
+            "thumb_color": "#C1392B",
+        },
+        {
+            "key": "f2_snonintrasearch",
+            "step": 1,
+            "min_value": 0,
+            "max_value": 62,
+            "default_value": 8,
+            "slider_color": "#008000",
+            "track_color": "lightgray",
+            "thumb_color": "#C1392B",
+        },
+        {
+            "key": "f2_a1a2searchthresholdrsrp",
+            "step": 1,
+            "min_value": -140,
+            "max_value": -44,
+            "default_value": -110,
+            "slider_color": "#FA0101",
+            "track_color": "lightgray",
+            "thumb_color": "#C1392B",
+        },
+        {
+            "key": "f2_cov_a5threshold1rsrp",
+            "step": 1,
+            "min_value": -140,
+            "max_value": -44,
+            "default_value": -113,
+            "slider_color": "#FA0101",
+            "track_color": "lightgray",
+            "thumb_color": "#C1392B",
+        },
+        {
+            "key": "f2_cov_a5threshold2rsrp",
+            "step": 1,
+            "min_value": -140,
+            "max_value": -44,
+            "default_value": -106,
+            "slider_color": "#FA0101",
+            "track_color": "lightgray",
+            "thumb_color": "#C1392B",
+        },
+        {
+            "key": "f2_iflb_a5threshold1rsrp",
+            "step": 1,
+            "min_value": -140,
+            "max_value": -44,
+            "default_value": -72,
+            "slider_color": "#0000FF",
+            "track_color": "lightgray",
+            "thumb_color": "#C1392B",
+        },
+        {
+            "key": "f2_iflb_a5threshold2rsrp",
+            "step": 1,
+            "min_value": -140,
+            "max_value": -44,
+            "default_value": -90,
+            "slider_color": "#0000FF",
+            "track_color": "lightgray",
+            "thumb_color": "#C1392B",
+        },
+    ]
+
+    sliders = {}
+    for i, config in enumerate(slider_configs):
+        sliders[config["key"]] = create_slider(columns[i], config)
+
+    return sliders
 
 
 def generate_scripts(sliders):
@@ -208,7 +189,7 @@ def generate_scripts(sliders):
         "# SET ON F1",
         f'set `F1` A2Critical {sliders["a2criticalthresholdrsrp"]} dBm',
         f'set `F1` QRxLevMin {sliders["qrxlevminsib1"]} dBm ',
-        f'set `F1` EUtranFreq `F2` qRxLevMin {sliders["qrxlevmin"]} dBm',
+        f'set `F1` EUtranFreq `F2` qRxLevMin {sliders["qrxlevminsib3"]} dBm',
         f'set `F1` EUtranFreq `F2` threshXHigh {sliders["f1_threshxhigh"]} dB',
         f'set `F1` IFLB A5Threshold1 {sliders["f1_iflb_a5threshold1rsrp"]} dBm',
         f'set `F1` IFLB A5Threshold2 {sliders["f1_iflb_a5threshold2rsrp"]} dBm',
@@ -216,6 +197,7 @@ def generate_scripts(sliders):
         "# SET ON F2",
         f'set `F2` A2Critical {sliders["a2criticalthresholdrsrp"]} dBm',
         f'set `F2` qRxLevMin {sliders["qrxlevminsib1"]} dB',
+        f'set `F2` EUtranFreq `F1` qRxLevMin {sliders["qrxlevminsib3"]} dBm',
         f'set `F2` threshServingLow {sliders["f2_threshservinglow"]} dB',
         f'set `F2` EUtranFreq `F1` threshXLow {sliders["f2_threshxlow"]} dB',
         f'set `F2` SIB3 sNonIntraSearch {sliders["f2_snonintrasearch"]} dB',
@@ -231,390 +213,269 @@ def generate_scripts(sliders):
 
 
 def compute_threshold_mappings(sliders):
-    f1_threshxhigh_map = (sliders["f1_threshxhigh"] * 2) + sliders["qrxlevmin"]
+    MAX_VALUE = -44
+
+    def compute_value(threshold, critical_threshold, factor):
+        if threshold <= MAX_VALUE and threshold > critical_threshold:
+            return threshold + ((critical_threshold - threshold) / factor)
+        return threshold
+
+    f1_threshxhigh_map = (sliders["f1_threshxhigh"] * 2) + sliders["qrxlevminsib3"]
     f2_threshservinglow_map = (sliders["f2_threshservinglow"] * 2) + sliders[
-        "qrxlevmin"
+        "qrxlevminsib1"
     ]
-    f2_threshxlow_map = (sliders["f2_threshxlow"] * 2) + sliders["qrxlevmin"]
+    f2_threshxlow_map = (sliders["f2_threshxlow"] * 2) + sliders["qrxlevminsib3"]
     f2_snonintrasearch_map = (sliders["f2_snonintrasearch"] * 2) + sliders[
         "qrxlevminsib1"
     ]
-    max_value = -44
-    return (
-        f1_threshxhigh_map,
-        f2_threshservinglow_map,
-        f2_threshxlow_map,
-        f2_snonintrasearch_map,
-        max_value,
+    green_left = int(compute_value(MAX_VALUE, sliders["qrxlevminsib3"], 6.5))
+    green_right = int(compute_value(MAX_VALUE, f1_threshxhigh_map, 2))
+
+    green_left1 = int(compute_value(MAX_VALUE, f2_threshxlow_map, 1.4))
+    green_right1 = int(
+        compute_value(f2_threshservinglow_map, sliders["qrxlevminsib3"], 5)
     )
 
+    red_left = int(compute_value(MAX_VALUE, sliders["f2_cov_a5threshold2rsrp"], 1.1))
+    red_right = int(
+        compute_value(
+            sliders["f2_cov_a5threshold1rsrp"], sliders["a2criticalthresholdrsrp"], 2
+        )
+    )
 
-def create_vertical_lines(
-    sliders, f1_threshxhigh_map, f2_threshservinglow_map, f2_threshxlow_map, max_value
-):
+    blue_left = int(
+        compute_value(
+            sliders["f1_iflb_a5threshold1rsrp"], sliders["a2criticalthresholdrsrp"], 6.5
+        )
+    )
+    blue_right = int(compute_value(MAX_VALUE, sliders["f1_iflb_a5threshold2rsrp"], 3))
+
+    blue_left1 = int(compute_value(MAX_VALUE, sliders["f2_iflb_a5threshold2rsrp"], 1.2))
+    blue_right1 = int(
+        compute_value(
+            sliders["f2_iflb_a5threshold1rsrp"], sliders["a2criticalthresholdrsrp"], 5
+        )
+    )
+
+    return {
+        "f1_threshxhigh_map": f1_threshxhigh_map,
+        "f2_threshservinglow_map": f2_threshservinglow_map,
+        "f2_threshxlow_map": f2_threshxlow_map,
+        "f2_snonintrasearch_map": f2_snonintrasearch_map,
+        "MAX_VALUE": MAX_VALUE,
+        "blue_left": blue_left,
+        "blue_right": blue_right,
+        "blue_left1": blue_left1,
+        "blue_right1": blue_right1,
+        "green_left": green_left,
+        "green_right": green_right,
+        "green_left1": green_left1,
+        "green_right1": green_right1,
+        "red_left": red_left,
+        "red_right": red_right,
+    }
+
+
+# TODOS : Update Vertical Line
+def create_vertical_lines(sliders, mappings):
     return [
-        # TODO: F1 vline
-        # vline 1
-        create_vertical_line(-18, -140, sliders["qrxlevmin"]),
-        create_vertical_line(-18, sliders["qrxlevmin"], max_value, "green"),
-        # vline 2
-        create_vertical_line(-16, -140, f2_threshxlow_map),
-        create_vertical_line(-16, f2_threshxlow_map, max_value, "green"),
-        # vline 3
-        create_vertical_line(-14, -140, sliders["f2_cov_a5threshold2rsrp"]),
-        create_vertical_line(-14, sliders["f2_cov_a5threshold2rsrp"], max_value, "red"),
-        # vline 4
-        create_vertical_line(-12, -140, sliders["a2criticalthresholdrsrp"]),
         create_vertical_line(
-            -12,
+            -9, sliders["qrxlevminsib1"], mappings["MAX_VALUE"], "green"
+        ),
+        create_vertical_line(
+            -8, mappings["f2_threshxlow_map"], mappings["MAX_VALUE"], "green"
+        ),
+        create_vertical_line(
+            -7, sliders["f2_cov_a5threshold2rsrp"], mappings["MAX_VALUE"], "red"
+        ),
+        create_vertical_line(
+            -6,
             sliders["a2criticalthresholdrsrp"],
             sliders["f1_iflb_a5threshold1rsrp"],
             "blue",
         ),
-        create_vertical_line(-12, sliders["f1_iflb_a5threshold1rsrp"], max_value),
-        # vline 5
-        create_vertical_line(-10, -140, sliders["f2_iflb_a5threshold2rsrp"]),
         create_vertical_line(
-            -10, sliders["f2_iflb_a5threshold2rsrp"], max_value, "blue"
+            -5, sliders["f2_iflb_a5threshold2rsrp"], mappings["MAX_VALUE"], "blue"
         ),
-        # TODO: F2 vline
-        # vline 1-1
-        create_vertical_line(18, -140, sliders["a2criticalthresholdrsrp"]),
         create_vertical_line(
-            18,
-            sliders["a2criticalthresholdrsrp"],
+            9, mappings["f1_threshxhigh_map"], mappings["MAX_VALUE"], "green"
+        ),
+        create_vertical_line(
+            9,
             sliders["f2_iflb_a5threshold1rsrp"],
+            sliders["a2criticalthresholdrsrp"],
             "blue",
         ),
-        create_vertical_line(18, sliders["f2_iflb_a5threshold1rsrp"], max_value),
-        # vline 1-2
-        create_vertical_line(18, -140, f1_threshxhigh_map),
-        create_vertical_line(18, f1_threshxhigh_map, max_value, "green"),
-        # vline 2
-        create_vertical_line(19, -140, f2_threshservinglow_map),
         create_vertical_line(
-            19, f2_threshservinglow_map, sliders["qrxlevmin"], "green"
+            8.5, sliders["qrxlevminsib1"], mappings["f2_threshservinglow_map"], "green"
         ),
-        create_vertical_line(19, sliders["qrxlevmin"], max_value),
-        # vline 3-1
-        create_vertical_line(16, -140, sliders["a2criticalthresholdrsrp"]),
         create_vertical_line(
-            16,
+            8,
             sliders["a2criticalthresholdrsrp"],
             sliders["f2_cov_a5threshold1rsrp"],
             "red",
         ),
-        create_vertical_line(16, sliders["f2_cov_a5threshold1rsrp"], max_value),
-        # vline 3-2
-        create_vertical_line(16, -140, sliders["f1_iflb_a5threshold2rsrp"]),
         create_vertical_line(
-            16, sliders["f1_iflb_a5threshold2rsrp"], max_value, "blue"
-        ),
-        create_vertical_line(
-            18,
-            f1_threshxhigh_map + 1,
-            sliders["f2_iflb_a5threshold1rsrp"] - 1,
-            color="rgba(25,31,52,0.2)",
-            width=4,
-            dash="dot",
+            8, sliders["f1_iflb_a5threshold2rsrp"], mappings["MAX_VALUE"], "blue"
         ),
     ]
 
 
-def create_lines(
-    sliders,
-    f1_threshxhigh_map,
-    f2_threshservinglow_map,
-    f2_threshxlow_map,
-    f2_snonintrasearch_map,
-    max_value,
-):
+def create_lines(sliders, mappings):
+    return (
+        create_threshold_lines(sliders, mappings)
+        + create_legend_lines()
+        + create_critical_handover_line(sliders)
+        + create_splines(mappings)
+    )
+
+
+# TODOs : Update Horizontal line
+def create_threshold_lines(sliders, mappings):
+    threshold_configs = [
+        ([-12, -5], sliders["f2_iflb_a5threshold2rsrp"], "blue"),
+        ([-12, -6], sliders["f1_iflb_a5threshold1rsrp"], "blue"),
+        ([-12, -6], sliders["a2criticalthresholdrsrp"], "red"),
+        ([-12, -7], sliders["f2_cov_a5threshold2rsrp"], "red"),
+        ([-12, -8], mappings["f2_threshxlow_map"], "green"),
+        ([-12, -9], sliders["qrxlevminsib3"], "green"),
+        ([9, 12], sliders["f2_iflb_a5threshold1rsrp"], "blue"),
+        ([9, 12], mappings["f1_threshxhigh_map"], "green"),
+        ([10, 12], mappings["f2_snonintrasearch_map"], "green"),
+        ([9.5, 12], sliders["f2_a1a2searchthresholdrsrp"], "red"),
+        ([8.5, 12], sliders["qrxlevminsib3"], "green"),
+        ([8.5, 12], mappings["f2_threshservinglow_map"], "green"),
+        ([8, 12], sliders["a2criticalthresholdrsrp"], "red"),
+        ([8, 12], sliders["f2_cov_a5threshold1rsrp"], "red"),
+        ([8, 12], sliders["f1_iflb_a5threshold2rsrp"], "blue"),
+    ]
+    return [create_threshold_line(x, y, color) for x, y, color in threshold_configs]
+
+
+def create_threshold_line(x, y, color):
+    return go.Scatter(
+        x=x,
+        y=[y, y],
+        mode="lines",
+        line=dict(color=color, dash="dot"),
+    )
+
+
+def create_legend_lines():
+    legend_configs = [
+        ([-9.5, -9], -44, "green"),
+        ([-8.5, -8], -44, "green"),
+        ([-7.5, -7], -44, "red"),
+        ([-5.5, -5], -44, "blue"),
+        ([8, 8.5], -44, "blue"),
+        ([9, 9.5], -44, "green"),
+    ]
+    return [create_threshold_line(x, y, color) for x, y, color in legend_configs]
+
+
+def create_critical_handover_line(sliders):
     return [
         go.Scatter(
-            x=[-22, -18],
-            y=[sliders["qrxlevmin"], sliders["qrxlevmin"]],
-            mode="lines",
-            line=dict(color="green", dash="dot"),
-        ),
-        go.Scatter(
-            x=[-22, -10],
-            y=[max_value, max_value],
-            mode="lines",
-            line=dict(color="gray", dash="dot"),
-        ),
-        go.Scatter(
-            x=[-22, -16],
-            y=[f2_threshxlow_map, f2_threshxlow_map],
-            mode="lines",
-            line=dict(color="green", dash="dot"),
-        ),
-        go.Scatter(
-            x=[-22, -14],
-            y=[sliders["f2_cov_a5threshold2rsrp"], sliders["f2_cov_a5threshold2rsrp"]],
-            mode="lines",
-            line=dict(color="red", dash="dot"),
-        ),
-        go.Scatter(
-            x=[-22, -12],
-            y=[sliders["a2criticalthresholdrsrp"], sliders["a2criticalthresholdrsrp"]],
-            mode="lines+text",
-            text=["a2CriticalThresholdRsrp"],
-            textposition="middle left",
-            textfont=dict(color="red", size=12),
-            line=dict(color="red", dash="dot"),
-        ),
-        go.Scatter(
-            x=[-22, -12],
-            y=[
-                sliders["f1_iflb_a5threshold1rsrp"],
-                sliders["f1_iflb_a5threshold1rsrp"],
-            ],
-            mode="lines",
-            line=dict(color="blue", dash="dot"),
-        ),
-        go.Scatter(
-            x=[-22, -10],
-            y=[
-                sliders["f2_iflb_a5threshold2rsrp"],
-                sliders["f2_iflb_a5threshold2rsrp"],
-            ],
-            mode="lines",
-            line=dict(color="blue", dash="dot"),
-        ),
-        go.Scatter(
-            x=[15, -8],
-            y=[sliders["a2criticalthresholdrsrp"], sliders["a2criticalthresholdrsrp"]],
-            mode="lines+text+markers",
+            x=[7.5, 0, -2.5, -5],
+            y=[sliders["a2criticalthresholdrsrp"]] * 4,
+            mode="lines+markers+text",
             line=dict(color="red", shape="spline"),
-            text=["", "A2 Critical HO"],
+            text=["", "", "A2 Critical HO", ""],
             textposition="top center",
             textfont=dict(color="red", size=15),
-            marker=dict(symbol="arrow", size=15, angleref="previous"),
-        ),
-        go.Scatter(
-            x=[20, 22],
-            y=[f2_snonintrasearch_map, f2_snonintrasearch_map],
-            mode="lines",
-            line=dict(color="green", dash="dot"),
-        ),
-        go.Scatter(
-            x=[19.5, 22],
-            y=[
-                sliders["f2_a1a2searchthresholdrsrp"],
-                sliders["f2_a1a2searchthresholdrsrp"],
-            ],
-            mode="lines",
-            line=dict(color="red", dash="dot"),
-        ),
-        go.Scatter(
-            x=[18, 22],
-            y=[
-                sliders["f2_iflb_a5threshold1rsrp"],
-                sliders["f2_iflb_a5threshold1rsrp"],
-            ],
-            mode="lines",
-            line=dict(color="blue", dash="dot"),
-        ),
-        go.Scatter(
-            x=[18, 22],
-            y=[f1_threshxhigh_map, f1_threshxhigh_map],
-            mode="lines",
-            line=dict(color="green", dash="dot"),
-        ),
-        go.Scatter(
-            x=[16, 22],
-            y=[max_value, max_value],
-            mode="lines",
-            line=dict(color="gray", dash="dot"),
-        ),
-        go.Scatter(
-            x=[19, 22],
-            y=[sliders["qrxlevmin"], sliders["qrxlevmin"]],
-            mode="lines",
-            line=dict(color="green", dash="dot"),
-        ),
-        go.Scatter(
-            x=[19, 22],
-            y=[f2_threshservinglow_map, f2_threshservinglow_map],
-            mode="lines",
-            line=dict(color="green", dash="dot"),
-        ),
-        go.Scatter(
-            x=[16, 22],
-            y=[sliders["f2_cov_a5threshold1rsrp"], sliders["f2_cov_a5threshold1rsrp"]],
-            mode="lines",
-            line=dict(color="red", dash="dot"),
-        ),
-        go.Scatter(
-            x=[16, 22],
-            y=[sliders["a2criticalthresholdrsrp"], sliders["a2criticalthresholdrsrp"]],
-            mode="lines",
-            line=dict(color="red", dash="dot"),
-        ),
-        go.Scatter(
-            x=[16, 22],
-            y=[
-                sliders["f1_iflb_a5threshold2rsrp"],
-                sliders["f1_iflb_a5threshold2rsrp"],
-            ],
-            mode="lines",
-            line=dict(color="blue", dash="dot"),
-        ),
-        go.Scatter(
-            x=[-18, -6, 6, 18],
-            y=[
-                ((sliders["qrxlevmin"] + max_value) / 1.5),
-                ((sliders["qrxlevmin"] + max_value) / 1.5),
-                ((f1_threshxhigh_map + max_value) / 2),
-                ((f1_threshxhigh_map + max_value) / 2),
-            ],
-            line=dict(color="green", shape="spline", dash="dashdot"),
-            mode="lines+markers",
             marker=dict(
-                symbol=["circle", "circle", "circle", "arrow-bar-up"],
-                size=[0, 0, 0, 15],
-                color="green",
+                symbol=[
+                    "circle",
+                    "circle",
+                    "circle",
+                    "arrow-bar-up",
+                ],
+                size=[15, 0, 0, 15],
                 angleref="previous",
             ),
-        ),
-        go.Scatter(
-            x=[-12, -6, 6, 16],
-            y=[
-                (
-                    (
-                        sliders["a2criticalthresholdrsrp"]
-                        + sliders["f1_iflb_a5threshold1rsrp"]
-                    )
-                    / 1.5
-                ),
-                (
-                    (
-                        sliders["a2criticalthresholdrsrp"]
-                        + sliders["f1_iflb_a5threshold1rsrp"]
-                    )
-                    / 1.5
-                ),
-                (sliders["f1_iflb_a5threshold2rsrp"] - max_value / 2),
-                (sliders["f1_iflb_a5threshold2rsrp"] - max_value / 2),
-            ],
-            line=dict(color="blue", shape="spline", dash="dashdot"),
-            mode="lines+markers",
-            marker=dict(
-                symbol=["circle", "circle", "circle", "arrow-bar-up"],
-                size=[0, 0, 0, 15],
-                color="blue",
-                angleref="previous",
-            ),
-        ),
-        go.Scatter(
-            x=[16, 10, -2, -14],
-            y=[
-                (
-                    (
-                        sliders["a2criticalthresholdrsrp"]
-                        + sliders["f2_cov_a5threshold1rsrp"]
-                    )
-                    / 2
-                ),
-                (
-                    (
-                        sliders["a2criticalthresholdrsrp"]
-                        + sliders["f2_cov_a5threshold1rsrp"]
-                    )
-                    / 2
-                ),
-                ((sliders["f2_cov_a5threshold2rsrp"] + max_value) / 2),
-                ((sliders["f2_cov_a5threshold2rsrp"] + max_value) / 2),
-            ],
-            line=dict(color="red", shape="spline", dash="dashdot"),
-            mode="lines+markers",
-            marker=dict(
-                symbol=["circle", "circle", "circle", "arrow-bar-up"],
-                size=[0, 0, 0, 15],
-                color="red",
-                angleref="previous",
-            ),
-        ),
-        go.Scatter(
-            x=[19, 10, -2, -16],
-            y=[
-                ((f2_threshservinglow_map + sliders["qrxlevmin"]) / 2),
-                ((f2_threshservinglow_map + sliders["qrxlevmin"]) / 2),
-                ((f2_threshxlow_map + max_value) / 2),
-                ((f2_threshxlow_map + max_value) / 2),
-            ],
-            line=dict(color="green", shape="spline", dash="dashdot"),
-            mode="lines+markers",
-            marker=dict(
-                symbol=["circle", "circle", "circle", "arrow-bar-up"],
-                size=[0, 0, 0, 15],
-                color="green",
-                angleref="previous",
-            ),
-        ),
-        go.Scatter(
-            x=[18, 10, -2, -10],
-            y=[
-                (
-                    (
-                        sliders["a2criticalthresholdrsrp"]
-                        + sliders["f2_iflb_a5threshold1rsrp"]
-                    )
-                    / 2.2
-                ),
-                (
-                    (
-                        sliders["a2criticalthresholdrsrp"]
-                        + sliders["f2_iflb_a5threshold1rsrp"]
-                    )
-                    / 2.2
-                ),
-                ((sliders["f2_iflb_a5threshold2rsrp"] + max_value) / 2.5),
-                ((sliders["f2_iflb_a5threshold2rsrp"] + max_value) / 2.5),
-            ],
-            line=dict(color="blue", shape="spline", dash="dashdot"),
-            mode="lines+markers",
-            marker=dict(
-                symbol=["circle", "circle", "circle", "arrow-bar-up"],
-                size=[0, 0, 0, 15],
-                color="blue",
-                angleref="previous",
-            ),
-        ),
+        )
     ]
 
 
-def configure_plot(
-    sliders,
-    f1_threshxhigh_map,
-    f2_threshservinglow_map,
-    f2_threshxlow_map,
-    f2_snonintrasearch_map,
-    max_value,
-):
-    vertical_lines = create_vertical_lines(
-        sliders,
-        f1_threshxhigh_map,
-        f2_threshservinglow_map,
-        f2_threshxlow_map,
-        max_value,
-    )
-    lines = create_lines(
-        sliders,
-        f1_threshxhigh_map,
-        f2_threshservinglow_map,
-        f2_threshxlow_map,
-        f2_snonintrasearch_map,
-        max_value,
+# TODOS :try to remove redundancy
+def create_splines(mappings):
+    splines = []
+    directions = ["right", "left"]
+    for direction in directions:
+        if direction == "right":
+            spline_configs = [
+                ("blue", mappings["blue_right1"], mappings["blue_left1"]),
+                ("green", mappings["green_right1"], mappings["green_left1"]),
+                ("red", mappings["red_right"], mappings["red_left"]),
+            ]
+        else:
+            spline_configs = [
+                ("blue", mappings["blue_left"], mappings["blue_right"]),
+                ("green", mappings["green_left"], mappings["green_right"]),
+            ]
+
+        for color, first, second in spline_configs:
+            splines.append(create_spline_line(color, first, second, direction))
+    return splines
+
+
+def create_spline_line(color, first, second, direction):
+    x_values = get_x_values(color, direction)
+    y_values = [first, first, second, second]
+    marker_symbols = get_marker_symbols(color)
+
+    return go.Scatter(
+        x=x_values,
+        y=y_values,
+        line=dict(color=color, dash="dashdot"),
+        mode="lines+markers",
+        marker=dict(
+            symbol=marker_symbols,
+            size=[10, 0, 0, 15],
+            color=color,
+            angleref="previous",
+        ),
     )
 
-    fig = go.Figure(data=lines)
+
+def get_x_values(color, direction):
+    values = {
+        "left": {
+            "green": [-9, -2, -2, 9],
+            "blue": [-6, -3.5, -3.5, 8],
+        },
+        "right": {
+            "green": [8.5, 3, 3, -8],
+            "blue": [9, 4, 4, -5],
+            "red": [8, -2, -2, -7],
+        },
+    }
+    return values[direction][color]
+
+
+def get_marker_symbols(color):
+    default_symbols = ["circle", "circle", "circle", "arrow-bar-up"]
+    return ["y-right"] + default_symbols[1:] if color == "red" else default_symbols
+
+
+# TODOS  END
+
+
+def configure_plot(sliders, mappings):
+    fig = create_base_figure(sliders, mappings)
+    add_background_rectangles(fig)
+    add_all_annotations(fig, sliders, mappings)
+    return fig
+
+
+def create_base_figure(sliders, mappings):
+    fig = go.Figure(data=create_lines(sliders, mappings))
     bottom_range = sliders["a2criticalthresholdrsrp"] - 4
     fig.update_layout(
-        shapes=vertical_lines,
-        xaxis=dict(range=[-22, 22], showticklabels=False, showgrid=False),
+        shapes=create_vertical_lines(sliders, mappings),
+        xaxis=dict(range=[-12, 12], showticklabels=False, showgrid=False),
         yaxis=dict(
-            range=[bottom_range, -40],
+            range=[bottom_range, (mappings["MAX_VALUE"] + 4)],
             showticklabels=False,
             showgrid=False,
             zeroline=False,
@@ -622,188 +483,186 @@ def configure_plot(
         ),
         showlegend=False,
         height=700,
-        margin=dict(
-            autoexpand=False,
-            l=300,
-            r=300,
-            t=100,
-            b=100,
-        ),
+        margin=dict(autoexpand=False, l=300, r=300, t=100, b=100),
     )
-    fig.add_vrect(
-        x0=-22,
-        x1=-20,
-        fillcolor="grey",
-        opacity=0.25,
-        line_width=0,
-    )
-    fig.add_vrect(
-        x0=20,
-        x1=22,
-        fillcolor="grey",
-        opacity=0.25,
-        line_width=0,
-    )
-
-    annotations = []
-
-    y_data_left = [
-        sliders["a2criticalthresholdrsrp"],
-        sliders["qrxlevmin"],
-        f2_threshxlow_map,
-        sliders["f2_cov_a5threshold2rsrp"],
-        sliders["f2_iflb_a5threshold2rsrp"],
-        sliders["f1_iflb_a5threshold1rsrp"],
-    ]
-    y_data_right = [
-        sliders["a2criticalthresholdrsrp"],
-        sliders["qrxlevmin"],
-        sliders["f2_cov_a5threshold1rsrp"],
-        sliders["f2_a1a2searchthresholdrsrp"],
-        f2_threshservinglow_map,
-        f2_snonintrasearch_map,
-        sliders["f1_iflb_a5threshold2rsrp"],
-        sliders["f2_iflb_a5threshold1rsrp"],
-        f1_threshxhigh_map,
-    ]
-
-    labels_left = [
-        f"F1 A2ThresholdRSRP: {sliders["a2criticalthresholdrsrp"]}",
-        f"F1 QRxLevMin: {sliders["qrxlevmin"]}",
-        f"(set on F2) ThreshXLow: {sliders["f2_threshservinglow"]}",
-        f"(set on F2) COV A5Threshold2: {sliders["f2_cov_a5threshold2rsrp"]}",
-        f"(set on F2) IFLB A5Threshold2: {sliders["f2_iflb_a5threshold2rsrp"]}",
-        f"IFLB A5Threshold1: {sliders["f1_iflb_a5threshold1rsrp"]}",
-    ]
-
-    colors_left = ["blue", "blue", "green", "red", "blue", "blue"]
-
-    labels_right = [
-        f"F2 A2Threshold: {sliders["a2criticalthresholdrsrp"]}",
-        f"F2 QRxLevMin: {sliders["qrxlevmin"]}",
-        f"COV A5Threshold1: {sliders["f2_cov_a5threshold1rsrp"]}",
-        f"A1A2 Threshold: {sliders["f2_a1a2searchthresholdrsrp"]}",
-        f"ThreshServingLow: {sliders["f2_threshservinglow"]}",
-        f"SNonIntraSearch: {sliders["f2_snonintrasearch"]}",
-        f"(set on F1) IFLB A5Threshold2: {sliders["a2criticalthresholdrsrp"]}",
-        f"IFLB A5Threshold1: {sliders["f1_iflb_a5threshold2rsrp"]}",
-        f"(set on F1) ThreshXHigh: {sliders["f1_threshxhigh"]}",
-    ]
-    colors_right = [
-        "red",
-        "green",
-        "red",
-        "red",
-        "green",
-        "green",
-        "blue",
-        "blue",
-        "green",
-    ]
-
-    max_len_left = len(y_data_left)
-    max_len_right = len(y_data_right)
-    max_len = max(max_len_left, max_len_right)
-
-    for i in range(max_len):
-        if i < max_len_left:
-            y_trace = y_data_left[i]
-            label = labels_left[i]
-            color = colors_left[i]
-            annotations.append(
-                dict(
-                    x=-22,
-                    y=y_trace,
-                    xanchor="right",
-                    yanchor="middle",
-                    text=label,
-                    font=dict(family="Ericsson Hilda Light", size=12, color=color),
-                    showarrow=False,
-                    xref="x",
-                    yref="y",
-                )
-            )
-        if i < max_len_right:
-            y_trace = y_data_right[i]
-            label = labels_right[i]
-            color = colors_right[i]
-            annotations.append(
-                dict(
-                    x=22,
-                    y=y_trace,
-                    xanchor="left",
-                    yanchor="middle",
-                    text=label,
-                    font=dict(family="Ericsson Hilda Light", size=12, color=color),
-                    showarrow=False,
-                    xref="x",
-                    yref="y",
-                )
-            )
-    # Title
-    annotations.append(
-        dict(
-            xref="paper",
-            yref="paper",
-            x=-0.23,
-            y=1.1,
-            xanchor="left",
-            yanchor="bottom",
-            text="Mobility Actions and Thresholds for the Priority Carrier Configuration",
-            font=dict(family="Arial", size=30, color="rgb(37,37,37)"),
-            showarrow=False,
-        )
-    )
-    # Source
-
-    fig.add_annotation(
-        x=21,
-        y=1,
-        text="F2 Cell<br>Higher Prio",
-        showarrow=False,
-        font=dict(size=14, family="Ericsson Hilda Light", color="rgb(150,150,150)"),
-        xref="x",
-        yref="paper",
-        xanchor="center",
-        yanchor="bottom",
-    )
-    fig.add_annotation(
-        x=-21,
-        y=1,
-        text="F1 Cell<br>Lower Prio",
-        showarrow=False,
-        font=dict(size=14, family="Ericsson Hilda Light", color="rgb(150,150,150)"),
-        xref="x",
-        yref="paper",
-        xanchor="center",
-        yanchor="bottom",
-    )
-    fig.add_annotation(
-        x=21,
-        y=-0.01,
-        text="🔻<br>Lowest<br>RSRP",
-        showarrow=False,
-        font=dict(size=14, family="Ericsson Hilda Light", color="rgb(150,150,150)"),
-        xref="x",
-        yref="paper",
-        xanchor="center",
-        yanchor="top",
-    )
-    fig.add_annotation(
-        x=-21,
-        y=-0.01,
-        text="🔻<br>Lowest<br>RSRP",
-        showarrow=False,
-        font=dict(size=14, family="Ericsson Hilda Light", color="rgb(150,150,150)"),
-        xref="x",
-        yref="paper",
-        xanchor="center",
-        yanchor="top",
-    )
-
-    fig.update_layout(annotations=annotations)
-
     return fig
+
+
+def add_background_rectangles(fig):
+    for x0, x1 in [(-12, -10), (10, 12)]:
+        fig.add_vrect(x0=x0, x1=x1, fillcolor="grey", opacity=0.25, line_width=0)
+
+
+def add_all_annotations(fig, sliders, mappings):
+    add_threshold_annotations(fig, sliders, mappings)
+    add_title_annotation(fig)
+    add_cell_annotations(fig)
+    add_spline_annotations(fig, mappings)
+
+
+def add_threshold_annotations(fig, sliders, mappings):
+    LEFT_X_POS, RIGHT_X_POS = -0.01, 1
+    left_annotations = [
+        (
+            sliders["a2criticalthresholdrsrp"],
+            f"A2 Critical: {sliders['a2criticalthresholdrsrp']}",
+            "red",
+        ),
+        (
+            sliders["qrxlevminsib3"],
+            f"QRxlevminSIB3: {sliders['qrxlevminsib3']}",
+            "green",
+        ),
+        (
+            mappings["f2_threshxlow_map"],
+            f"(Set on F2 Cell)<br>ThreshXLow: {sliders['f2_threshxlow']}",
+            "green",
+        ),
+        (
+            sliders["f2_cov_a5threshold2rsrp"],
+            f"(Set on F2 Cell)<br>COV A5Threshold2: {sliders['f2_cov_a5threshold2rsrp']}",
+            "red",
+        ),
+        (
+            sliders["f2_iflb_a5threshold2rsrp"],
+            f"(Set on F2 Cell)<br>IFLB A5Threshold2: {sliders['f2_iflb_a5threshold2rsrp']}",
+            "blue",
+        ),
+        (
+            sliders["f1_iflb_a5threshold1rsrp"],
+            f"IFLB A5Threshold1: {sliders['f1_iflb_a5threshold1rsrp']}",
+            "blue",
+        ),
+    ]
+    right_annotations = [
+        (
+            sliders["a2criticalthresholdrsrp"],
+            f"A2 Critical: {sliders['a2criticalthresholdrsrp']}",
+            "red",
+        ),
+        (
+            sliders["qrxlevminsib3"],
+            f"QRxlevminSIB3: {sliders['qrxlevminsib3']}",
+            "green",
+        ),
+        (
+            sliders["f2_cov_a5threshold1rsrp"],
+            f"COV A5Threshold1: {sliders['f2_cov_a5threshold1rsrp']}",
+            "red",
+        ),
+        (
+            sliders["f2_a1a2searchthresholdrsrp"],
+            f"A1A2Threshold: {sliders['f2_a1a2searchthresholdrsrp']}",
+            "red",
+        ),
+        (
+            mappings["f2_threshservinglow_map"],
+            f"ThreshServingLow: {sliders['f2_threshservinglow']}",
+            "green",
+        ),
+        (
+            mappings["f2_snonintrasearch_map"],
+            f"SNonIntraSearch: {sliders['f2_snonintrasearch']}",
+            "green",
+        ),
+        (
+            sliders["f1_iflb_a5threshold2rsrp"],
+            f"(Set on F1 Cell)<br>IFLB A5Threshold2: {sliders['f1_iflb_a5threshold2rsrp']}",
+            "blue",
+        ),
+        (
+            sliders["f2_iflb_a5threshold1rsrp"],
+            f"IFLB A5Threshold1: {sliders['f2_iflb_a5threshold1rsrp']}",
+            "blue",
+        ),
+        (
+            mappings["f1_threshxhigh_map"],
+            f"(Set on F1 Cell) ThreshXHigh: {sliders['f1_threshxhigh']}",
+            "green",
+        ),
+    ]
+
+    for y, label, color in left_annotations:
+        fig.add_annotation(
+            x=LEFT_X_POS,
+            y=y,
+            xref="paper",
+            text=label,
+            showarrow=False,
+            font=dict(family="Ericsson Hilda Light", size=12, color=color),
+            xanchor="right",
+            yanchor="middle",
+        )
+
+    for y, label, color in right_annotations:
+        fig.add_annotation(
+            x=RIGHT_X_POS,
+            y=y,
+            xref="paper",
+            text=label,
+            showarrow=False,
+            font=dict(family="Ericsson Hilda Light", size=12, color=color),
+            xanchor="left",
+            yanchor="middle",
+        )
+
+
+def add_title_annotation(fig):
+    fig.add_annotation(
+        xref="paper",
+        yref="paper",
+        x=-0.23,
+        y=1.1,
+        xanchor="left",
+        yanchor="bottom",
+        text="Mobility Actions and Thresholds for the Priority Carrier Configuration",
+        font=dict(family="Arial", size=30, color="rgb(37,37,37)"),
+        showarrow=False,
+    )
+
+
+def add_spline_annotations(fig, mappings):
+    annotations = [
+        ("blue_left1", "blue", "A5 IFLB HO"),
+        ("red_right", "red", "A5 COVERAGE HO"),
+        ("green_right", "green", "Reselect<br>higher priority"),
+        ("green_right1", "green", "Reselect<br>lower priority"),
+    ]
+
+    for y_pos_key, color, text in annotations:
+        y_value = mappings[y_pos_key]
+        fig.add_annotation(
+            x=1,
+            y=y_value,
+            text=text,
+            showarrow=False,
+            font=dict(size=14, family="Ericsson Hilda Light", color=color),
+            xref="x",
+            yref="y",
+            xanchor="center",
+            yanchor="bottom",
+        )
+
+
+def add_cell_annotations(fig):
+    cell_annotations = [
+        (11, 1, "F2 Cell<br>Higher Prio", "bottom"),
+        (-11, 1, "F1 Cell<br>Lower Prio", "bottom"),
+        (11, -0.01, "🔻<br>Lowest<br>RSRP", "top"),
+        (-11, -0.01, "🔻<br>Lowest<br>RSRP", "top"),
+    ]
+    for x, y, text, yanchor in cell_annotations:
+        fig.add_annotation(
+            x=x,
+            y=y,
+            text=text,
+            showarrow=False,
+            font=dict(size=14, family="Ericsson Hilda Light", color="rgb(150,150,150)"),
+            xref="x",
+            yref="paper",
+            xanchor="center",
+            yanchor=yanchor,
+        )
 
 
 def stylings(text, font_size=10, text_align="center"):
@@ -855,21 +714,8 @@ def run_priority():
     with container:
         sliders = configure_sliders(columns)
 
-    (
-        f1_threshxhigh_map,
-        f2_threshservinglow_map,
-        f2_threshxlow_map,
-        f2_snonintrasearch_map,
-        max_value,
-    ) = compute_threshold_mappings(sliders)
-    fig = configure_plot(
-        sliders,
-        f1_threshxhigh_map,
-        f2_threshservinglow_map,
-        f2_threshxlow_map,
-        f2_snonintrasearch_map,
-        max_value,
-    )
+    mappings = compute_threshold_mappings(sliders)
+    fig = configure_plot(sliders, mappings)
 
     col1, col2 = st.columns([3, 1.5])
     with col1:
