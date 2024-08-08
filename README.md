@@ -5,7 +5,7 @@
 ![GitHub last commit (branch)](https://img.shields.io/github/last-commit/daiyabarus/iflb/main)
 ![maintained - yes](https://img.shields.io/badge/maintained-yes-blue)
 
-# Mobility Carrier Configurations Simulations
+# Mobility Carrier Configurations Illustrated
 
 This repository contains a Streamlit application for visualizing and understanding different mobile network carrier configurations using Plotly. The application provides detailed summaries and visualizations for three primary configurations: Equal Priority Carrier Configuration, Sticky Carrier Configuration, and Priority Carrier Configuration.
 
